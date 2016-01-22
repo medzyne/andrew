@@ -1,0 +1,13 @@
+
+sum up
+1) create an input field and submit button
+2) update data from 1) into the object
+3) when the object is clicked, the data from 1) is displayed on the iphone screen
+
+I am using webpack and
+yes you need to create a text input and  when the about us object is clicked the text will be displayed.
+
+You can create new page on your localhost base on the Github reorderable code
+ that I send you.
+
+create a new project

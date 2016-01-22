@@ -1,0 +1,179 @@
+.react-reorderable-item-active,
+.draggable-element {
+  width: 70px;
+  height: 70px;
+  margin-top:24px;
+  margin-right: 14px;
+
+}
+.draggable-element {
+
+  width: 70px;
+  height: 70px;
+  margin-top:24px;
+  margin-right: 14px;
+
+  background-color:#c2d469;
+
+  background: #c2d469; /* Old browsers */
+
+  background: -moz-linear-gradient(-45deg,  #c2d469 0%, #1ba6e1 100%); /* FF3.6-15 */
+
+  background: -webkit-linear-gradient(-45deg,  #c2d469 0%,#1ba6e1 100%); /* Chrome10-25,Safari5.1-6 */
+
+  background: linear-gradient(135deg,  #c2d469 0%,#1ba6e1 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2d469', endColorstr='#1ba6e1',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+  opacity:0.8;
+
+  /*border: 3px solid #444; */
+  border-radius: 20px;
+  text-align: center;
+  font-size: 60px;
+  box-shadow:5px 5px 10px grey;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.gallery{
+  background-image: url(../dist/img/image-icon.png);
+}
+
+.callus{
+  background-image: url(../dist/img/call-us.png);
+}
+
+.fanwall{
+  background-image: url(../dist/img/fanwall.png);
+}
+
+.fb{
+  background-image: url(../dist/img/fb-icon.png);
+}
+
+.video{
+  background-image: url(../dist/img/video-icon.png);
+}
+
+.aboutus{
+  background-image: url(../dist/img/about-us.png);
+}
+
+
+
+.draggable-handle {
+  /*background-color: grey;*/
+  width: 70px;
+  height: 70px;
+  float: center;
+  cursor: move;
+  color: red;
+  font-size: 12px;
+  padding: 15px;
+  padding-top: 10px;
+  border-radius: 20px;
+  font-family: sans-serif;
+  text-align: left;
+}
+
+.header{
+  display: block;
+  width: 100%;
+  height: 20%;
+}
+
+.content {
+  position: relative;
+  width: 410px;
+  height: 836px;
+  float: right;
+}
+
+.content_left {
+  width: 410px;
+  height: 836px;
+  float: left;
+}
+
+.center{
+  float: none;
+}
+
+.center-right{
+  text-align: center;
+}
+
+.right{
+  float: right;
+}
+
+#layer1{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.inside_the_phone{
+  padding-top: 120px;
+  padding-left: 35px;
+}
+
+#layer2{
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+#result{
+  padding-top: 15px;
+  font-size: 36px;
+  font-style: oblique;
+  font-weight: bold;
+  font-family: fantasy;
+  text-align: center;
+}
+
+.error{
+  border-width: thick;
+  border-style: dashed;
+  border-color: red;
+}
+
+.taskbar{
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+#task-left{
+  text-align: left;}
+
+#task-center{
+  text-align: center;
+  padding-right: 100px;
+  padding-left: 100px;
+}
+
+#tasl-right{
+  text-align: right;
+  padding-left: 10px;
+}
+
+
+.react-reorderable-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.react-reorderable-item-active {
+  border: 3px dashed grey;
+  background: none;
+  border-radius: 20px;
+}
+.react-reorderable-item-active * {
+  display: none;
+}
+.react-reorderable-handle {
+  position: absolute;
+}

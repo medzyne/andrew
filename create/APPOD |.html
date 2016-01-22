@@ -1,0 +1,1277 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>APPOD | </title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  
+
+
+    
+  </head>
+
+  <body class="hold-transition skin-Purple sidebar-mini">
+	<!-- main body-->  
+	<div class="wrapper">
+	    
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Duck 1.0 -->
+    <link rel="stylesheet" href="dist/css/duck.css"> 
+
+    <script src="dist/js/dropzone.js"></script>
+    <script src="dist/css/dropzone.css"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> <!--r-->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="plugins/iCheck/all.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="plugins/colorpicker/bootstrap-colorpicker.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
+       <!-- Select2 -->
+    <link rel="stylesheet" href="plugins/select2/select2.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css"> <!-- r-->
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="plugins/morris/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css"> 
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  </head>
+  
+  
+  
+  <header class="main-header" style="background-color: #fff">
+        <!-- Logo -->
+        <a href="index.php" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>A</b>PD</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>APP</b>od</span>
+        </a>
+
+        <nav class="navbar navbar-static-top" role="navigation">
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+	           
+
+            <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+
+
+
+
+
+
+
+	              <img src="data:image/jpeg;base64,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" class="user-image" alt="User Image">
+
+                  <span class="hidden-xs">
+                  Sandy &nbsp;
+	              Ducky 
+	               </span>
+                  
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                  
+
+
+
+                   <img src="data:image/jpeg;base64,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" class="img-circle" alt="User Image">
+                 
+                    
+                    <p>
+	                    
+	                   Sandy 
+	                   Ducky 
+                      
+                    </p>
+                  </li>
+
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="profile.php" class="btn btn-default btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-right">
+	                    <button  class="btn btn-default btn-flat" onclick="window.location.href='check_logout.php'">Logout</button>
+                      
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
+                </ul>
+            </div>
+            
+        </nav>  
+    </header> 
+    
+    
+    
+    
+     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <!-- Select2 -->
+    <script src="plugins/select2/select2.full.min.js"></script>
+    <script>
+      $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Morris.js charts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="plugins/morris/morris.min.js"></script>
+    <!-- Sparkline -->
+    <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="plugins/knob/jquery.knob.js"></script>
+    <!-- daterangepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- datepicker -->
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js"></script>
+     <!-- InputMask -->
+    <script src="plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+    <!-- bootstrap color picker -->
+    <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="plugins/iCheck/icheck.min.js"></script>
+   
+  </body>
+</html>
+        <section class="content-header">
+	        <h1> Gen page
+	        	<small>create your own world here</small>
+	        </h1>
+	        </br></br>
+	    </section>
+	<div class="row"> <!--START ROW-->
+	
+		<div class="col-md-6">
+			<!-- Custom Tabs LEFT -->
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab_1" data-toggle="tab" class="sliding-middle-out">1. Name Shop</a></li>
+            <li><a href="#tab_2" data-toggle="tab" class="sliding-middle-out">2. Features </a></li>
+            <li><a href="#tab_3" data-toggle="tab" class="sliding-middle-out">3. Templates </a></li>
+           <!--<li><a href="#tab_4" data-toggle="tab" class="sliding-middle-out">4. Stroge</a></li> -->
+          </ul>
+		  
+           <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+              <!DOCTYPE html>
+<html>
+  
+
+   <h3>Name your pod</h3>
+   <form method="POST" action="allaboutshop/record_shop.php" enctype="multipart/form-data" >
+    <div class="input-group input-group-sm">
+        <input type="text" class="form-control" name="shop_name" id="shop_name" value="test" />
+		<span class="input-group-btn">
+        	<!--<button class="btn btn-info btn-flat" type="submit">Name it!</button>-->
+        	
+        	
+        	
+        	<button type="submit" class="btn btn-primary">Update!</button>
+
+
+
+
+        </span>
+    </div>
+	</form>
+    </br></br> 
+    
+    
+    
+	            
+
+</html>
+            </div><!-- /.tab1-pane -->
+            <div class="tab-pane" id="tab_2">
+              
+<script>
+
+function myFunction() 
+  {
+        var pass1 = document.getElementById("user_pass_new").value;
+        var pass2 = document.getElementById("user_pass_firm").value;
+        if (pass1 != pass2) 
+    {
+            //alert("Passwords Do not match");
+            var message = document.getElementById("passerror");
+            message.innerHTML = "Passwords Do not match";
+            return false;
+            //document.getElementById("user_pass").style.borderColor = "#E34234";
+            //document.getElementById("user_pass_re").style.borderColor = "#E34234";
+        }
+        else {
+            return validate();
+            //alert("Passwords Match!!!");
+        }
+    }
+    
+</script>    
+
+<html>
+    
+ <div class="row">
+  <br/>
+
+
+
+               <div class="col-md-4">
+                <div class="gradient-box">
+                  <img src="../dist/img/about-us-before.png" 
+onmouseover="this.src='../dist/img/about-us.png';"
+onmouseout="this.src='../dist/img/about-us-before.png';" class="center-block" data-toggle="collapse" href="#collapseAboutus" aria-expanded="false" aria-controls="collapseExample">                
+                </div><!-- /.gradient-box -->
+              </div><!-- /.col -->
+
+
+
+             
+
+
+
+  
+         <!-- Tab2.2-->
+              <div class="col-md-4">
+                <div class="gradient-box">
+                  <img src="../dist/img/call-us-before.png" 
+onmouseover="this.src='../dist/img/call-us.png'"
+onmouseout="this.src='../dist/img/call-us-before.png'" class="center-block" data-toggle="collapse" href="#collapseCallus" aria-expanded="false" aria-controls="collapseExample">                
+                </div><!-- /.gradient-box --> 
+              </div><!-- /.col -->
+         <!-- Tab2.3-->
+              <div class="col-md-4">
+                <div class="gradient-box">
+                  <img src="../dist/img/image-icon-before.png" 
+onmouseover="this.src='../dist/img/image-icon.png'"
+onmouseout="this.src='../dist/img/image-icon-before.png'" class="center-block" data-toggle="collapse" href="#collapseImage" aria-expanded="false" aria-controls="collapseExample">                
+                </div><!-- /.gradient-box -->  
+              </div><!-- /.col -->
+
+</div><!-- /.row -->
+
+
+
+
+</br></br>
+            <!-- Tab2.4-->
+<div class="row">
+              <div class="col-md-4">
+                <div class="gradient-box">
+                  <img src="../dist/img/video-icon-before.png" 
+onmouseover="this.src='../dist/img/video-icon.png'"
+onmouseout="this.src='../dist/img/video-icon-before.png'" class="center-block" data-toggle="collapse" href="#collapseVideo" aria-expanded="false" aria-controls="collapseExample">                
+                </div><!-- /.gradient-box -->  
+              </div><!-- /.col -->
+      <!-- Tab2.5-->  
+              <div class="col-md-4">
+                <div class="gradient-box">
+                  <img src="../dist/img/fb-icon-before.png" 
+onmouseover="this.src='../dist/img/fb-icon.png'"
+onmouseout="this.src='../dist/img/fb-icon-before.png'" class="center-block" data-toggle="collapse" href="#collapseFB" aria-expanded="false" aria-controls="collapseExample">                
+                </div><!-- /.gradient-box -->  
+              </div><!-- /.col -->
+        <!-- Tab2.6-->
+              <div class="col-md-4">
+                <div class="gradient-box">
+                  <img src="../dist/img/fanwall-before.png" 
+onmouseover="this.src='../dist/img/fanwall.png'"
+onmouseout="this.src='../dist/img/fanwall-before.png'" class="center-block" data-toggle="collapse" href="#collapseFanwall" aria-expanded="false" aria-controls="collapseExample">                
+                </div><!-- /.gradient-box -->  
+              </div><!-- /.col -->
+
+</div><!-- /.row -->
+   
+<div class="row">
+  
+  
+   <div class="collapse" id="collapseAboutus"> <!--Start about us-->
+               <div class="col-md-12">
+               </br></br>
+               <form onsubmit="return myFunction();" method="POST" action="allaboutshop/record.php" enctype="multipart/form-data" >
+                <h3 class="duck-underline">About us</h3>
+                  <form role="form">
+                    <div class="form-group">
+                      <h4>Name Shop</h4>
+                    </div>  
+                    
+                    
+                    
+                    <h4>Up load shop logo</h4>
+                    
+                    <div align="center">
+          <img src="data:image/jpeg;base64," width="140px" height="140px" class="img-circle">          <input type="file" name="image" />
+          </div> 
+        
+                    <div class="form-group">
+                      <h4>Subtitle</h4>
+                      <input type="text" class="form-control" placeholder="Enter subtitle less than 35 characters">
+                    </div>
+                    <div class="form-group">
+                      <h4>Description</h4>
+                      <textarea class="form-control" rows="6" placeholder="Enter Description less than 250 characters"></textarea>
+                    </div>
+
+                    <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+                    
+                    </form>
+                    </div>
+              </br></br>
+              </form>
+  </div> <!--End about us-->               
+              
+  <div class="collapse" id="collapseCallus"> <!--Start call-->
+        <h3 class="duck-underline">Phone number</h3>
+          
+          <div class="box-body">
+              <form method="POST" action="allaboutshop/insert_call.php" enctype="multipart/form-data" >
+                <h4>Your current phone number: <h4>
+                <h4>Update your phone number</h4>
+                <input type="text" class="form-control" name="call_num" id="call_num">
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>          
+          </div>
+          
+
+
+  </div>
+   <!--End call-->
+  <div class="collapse" id="collapseImage"> <!--Start Gall-->
+        <div class="well">
+			<h2>Insert image </h2>
+			</br>
+			<!--<script type="text/javascript" src="app.js"></script>-->
+			<link type="text/css" rel="stylesheet" href="../dist/css/dropzone.css">
+
+			<!--<script src="../dist/css/dropzone.css"></script>
+			<link rel="stylesheet" type="text/css" href="style.css"> -->
+						<form method="post" action="gall_upload.php" class="dropzone" id="mydropzone1" enctype="multipart/form-data">
+				Album 1 name: <input type="text" name="Album1" value=""/>
+				<br/>
+								<!--<input type="button" name="CreateAlbum1" value="Creat Album 1" />-->
+			</form>
+			<br/>
+			<script>
+				Dropzone.options.mydropzone1 = 
+				{
+					maxFiles: 10,
+					url: 'gall_upload.php?album=1',
+					dictDefaultMessage: "Drag your images",
+					addRemoveLinks: true,
+					acceptedFiles: "image/jpeg,image/png,image/gif",
+
+					accept: function(file, done) 
+					{
+						done();
+					},
+					init: function() 
+					{
+						this.on("addedfile", function(file)
+						{
+							//alert("Add File");
+							var id = location.search.split('shop=')[1] ? location.search.split('shop=')[1] : 'Not Found';
+							//alert(document.getElementsByName("Album1")[0].value);
+							if(id == "Not Found")
+							{
+								alert("Please Update Shop Name at first tab.");
+								this.removeFile(file);
+							}
+							if(document.getElementsByName("Album1")[0].value == "")
+							{
+								alert("Please insert Album name first.");
+								this.removeFile(file);
+							}
+							else if(!/^[A-z]+[A-z -_]*$/.test(document.getElementsByName("Album1")[0].value))
+							{
+								alert("Album name is not correct format.");
+								this.removeFile(file);
+							}
+						});
+						this.on("maxfilesexceeded", function(file)
+						{
+							alert("No more files please!");
+						});
+						this.on("removedfile", function(file) 
+						{
+							deletefile(file, "1"); 
+						});
+					}
+				};
+			</script>
+						<form method="post" action="gall_upload.php" class="dropzone" id="mydropzone2" enctype="multipart/form-data">
+				Album 2 name: <input type="text" name="Album2" value="" />
+				<br/>
+				<!--<input type="button" name="CreateAlbum2" value="Creat Album 2" />-->
+			</form>
+			<br/>  
+			<script>
+			Dropzone.options.mydropzone2 = 
+				{
+					maxFiles: 10,
+					url: 'gall_upload.php?album=2',
+					dictDefaultMessage: "Drag your images",
+					addRemoveLinks: true,
+					acceptedFiles: "image/jpeg,image/png,image/gif",
+
+					accept: function(file, done) 
+					{
+						done();
+					},
+					init: function() 
+					{
+						this.on("addedfile", function(file)
+						{
+							//alert("mydropzone2");
+							var id = location.search.split('shop=')[1] ? location.search.split('shop=')[1] : 'Not Found';
+							//alert(document.getElementsByName("Album2")[0].value);
+							if(id == "Not Found")
+							{
+								alert("Please Update Shop Name at first tab.");
+								this.removeFile(file);
+							}
+							if(document.getElementsByName("Album2")[0].value == "")
+							{
+								alert("Please insert Album name first.");
+								this.removeFile(file);
+							}
+							else if(!/^[A-z]+[A-z -_]*$/.test(document.getElementsByName("Album2")[0].value))
+							{
+								alert("Album name is not correct format.");
+								this.removeFile(file);
+							}
+						});
+						this.on("maxfilesexceeded", function(file)
+						{
+							alert("No more files please!");
+						});
+						this.on("removedfile", function(file) 
+						{
+							deletefile(file, "2"); 
+						});
+					}
+				};
+			</script>
+						<form method="post" action="gall_upload.php" class="dropzone" id="mydropzone3" enctype="multipart/form-data">
+				Album 3 name: <input type="text" name="Album3" value="" />
+				<br/>
+				<!--<input type="button" name="CreateAlbum3" value="Creat Album 3" />-->
+			</form>
+			<br/>
+			<script>
+				Dropzone.options.mydropzone3 = 
+				{
+					maxFiles: 10,
+					url: 'gall_upload.php?album=3',
+					dictDefaultMessage: "Drag your images",
+					addRemoveLinks: true,
+					acceptedFiles: "image/jpeg,image/png,image/gif",
+
+					accept: function(file, done) 
+					{
+						done();
+					},
+					init: function() 
+					{
+						this.on("addedfile", function(file)
+						{
+							//alert("mydropzone3");
+							var id = location.search.split('shop=')[1] ? location.search.split('shop=')[1] : 'Not Found';
+							//alert(document.getElementsByName("Album3")[0].value);
+							if(id == "Not Found")
+							{
+								alert("Please Update Shop Name at first tab.");
+								this.removeFile(file);
+							}
+							if(document.getElementsByName("Album3")[0].value == "")
+							{
+								alert("Please insert Album name first.");
+								this.removeFile(file);
+							}
+							else if(!/^[A-z]+[A-z -_]*$/.test(document.getElementsByName("Album3")[0].value))
+							{
+								alert("Album name is not correct format.");
+								this.removeFile(file);
+							}
+						});
+						this.on("maxfilesexceeded", function(file)
+						{
+							alert("No more files please!");
+						});
+						this.on("removedfile", function(file) 
+						{
+							deletefile(file, "3"); 
+						});
+					}
+				};
+				
+				function deletefile(value, album)
+				{
+					var xmlhttp;
+					if (window.XMLHttpRequest)
+					{// code for IE7+, Firefox, Chrome, Opera, Safari
+						xmlhttp=new XMLHttpRequest();
+					}
+					else
+					{// code for IE6, IE5
+						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+					}
+					xmlhttp.onreadystatechange=function()
+					{
+						if (xmlhttp.readyState==4 && xmlhttp.status==200)
+						{
+							//alert(xmlhttp.responseText);
+						}
+					}
+					xmlhttp.open("GET","gall_cancel.php?filename=" + value.name + "&album=" + album + "&shop=16",true);
+					xmlhttp.send();
+				}
+			</script>
+        </div>
+  </div> <!--End -->
+
+
+
+  <div class="collapse" id="collapseVideo"> <!--Start Video-->
+        
+            <h3 class="duck-underline">Video</h3>
+          <div class="box-body">
+    
+            <form method="POST" action="allaboutshop/insert_youtube.php" enctype="multipart/form-data" >
+            <h4>Youtube link</h4>
+                <input type="text" class="form-control" placeholder="insert youtube link" name="video_url" id="video_url">
+              </br>
+               <h4>Video name</h4>
+                <input type="text" class="form-control" placeholder="name your video" name="video_name" id="video_name">
+              </br>  
+               <h4>Video description</h4>
+                <input type="text" class="form-control" placeholder="your video description here" name="video_description" id="video_desription">
+                  
+                
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+             </form>   
+          </div>
+      
+            </br></br>
+       
+       
+
+
+  </div> <!--End -->
+
+  <div class="collapse" id="collapseFB"> <!--Start FB FEED-->
+        <h3 class="duck-underline">Facebook Livefeed</h3>
+          <div class="box-body">
+
+            <form method="POST" action="allaboutshop/insert_fb.php" enctype="multipart/form-data" >
+
+          Pulling all new feed from your Facebook page</br>
+            <h4>Insert Facebook Page name</h4>
+
+            <input type="text" class="form-control" placeholder="..." name="fb_id" id="fb_id">
+                
+                <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+             </form>   
+          </div>
+      
+            </br></br>
+  </div> <!--End -->
+
+  <div class="collapse" id="collapseFanwall"> <!--Start Fanwall-->
+        <div class="well">
+          Fanwall detail </br>
+          </br></br>
+          <div class="col-md-6">
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control">
+                  <span class="input-group-btn">
+                      <button class="btn btn-info btn-flat" type="button">Update!</button>
+                  </span>
+                </div>
+            </div>
+            </br></br> 
+        </div>
+  </div><!--End Fanwall-->
+
+</div> <!--End tab2 collapse row-->
+
+
+
+</html>
+            </div> <!-- /.tab2-pane -->
+            <div class="tab-pane" id="tab_3">
+              
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Duck 1.0 -->
+    <link rel="stylesheet" href="dist/css/duck.css"> 
+
+    <script src="dist/js/dropzone.js"></script>
+    <script src="dist/css/dropzone.css"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> <!--r-->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css"> <!-- r-->
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="plugins/morris/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="plugins/select2/select2.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="plugins/colorpicker/bootstrap-colorpicker.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="plugins/iCheck/all.css">
+    
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+  </head>
+  
+   
+            <div class="col-md-6">
+                  <!-- Color Picker -->
+                  <div class="form-group">
+                    <label>Color picker with addon:</label>
+                    <div class="input-group my-colorpicker2">
+                      <input type="text" class="form-control">
+                      <div class="input-group-addon">
+                        <i></i>
+                      </div>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+            </div><!-- /.col (left) -->
+
+            <div class="col-md-6">
+
+                  <!-- checkbox -->
+                  <div class="form-group">
+                    <label>
+                      <input type="checkbox" class="flat-red" checked>
+                    </label>
+                    <label>
+                      <input type="checkbox" class="flat-red">
+                    </label>
+                    <label>
+                      <input type="checkbox" class="flat-red" disabled>
+                      Flat green skin checkbox
+                    </label>
+                  </div>
+
+                  <!-- radio -->
+                  <div class="form-group">
+                    <label>
+                      <input type="radio" name="r3" class="flat-red" checked>
+                    </label>
+                    <label>
+                      <input type="radio" name="r3" class="flat-red">
+                    </label>
+                    <label>
+                      <input type="radio" name="r3" class="flat-red" disabled>
+                      Flat green skin radio
+                    </label>
+                  </div>
+                
+              
+            </div><!-- /.col (right) -->
+          
+    
+    
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="plugins/select2/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- date-range-picker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="plugins/iCheck/icheck.min.js"></script>
+    <!-- FastClick -->
+    <script src="plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js"></script>
+    <!-- Page script -->
+    <script>
+      $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+            {
+              ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+              },
+              startDate: moment().subtract(29, 'days'),
+              endDate: moment()
+            },
+        function (start, end) {
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+        );
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+          checkboxClass: 'icheckbox_minimal-blue',
+          radioClass: 'iradio_minimal-blue'
+        });
+        
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+          checkboxClass: 'icheckbox_flat-green',
+          radioClass: 'iradio_flat-green'
+        });
+
+        //color picker with addon
+        $(".my-colorpicker2").colorpicker();
+
+      });
+    </script>
+  
+ 
+</html>
+     
+            </div><!-- /.tab3-pane -->
+            <div class="tab-pane" id="tab_4">
+              <!DOCTYPE html>
+<html>
+   <div class="row">
+              <div class="col-md-8">
+                <div class="info-box">
+                
+                </div><!-- /.info-box -->
+              </div><!-- /.col -->
+
+            </div><!-- /.row -->
+
+            <div class="row">
+              <div class="col-md-8">
+                <div class="info-box">
+                
+                </div><!-- /.info-box -->
+              </div><!-- /.col -->
+
+            </div><!-- /.row -->
+
+            <div class="row">
+              <div class="col-md-8">
+                <div class="info-box">
+                
+                </div><!-- /.info-box -->
+              </div><!-- /.col -->
+
+    </div><!-- /.row -->  
+</html>
+     
+            </div><!-- /.tab4-pane -->
+          </div> <!-- End TAB CONTENT-->
+          
+
+        </div><!-- END nav-tabs-custom-->
+		</div>	
+		<div class="col-md-6" >
+				<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+.react-reorderable-item-active,
+.draggable-element {
+  width: 70px;
+  height: 70px;
+  margin-top:24px;
+  margin-right: 14px;
+  
+}
+.draggable-element {
+  box-shadow:5px 5px 10px grey;
+  background-color:#c2d469;
+  
+  background: #c2d469; /* Old browsers */
+
+background: -moz-linear-gradient(-45deg,  #c2d469 0%, #1ba6e1 100%); /* FF3.6-15 */
+
+background: -webkit-linear-gradient(-45deg,  #c2d469 0%,#1ba6e1 100%); /* Chrome10-25,Safari5.1-6 */
+
+background: linear-gradient(135deg,  #c2d469 0%,#1ba6e1 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2d469', endColorstr='#1ba6e1',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+opacity:0.8; 
+
+  /*border: 3px solid #444; */
+  border-radius: 20px;
+}
+
+.draggable-aboutus {
+  width: 70px;
+  height: 70px;
+  margin-top:24px;
+  margin-right: 14px;
+  background-image: url(dist/img/about-us.png);
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
+  opacity:0.8; 
+  box-shadow:5px 5px 10px grey;
+
+}
+.draggable-callus {
+  width: 70px;
+  height: 70px;
+  margin-top:24px;
+  margin-right: 14px;
+  background-image: url(dist/img/call-us.png);
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
+  opacity:0.8; 
+  box-shadow:5px 5px 10px grey;
+
+
+
+}
+
+.draggable-gallery {
+  width: 70px;
+  height: 70px;
+  margin-top:24px;
+  margin-right: 14px;
+  background-image: url(dist/img/image-icon.png);
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
+  opacity:0.8; 
+  box-shadow:5px 5px 10px grey;
+
+
+
+}
+
+.draggable-video {
+  width: 70px;
+  height: 70px;
+  margin-top:24px;
+  margin-right: 14px;
+  background-image: url(dist/img/video-icon.png);
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
+  opacity:0.8; 
+  box-shadow:5px 5px 10px grey;
+
+
+
+}
+
+.draggable-fb {
+  width: 70px;
+  height: 70px;
+  margin-top:24px;
+  margin-right: 14px;
+  background-image: url(dist/img/fb-icon.png);
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
+  opacity:0.8; 
+  box-shadow:5px 5px 10px grey;
+
+
+
+}
+
+.draggable-fanwall {
+  width: 70px;
+  height: 70px;
+  margin-top:24px;
+  margin-right: 14px;
+  background-image: url(dist/img/fanwall.png);
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
+  opacity:0.8; 
+  box-shadow:5px 5px 10px grey;
+
+
+
+}
+.draggable-handle {
+  /*background-color: grey;*/
+  width: 70px;
+  height: 70px;
+  float: center;
+  cursor: move;
+  color: gray;
+  font-size: 9px;
+  padding: 15px;
+  padding-top: 80px;
+  border-radius: 20px;
+  font-family: sans-serif;
+}
+#content {
+  width: 410px;
+  height: 836px;
+  background-image: url(../../images/iphone6.png);
+  background-repeat:no-repeat;
+  padding-top: 150px;
+  padding-left: 29px;
+  
+}
+.react-reorderable-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.react-reorderable-item-active {
+  border: 3px dashed grey;
+  background: none;
+  border-radius: 20px;
+}
+.react-reorderable-item-active * {
+  display: none;
+}
+.react-reorderable-handle {
+  position: absolute;
+}
+  </style>
+</head>
+<body>
+ <div id="content"></div>
+<div id="events">
+</div> 
+
+
+<script src="../node_modules/react/dist/react-with-addons.js"></script>
+<script src="../node_modules/react-dom/dist/react-dom.js"></script>
+<script src="../node_modules/react-drag/dist/react-drag.js"></script>
+<script src="../dist/react-reorderable.js"></script>
+<script>
+function addRow(data) {
+  var el = document.getElementById('events');
+  el.innerHTML += '<br>' + data;
+}
+
+function getLabel(node) {
+  return node.props.children[1].props.children
+}
+
+
+
+
+
+
+
+
+
+
+
+ReactDOM.render(
+    React.createElement(ReactReorderable, {
+        handle: '.draggable-handle',
+        mode: 'list',
+        onDragStart: function (data) {
+        //  addRow('Drag start: ' + getLabel(data.props.children));
+        },
+        onDrop: function (data) {
+          //addRow('Drop: ' + data.map(getLabel).join(', '));
+        },
+        onChange: function (data) {
+          //addRow('Change: ' + data.map(getLabel).join(', '));          
+        }
+      },
+      React.createElement('div', {
+          className: 'draggable-aboutus'
+        }, null, React.createElement('div', { className: 'draggable-handle' }, 'About us')
+      ),
+      React.createElement('div', {
+          className: 'draggable-callus'
+        }, null, React.createElement('div', { className: 'draggable-handle' }, 'Call us')
+      ),
+      React.createElement('div', {
+          className: 'draggable-gallery'
+        }, null, React.createElement('div', { className: 'draggable-handle' }, 'Gallery')
+      ),
+      React.createElement('div', {
+          className: 'draggable-video'
+        }, null, React.createElement('div', { className: 'draggable-handle' }, 'Video')
+      ),
+      React.createElement('div', {
+          className: 'draggable-fb'
+        }, null, React.createElement('div', { className: 'draggable-handle' }, 'FB feed')
+      ),
+      React.createElement('div', {
+          className: 'draggable-fanwall'
+        }, null, React.createElement('div', { className: 'draggable-handle' }, 'Fan wall')
+      ),
+      React.createElement('div', {
+          className: 'draggable-element'
+        }, null, React.createElement('div', { className: 'draggable-handle' }, 'Ducky')
+      )
+  )
+, document.getElementById('content'));
+</script>
+</body>
+</html>            
+			
+			
+			
+		</div>
+	
+  	</div>	<!-- end ROW-->  
+  
+  	</divv> <!--END WRAPPER-->
+  	
+     
+     
+     
+     
+ <footer>
+       
+          <b>Version</b> 1.0
+        <strong>Copyright &copy; 22015-2016 Appods</strong> All rights reserved.
+ </footer>
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    function viewdata(){
+       $.ajax({
+     type: "GET",
+     url: "php/getdata.php"
+      }).done(function( data ) {
+    $('#viewdata').html(data);
+      });
+    }
+    $('#save').click(function(){
+  
+  var nm = $('#nm').val();
+  var gd = $('#gd').val();
+  var pn = $('#pn').val();
+  
+  
+  var datas="nm="+nm+"&gd="+gd+"&pn="+pn;
+      
+  $.ajax({
+     type: "POST",
+     url: "php/newdata.php",
+     data: datas
+  }).done(function( data ) {
+    $('#info').html(data);
+    viewdata();
+  });
+    });
+    function updatedata(str){
+  
+  var id = $_SESSION['shop_id'];
+  var nm = $('#nm'+str).val();
+  var gd = $('#gd'+str).val();
+  var pn = $('#pn'+str).val();
+  
+  
+  var datas="nm="+nm+"&gd="+gd+"&pn="+pn;
+      
+  $.ajax({
+     type: "POST",
+     url: "php/updatedata.php?id="+id,
+     data: datas
+  }).done(function( data ) {
+    $('#info').html(data);
+    viewdata();
+  });
+    }
+    function deletedata(str){
+  
+  var id = $_SESSION['shop_id'];
+      
+  $.ajax({
+     type: "GET",
+     url: "php/deletedata.php?id="+id
+  }).done(function( data ) {
+    $('#info').html(data);
+    viewdata();
+  });
+    }
+    </script>
+  
+
+  <script>
+      $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+        //Datemask dd/mm/yyyy
+        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        //Datemask2 mm/dd/yyyy
+        $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+        //Money Euro
+        $("[data-mask]").inputmask();
+
+        //Date range picker
+        $('#reservation').daterangepicker();
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+            {
+              ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+              },
+              startDate: moment().subtract(29, 'days'),
+              endDate: moment()
+            },
+        function (start, end) {
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+        );
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+          checkboxClass: 'icheckbox_minimal-blue',
+          radioClass: 'iradio_minimal-blue'
+        });
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+          checkboxClass: 'icheckbox_minimal-red',
+          radioClass: 'iradio_minimal-red'
+        });
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+          checkboxClass: 'icheckbox_flat-green',
+          radioClass: 'iradio_flat-green'
+        });
+
+        //Colorpicker
+        $(".my-colorpicker1").colorpicker();
+        //color picker with addon
+        $(".my-colorpicker2").colorpicker();
+
+        //Timepicker
+        $(".timepicker").timepicker({
+          showInputs: false
+        });
+      });
+    </script>
+
+
+
+   
+  </body>
+</html>
