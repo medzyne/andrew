@@ -199,12 +199,42 @@ var Iphone = React.createClass({
         { className: "content" },
         React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }),
         React.createElement(
-          "div",
-          { id: "layer2", className: "inside_the_phone" },
-          this.state.show ? React.createElement(IphoneShow, {  }) : React.createElement(IphoneApps, { show: this.state.show })
+          IphoneTemplate,
+          null,
+          this.state.show ? React.createElement(IphoneShow, {  }) : React.createElement(IphoneApps, { show: this.state.show }),
+          React.createElement(
+            IphoneHome, null
+          )
         )
       )
     );
+  }
+});
+
+var IphoneHome = React.createClass({
+  displayName: "IphoneHome",
+  goHome: function(){
+    console.log("honme button");
+    store.dispatch({type: "IPHONE_SHOW", section: "null"});
+
+  },
+  render: function(){
+    return React.createElement(
+      "div", { className: "home_button", onClick: this.goHome }
+    )
+  }
+})
+
+var IphoneTemplate = React.createClass({
+  displayName: "IphoneTemplate",
+  getInitialState: function(){
+    return store.getState().iphone;
+  },
+  render: function(){
+    return React.createElement(
+      "div", {id: "layer2", className: "inside_the_phone"},
+      this.props.children
+    )
   }
 });
 

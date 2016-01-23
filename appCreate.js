@@ -65,6 +65,7 @@
 	function getState() {
 	  var loadOldShop = location.search;
 	  var cookies = document.cookie;
+	  // building a localStorage function here
 	  if (!localStorage.getItem("apppod")) {
 	    var initialState = {
 	      "iphone": { "show": false, display: "about_us",
@@ -102,6 +103,7 @@
 	  }
 	}
 
+	// in a flux app you dispatch actions to modify the state
 	function reducer(state, action) {
 	  switch (action.type) {
 	    case 'IPHONE_SHOW':
@@ -142,8 +144,9 @@
 	  }
 	}
 
+	// this the heart of the flux app it stores both the app state and the functions
 	var store = Redux.createStore(reducer, getState());
-
+	// just a generic holder div
 	var Main = React.createClass({
 	  displayName: "Main",
 	  data: store.getState().data,
@@ -157,7 +160,7 @@
 	    return React.createElement("div", { id: "main", className: "container animated fadeInDown" }, React.createElement(Controller, null, React.createElement(Steps, { show: this.show, data: this.data }), React.createElement(Iphone, { show: this.show, data: this.data })));
 	  }
 	});
-
+	// all of the other elements are children of this one
 	var Controller = React.createClass({
 	  displayName: "Controller",
 
@@ -169,7 +172,7 @@
 	    return React.createElement("div", { id: "controller" }, React.createElement("a", { className: "showKids" }), this.props.children);
 	  }
 	});
-
+	// header is no longer being used
 	var Header = React.createClass({
 	  displayName: "Header",
 
@@ -185,7 +188,28 @@
 	    return store.getState().iphone;
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "content" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement("div", { id: "layer2", className: "inside_the_phone" }, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(IphoneApps, { show: this.state.show }))));
+	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "content" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(IphoneApps, { show: this.state.show }), React.createElement(IphoneHome, null))));
+	  }
+	});
+
+	var IphoneHome = React.createClass({
+	  displayName: "IphoneHome",
+	  goHome: function goHome() {
+	    console.log("honme button");
+	    store.dispatch({ type: "IPHONE_SHOW", section: "null" });
+	  },
+	  render: function render() {
+	    return React.createElement("div", { className: "home_button", onClick: this.goHome });
+	  }
+	});
+
+	var IphoneTemplate = React.createClass({
+	  displayName: "IphoneTemplate",
+	  getInitialState: function getInitialState() {
+	    return store.getState().iphone;
+	  },
+	  render: function render() {
+	    return React.createElement("div", { id: "layer2", className: "inside_the_phone" }, this.props.children);
 	  }
 	});
 

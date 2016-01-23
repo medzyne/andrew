@@ -117,14 +117,25 @@
 }
 
 .inside_the_phone{
-  padding-top: 120px;
-  padding-left: 35px;
+  padding-top: 140px;
+  padding-left: 15px;
+  height: inherit;
+  width: inherit;
+
 }
 
 #layer2{
   position: relative;
   z-index: 1;
-  display: block;
+  display: inherit;
+}
+
+.home_button{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 105px;
+  width: inherit;
 }
 
 #result{
