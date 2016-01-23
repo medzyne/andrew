@@ -8,6 +8,7 @@ var dropzone = require('dropzone');
 function getState(){
   var loadOldShop = location.search;
   var cookies = document.cookie;
+  // building a localStorage function here
   if(!localStorage.getItem("apppod"))
 {
    var initialState = {
@@ -48,7 +49,7 @@ function validate_input(input, type){
   }
 }
 
-
+// in a flux app you dispatch actions to modify the state
 function reducer(state, action)
 {
   switch(action.type)
@@ -92,8 +93,9 @@ function reducer(state, action)
   }
 }
 
+// this the heart of the flux app it stores both the app state and the functions
 var store = Redux.createStore(reducer, getState());
-
+// just a generic holder div
 var Main = React.createClass({
   displayName: "Main",
   data: store.getState().data,
@@ -114,7 +116,7 @@ var Main = React.createClass({
     );
   }
 });
-
+// all of the other elements are children of this one
 var Controller = React.createClass({
   displayName: "Controller",
 
@@ -134,7 +136,7 @@ var Controller = React.createClass({
     );
   }
 });
-
+// header is no longer being used
 var Header = React.createClass({
   displayName: "Header",
 
@@ -180,6 +182,7 @@ var Header = React.createClass({
     );
   }
 });
+
 
 var Iphone = React.createClass({
   displayName: "Iphone",
