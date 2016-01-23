@@ -1,0 +1,7 @@
+Hash: 14fbef9cba579c203db8
+Version: webpack 1.12.11
+Time: 11701ms
+       Asset     Size  Chunks             Chunk Names
+appCreate.js  1.45 MB       0  [emitted]  main
+   [0] multi main 28 bytes {0} [built]
+    + 227 hidden modules

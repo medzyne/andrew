@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>login</title>
+
+<script>
+function validate() 
+{
+ var email = document.getElementById("user_email").value;
+ var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+ if(regexEmail.test(email))
+ {
+  return true;
+ }
+ else
+ {
+  var message = document.getElementById("error");
+  message.innerHTML = "invalid email";
+  return false;
+ }
+}
+</script>
+
+</head>
+
+<body>
+
+<p>Test </p>
+<form id="form1" name="form1" method="post" action="login_record.php" onsubmit="return validate();" >
+  <label for="user_email">Email</label>
+  <input type="text" name="user_email" id="user_email" />
+  <label id="error" style="color:red" ></label>
+  <br/>
+  <label for="user_pass">Password</label>
+  <input type="password" name="user_pass" id="user_pass" />
+  login
+  <input type="submit" name="login" id="login" value="Submit" />
+</form>
+
+</body>
+</html>

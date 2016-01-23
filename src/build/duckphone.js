@@ -1,9 +1,45 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+var ReactReorderable = require('react-reorderable');
+var ColorPicker = require('react-color');
+var Redux = require('redux');
+var dropzone = require('dropzone');
+
+function getState(){
+  var loadOldShop = location.search;
+  var cookies = document.cookie;
+  if(!localStorage.getItem("apppod"))
+{
+   var initialState = {
+    "iphone": { "show": false, display: "about_us",
+      "template" : { "shop_style_id": "", "shop_theme_color": "", "shop_bg_color": "", "shop_bg_image": "", "shop_layout": ""}
+    },
+    "steps": {"step": 1},
+    "feature": {"show": 0},
+    "data": {
+      "about_us": { "shop_name": "", "shop_subtitle": "", "shop_description": "" },
+      "call_us": {"phone": ""},
+      "gallery": {},
+      "video": {"link": "", "name": "", "description": ""},
+      "facebook": {"name": ""},
+      "wall": {"detail": ""}
+    } };
+
+      return initialState;
+    }
+    else{
+      return JSON.parse(localStorage.getItem("apppod"));
+    }
+
+}
+
+
 
 function validate_input(input, type){
   if(input == null){ return false; }
   var primitves = [String, Number, Boolean, Symbol];
   if(primitves.indexOf(type) != -1){
-    if(type == Number && input == NaN){ return false; }
+    if(type == Number && isNaN(input)){ return false; }
     return typeof(input) == type.name.toLowerCase();
   }
   else
@@ -20,24 +56,34 @@ function reducer(state, action)
     case 'IPHONE_SHOW':
     if(validate_input(action.section, String)){
       state.iphone.show = !state.iphone.show;
-      state.iphone.display = action.section; }
+      state.iphone.display = action.section;
+      localStorage.setItem("apppod", JSON.stringify(state));
+    }
       return state
     case 'IPHONE_DISPLAY':
       if(validate_input(action.key, String)){
-        state.iphone.display = action.key; }
+        state.iphone.display = action.key;
+        localStorage.setItem("apppod", JSON.stringify(state));
+       }
       return state
     case 'FEATURE_SHOW':
       if(validate_input(action.step, Number)){
-        state.feature.show = action.step; }
+        state.feature.show = action.step;
+        localStorage.setItem("apppod", JSON.stringify(state));
+      }
       return state
     case "STEP_STEP":
       if(validate_input(action.step, Number) && action.step < 5){
-        state.steps.step = action.step; }
+        state.steps.step = action.step;
+        localStorage.setItem("apppod", JSON.stringify(state));
+      }
       return state
     case "UPDATE_DATA":
       if(validate_input(action.key, String) &&
        validate_input(action.value, String)){
-      state.data[action.section][action.key] = action.value; }
+      state.data[action.section][action.key] = action.value;
+      localStorage.setItem("apppod", JSON.stringify(state));
+    }
       return state;
 
     default:
@@ -46,31 +92,13 @@ function reducer(state, action)
   }
 }
 
-var initialState = {
-  "iphone": { "show": false, display: "about_us" },
-  "steps": {"step": 1},
-  "feature": {"show": 0},
-  "data": {
-    "about_us": { "name": "", "subtitle": "", "description": "" },
-    "call_us": {"phone": ""},
-    "gallery": {},
-    "video": {"link": "", "name": "", "description": ""},
-    "facebook": {"name": ""},
-    "wall": {"detail": ""} } };
-
-var store = Redux.createStore(reducer, initialState);
+var store = Redux.createStore(reducer, getState());
 
 var Main = React.createClass({
   displayName: "Main",
-  propTypes: {
-    data: React.PropTypes.shape({
-      about_us: React.PropTypes.string
-    })
-  },
   data: store.getState().data,
   show: function(action){ store.dispatch(action); },
   getInitialState: function(){
-    console.log('main');
     return null;
   },
   render: function () {
@@ -100,8 +128,7 @@ var Controller = React.createClass({
       { id: "controller" },
       React.createElement(
         "a",
-        { onClick: this.showKids },
-        "show elements"
+        { className: "showKids" }
       ),
       this.props.children
     );
@@ -325,7 +352,9 @@ var Steps = React.createClass({
 var StepView = React.createClass({
   displayName: "StepView",
   updateAppName: function(event){
-    store.dispatch({ 'type': "UPDATE_DATA", 'section': "about_us", key: "name", value: event.target.value });
+    store.dispatch({ 'type': "UPDATE_DATA", 'section': "about_us", key: "shop_name", value: event.target.value });
+    //var path = location.pathname;
+    //window.history.pushState({}, null, path + "?shop=" + event.target.value)
    },
   render: function () {
     switch (this.props.step) {
@@ -334,11 +363,17 @@ var StepView = React.createClass({
           "div",
           { id: "ShopName", className: "panel animated fadeIn" },
           React.createElement("h3", { }, "Label your pod"),
-          React.createElement("input", { type: "text", value: this.props.data.about_us.name,
-          className: "form-control", onChange: this.updateAppName })
+          React.createElement("input", { type: "text", value: this.props.data.about_us.shop_name,
+          className: "form-control", onChange: this.updateAppName }),
+          React.createElement(NextButton, { next: 2, stepType: "STEP_STEP" } )
         );
       case 2:
-        return React.createElement(FeatureView, { data: this.props.data });
+        return React.createElement(
+          "div", { id: "feature_menu" },
+          React.createElement(Features, { } ),
+          React.createElement(
+          FeatureView, { data: this.props.data })
+        );
       case 3:
         return React.createElement(
           "div",
@@ -357,11 +392,25 @@ var StepView = React.createClass({
 
 var TemplateView = React.createClass({
   displayName: "TemplateView",
+  getInitialState: function(){
+    return { hex: null };
+  },
+  pickColor: function(event){
+    this.hex = event.hex;
+    this.setState({ hex: event.hex })
+  },
+  hex: null,
   render: function () {
     return React.createElement(
       "div",
       { id: "TemplateView", className: "animated fadeInUp" },
-      "templates here"
+      React.createElement(
+        "div", { id: "colorValue" },
+        "hex is: " + this.state.hex
+      ),
+      React.createElement(
+        ColorPicker, { type: "swatches", onChange: this.pickColor }
+      )
     );
   }
 });
@@ -379,8 +428,7 @@ var FeatureView = React.createClass({
       case 0:
         return React.createElement(
           "div",
-          { id: "menu", className: "tab-pane animated fadeInUp" },
-          React.createElement(Features, { } )
+          { id: "menu", className: "tab-pane animated fadeInUp" }
         );
       case 1:
         return React.createElement(
@@ -521,7 +569,7 @@ var Step_AboutUs = React.createClass({
   post_form: function(data){
       jQuery.ajax(
       {
-      url: "http://52.11.4.98/allaboutshop/record.php",
+      url: "http://52.11.4.98/allaboutshop/record_shop.php",
       data: data,
       type: "POST",
       cache: false,
@@ -536,7 +584,6 @@ var Step_AboutUs = React.createClass({
     var currentElement = jQuery("#SetAboutUs form");
     var data = new FormData(currentElement[0]);
     this.post_form(data);
-    console.log("unmoumted");
 
   },
   render: function () {
@@ -559,7 +606,11 @@ var Step_AboutUs = React.createClass({
               {className: "form-group"},
               React.createElement(
                 "h4", { className: "title" },
-                "Shop Name: " + this.props.data.name
+                "Shop Name: " + this.props.data.shop_name
+              ),
+              React.createElement(
+                "input",
+                { type: "hidden", value: this.props.data.shop_name, name: "shop_name" }
               )
             ),
             React.createElement(
@@ -573,7 +624,7 @@ var Step_AboutUs = React.createClass({
                 "img", {className: "img-circle col-xs-10 col-xs-offset-1", name: "shop_logo", src: null }
               ),
               React.createElement(
-                "input", { type: "file", name: "image", accept: "image/*" }
+                "input", { type: "file", id: "shop_photo", name: "shop_photo", accept: "image/*" }
               )
             ),
             React.createElement(
@@ -586,7 +637,9 @@ var Step_AboutUs = React.createClass({
                 "input", { type: "text",
                 className: "subtitle form-control",
                 placeholder: "Enter subtitle less than 35 characters",
-                onChange: this.UPDATE_DATA.bind(this, "subtitle")
+                onChange: this.UPDATE_DATA.bind(this, "shop_subtitle"),
+                name: "shop_subtitle",
+                value: this.props.data.shop_subtitle
                }
               )
             ),
@@ -600,7 +653,9 @@ var Step_AboutUs = React.createClass({
                 "textarea", { type: "text",
                 className: "subtitle form-control",
                 placeholder: "Enter Description less than 250 characters",
-                onChange: this.UPDATE_DATA.bind(this, "description")
+                onChange: this.UPDATE_DATA.bind(this, "shop_description"),
+                name: "shop_description",
+                value: this.props.data.shop_description
                }
               )
             ),
@@ -608,8 +663,7 @@ var Step_AboutUs = React.createClass({
               "div",
               {className: "form-group"},
               React.createElement(
-                "button", { className: "btn btn-primary" },
-                "Next"
+                NextButton, { next: 2, stepType: "FEATURE_SHOW" }
               )
             )
           )
@@ -629,7 +683,7 @@ var Step_CallUs = React.createClass({
   post_form: function(data){
       jQuery.ajax(
       {
-      url: "http://52.11.4.98/allaboutshop/record.php",
+      url: "http://52.11.4.98/allaboutshop/insert_call.php",
       data: data,
       type: "POST",
       cache: false,
@@ -644,7 +698,6 @@ var Step_CallUs = React.createClass({
     var currentElement = jQuery("#SetCallUS form");
     var data = new FormData(currentElement[0]);
     this.post_form(data);
-    console.log("unmoumted");
 
   },
 
@@ -675,7 +728,10 @@ var Step_CallUs = React.createClass({
                 className: "form-control",
                 value: this.state.phone,
                 onChange: this.UPDATE_DATA.bind(this, "phone"),
-                name: "phone" }
+                name: "call_num" }
+              ),
+              React.createElement(
+                NextButton, { next: 3, stepType: "FEATURE_SHOW" }
               )
             )
           ) // post
@@ -693,8 +749,11 @@ var Step_Gallery = React.createClass({
       { id: "SetGallery", className: "row" },
       React.createElement(
         "div", { className: "col-xs-12 well"},
-        React.createElement(DropZone, { id: "mydropzone1", label: "Image 1" })
-      )
+        React.createElement(DropZone, { id: "mydropzone1", label: "1" }),
+        React.createElement(DropZone, { id: "mydropzone2", label: "2" }),
+        React.createElement(DropZone, { id: "mydropzone3", label: "3" })
+      ),
+      React.createElement(NextButton, { next: 4, stepType: "FEATURE_SHOW" })
     );
   }
 });
@@ -710,7 +769,7 @@ var Step_Video = React.createClass({
   post_form: function(data){
       jQuery.ajax(
       {
-      url: "http://52.11.4.98/allaboutshop/record.php",
+      url: "http://52.11.4.98/allaboutshop/insert_youtube.php",
       data: data,
       type: "POST",
       cache: false,
@@ -725,7 +784,6 @@ var Step_Video = React.createClass({
     var currentElement = jQuery("#SetVideo form");
     var data = new FormData(currentElement[0]);
     this.post_form(data);
-    console.log("unmoumted");
 
   },
 
@@ -749,11 +807,11 @@ var Step_Video = React.createClass({
             "Youtube Link"
           ),
           React.createElement(
-            "input", { type: "text",
+            "input", { type: "url",
             className: "form-control",
             value: this.state.link,
             onChange: this.UPDATE_DATA.bind(this, "link"),
-            name: "phone" }
+            name: "video_url" }
           )
         ),
         React.createElement(
@@ -768,7 +826,7 @@ var Step_Video = React.createClass({
             className: "form-control",
             value: this.state.name,
             onChange: this.UPDATE_DATA.bind(this, "name"),
-            name: "phone" }
+            name: "video_name" }
           )
         ),
         React.createElement(
@@ -783,9 +841,13 @@ var Step_Video = React.createClass({
             className: "form-control",
             value: this.state.description,
             onChange: this.UPDATE_DATA.bind(this, "description"),
-            name: "phone" }
+            name: "video_description" }
           )
+        ),
+        React.createElement(
+          NextButton, { next: 5, stepType: "FEATURE_SHOW" }
         )
+
       ) // post
     );
   }
@@ -825,6 +887,9 @@ var Step_FB = React.createClass({
             onChange: this.UPDATE_DATA.bind(this, "name"),
             name: "name" }
           )
+        ),
+        React.createElement(
+          NextButton, { next: 6, stepType: "FEATURE_SHOW" }
         )
       )
     );
@@ -842,7 +907,7 @@ var Step_FanWall = React.createClass({
   post_form: function(data){
       jQuery.ajax(
       {
-      url: "http://52.11.4.98/allaboutshop/record.php",
+      url: "http://52.11.4.98/allaboutshop/record_shop.php",
       data: data,
       type: "POST",
       cache: false,
@@ -857,7 +922,6 @@ var Step_FanWall = React.createClass({
     var currentElement = jQuery("#SetFanWall form");
     var data = new FormData(currentElement[0]);
     this.post_form(data);
-    console.log("unmoumted");
   },
   render: function () {
     return React.createElement(
@@ -892,6 +956,117 @@ var Step_FanWall = React.createClass({
 });
 
 var DropZone = React.createClass({
+  componentDidMount: function() {
+        var albumID = "Album" + this.props.label;
+        var albumNumber = this.props.label;
+        var deleteLink = this.deletefile;
+				var options =
+				{
+					maxFiles: 10,
+					url: 'gall_upload.php?album=' + this.props.label,
+					dictDefaultMessage: "Drag your images",
+					addRemoveLinks: true,
+					acceptedFiles: "image/jpeg,image/png,image/gif",
+
+					accept: function(file, done)
+					{
+						done();
+					},
+					init: function()
+					{
+						this.on("addedfile", function(file)
+						{
+							//alert("Add File");
+							var id = location.search.split('shop=')[1] ? location.search.split('shop=')[1] : 'Not Found';
+							//alert(document.getElementsByName("Album1")[0].value);
+							if(id == "Not Found")
+							{
+								alert("Please Update Shop Name at first tab.");
+								this.removeFile(file);
+							}
+							if(document.getElementsByName(albumID)[0].value == "")
+							{
+								alert("Please insert Album name first.");
+								this.removeFile(file);
+							}
+							else if(!/^[A-z]+[A-z -_]*$/.test(document.getElementsByName(albumID)[0].value))
+							{
+								alert("Album name is not correct format.");
+								this.removeFile(file);
+							}
+						});
+						this.on("maxfilesexceeded", function(file)
+						{
+							alert("No more files please!");
+						});
+						this.on("removedfile", function(file)
+						{
+							deleteLink(file, albumNumber);
+						});
+					}
+				};
+    new dropzone("#" +  this.props.id, options);
+
+  },
+  deletefile: function(value, album)
+{
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+        //alert(xmlhttp.responseText);
+      }
+    }
+    xmlhttp.open("GET","gall_cancel.php?filename=" + value.name + "&album=" + album + "&shop=something", true);
+    xmlhttp.send();
+},
+updateAlbumDetail: function(id)
+{
+		var description = document.getElementById("des"+id).value;
+		//alert(description);
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				alert(xmlhttp.responseText);
+			}
+		}
+		//alert("update_photo_detail.php?photo=" + id + "&des=" + description);
+		xmlhttp.open("GET","update_photo_detail.php?photo=" + id + "&des=" + description, true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send();
+		//alert("readyState="+xmlhttp.readyState+", Status"+xmlhttp.status);
+		/*$.ajax
+		({
+			url: "update_photo_detail.php?photo=" + id + "&des=" + description,
+			complete: function (response)
+			{
+				$('#output').html(response.responseText);
+			},
+			error: function ()
+			{
+				$('#output').html('Bummer: there was an error!');
+			}
+		});*/
+				},
   render: function(){
     return React.createElement(
       "form", { method: "POST",
@@ -900,9 +1075,9 @@ var DropZone = React.createClass({
       id: this.props.id,
       encType: "multipart/form-data"
     },
-    this.props.label,
+    "Album " + this.props.label,
     React.createElement(
-      "input", {type: "text", name: this.props.label }
+      "input", {type: "text", name: "Album" + this.props.label }
     ),
     React.createElement(
       "div", { className: "dz-default dz-message" },
@@ -911,6 +1086,29 @@ var DropZone = React.createClass({
         "Drag Your Images"
       )
     )
+    )
+  }
+})
+
+var NextButton = React.createClass({
+  displayName: "Next Button",
+  propTypes: {
+    next: React.PropTypes.number,
+    stepType: React.PropTypes.string
+  },
+  go_to: function(stepType, stepId){
+      store.dispatch({type: stepType, step: stepId});
+  },
+  render: function(){
+    return React.createElement(
+      "Div", { className: "form-group" },
+      React.createElement(
+        "button", {
+          type: "button",
+          className: "btn btn-primary",
+          onClick: this.go_to.bind(this, this.props.stepType, this.props.next)
+        }, "Next"
+      )
     )
   }
 })
