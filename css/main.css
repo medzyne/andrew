@@ -65,8 +65,6 @@
 
 .draggable-handle {
   /*background-color: grey;*/
-  width: 70px;
-  height: 70px;
   float: center;
   cursor: move;
   color: red;
@@ -74,7 +72,7 @@
   padding-top: 10px;
   border-radius: 20px;
   font-family: sans-serif;
-  text-align: left;
+  text-align: center;
 }
 
 .header{
@@ -116,7 +114,7 @@
 }
 
 .inside_the_phone{
-  padding-top: 160px;
+  padding-top: 170px;
   margin-left: 35px;
   height: inherit;
   width: 350px;
@@ -131,6 +129,21 @@
 .template2{
   margin-right: 10px;
   width: 340px;
+  height: 45px;
+  background-size: 20px;
+}
+
+.template3{
+  margin-right: 10px;
+  width: 150px;
+  height: 115px;
+  background-size: 50px;
+}
+
+.logo{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 

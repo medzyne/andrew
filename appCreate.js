@@ -228,7 +228,18 @@
 	var Template = React.createClass({
 	  displayName: "IphoneApps",
 	  render: function render() {
-	    return React.createElement("div", { id: "phone_body" }, React.createElement("div", { id: "app_top" }), React.createElement(IphoneApps, { classType: this.props.classType }));
+	    return React.createElement("div", { id: "phone_body" }, React.createElement("div", { id: "app_top" }, React.createElement(IphoneHeader, { id: "iphone_header" })), React.createElement(IphoneApps, { classType: this.props.classType }));
+	  }
+	});
+
+	var IphoneHeader = React.createClass({
+	  displayName: 'IphoneHeader',
+
+	  getInitialState: function getInitialState() {
+	    return store.getState().data;
+	  },
+	  render: function render() {
+	    return React.createElement("div", { id: "header", className: "row" }, React.createElement("div", { className: "col-xs-4 shopLogo" }, React.createElement("img", { className: "logo", src: "http://52.11.4.98/shop/lantern12/Duck/Pic2.png" })), React.createElement("ul", { className: "col-xs-4 list-unstyled unstyled" }, React.createElement("li", null, this.state.about_us.shop_name), React.createElement("li", null, this.state.about_us.shop_subtitle), React.createElement("li", null, this.state.about_us.shop_description)));
 	  }
 	});
 
