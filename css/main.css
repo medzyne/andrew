@@ -71,7 +71,6 @@
   cursor: move;
   color: red;
   font-size: 12px;
-  padding: 15px;
   padding-top: 10px;
   border-radius: 20px;
   font-family: sans-serif;
@@ -117,12 +116,23 @@
 }
 
 .inside_the_phone{
-  padding-top: 140px;
-  padding-left: 15px;
+  padding-top: 160px;
+  margin-left: 35px;
   height: inherit;
-  width: inherit;
+  width: 350px;
 
 }
+
+.template1{
+  margin-right: 10px;
+  width: 150px;
+}
+
+.template2{
+  margin-right: 10px;
+  width: 340px;
+}
+
 
 #layer2{
   position: relative;
@@ -175,8 +185,8 @@
 
 .react-reorderable-item {
   display: inline-block;
-  margin-right: 10px;
 }
+
 .react-reorderable-item-active {
   border: 3px dashed grey;
   background: none;

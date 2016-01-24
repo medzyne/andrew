@@ -140,6 +140,11 @@
 	        localStorage.setItem("apppod", JSON.stringify(state));
 	      }
 	      return state;
+	    case "CHANGE_TEMPLATE_STYLE":
+	      if (validate_input(action.id, Number)) {
+	        state.iphone.template.shop_layout = action.id;
+	      }
+	      return state;
 
 	    default:
 	      console.log(action);
@@ -191,13 +196,11 @@
 	    return store.getState().iphone;
 	  },
 	  chooseTemplate: function chooseTemplate(id) {
-	    console.log("chooseTemplate " + id);
-	    console.log(this.state);
-	    var Templates = [React.createElement(IphoneApps, { show: this.state.show }), React.createElement(IphoneApps, { show: this.state.show }), React.createElement(IphoneApps, { show: this.state.show })];
+	    var Templates = ["template1", "template2", "template3"];
 	    return Templates[id - 1];
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "content" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : this.chooseTemplate(this.state.template.shop_layout), React.createElement(IphoneHome, null))));
+	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "content" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(Template, { classType: this.chooseTemplate(this.state.template.shop_layout) }), React.createElement(IphoneHome, null))));
 	  }
 	});
 
@@ -222,16 +225,23 @@
 	  }
 	});
 
-	var IphoneApps = React.createClass({
+	var Template = React.createClass({
 	  displayName: "IphoneApps",
+	  render: function render() {
+	    return React.createElement("div", { id: "phone_body" }, React.createElement("div", { id: "app_top" }), React.createElement(IphoneApps, { classType: this.props.classType }));
+	  }
+	});
+
+	var IphoneApps = React.createClass({
+	  displayName: 'IphoneApps',
+
 	  show_iphone: function show_iphone(int, section) {
 	    store.dispatch({ type: "FEATURE_SHOW", step: int });
 	    store.dispatch({ type: "STEP_STEP", step: 2 });
 	    store.dispatch({ type: "IPHONE_SHOW", section: section });
 	  },
 	  render: function render() {
-
-	    return React.createElement(ReactReorderable, null, React.createElement("div", { className: "draggable-element aboutus", value: 1, onClick: this.show_iphone.bind(this, 1, "about_us") }, React.createElement("div", { className: "draggable-handle", value: 1 }, "About Us")), React.createElement("div", { className: "draggable-element callus", onClick: this.show_iphone.bind(this, 2, "call_us") }, React.createElement("div", { className: "draggable-handle" }, "Call Us")), React.createElement("div", { className: "draggable-element gallery", onClick: this.show_iphone.bind(this, 3, "gallery") }, React.createElement("div", { className: "draggable-handle" }, "Gallery")), React.createElement("div", { className: "draggable-element video", onClick: this.show_iphone.bind(this, 4, "video") }, React.createElement("div", { className: "draggable-handle" }, "Video")), React.createElement("div", { className: "draggable-element fb", onClick: this.show_iphone.bind(this, 5, "facebook") }, React.createElement("div", { className: "draggable-handle" }, "Facebook")), React.createElement("div", { className: "draggable-element fanwall", onClick: this.show_iphone.bind(this, 6, "wall") }, React.createElement("div", { className: "draggable-handle" }, "Fan Wall")));
+	    return React.createElement(ReactReorderable, { id: "phone_apps" }, React.createElement("div", { className: "draggable-element aboutus " + this.props.classType, value: 1, onClick: this.show_iphone.bind(this, 1, "about_us") }, React.createElement("div", { className: "draggable-handle", value: 1 }, "About Us")), React.createElement("div", { className: "draggable-element callus " + this.props.classType, onClick: this.show_iphone.bind(this, 2, "call_us") }, React.createElement("div", { className: "draggable-handle" }, "Call Us")), React.createElement("div", { className: "draggable-element gallery " + this.props.classType, onClick: this.show_iphone.bind(this, 3, "gallery") }, React.createElement("div", { className: "draggable-handle" }, "Gallery")), React.createElement("div", { className: "draggable-element video " + this.props.classType, onClick: this.show_iphone.bind(this, 4, "video") }, React.createElement("div", { className: "draggable-handle" }, "Video")), React.createElement("div", { className: "draggable-element fb " + this.props.classType, onClick: this.show_iphone.bind(this, 5, "facebook") }, React.createElement("div", { className: "draggable-handle" }, "Facebook")), React.createElement("div", { className: "draggable-element fanwall " + this.props.classType, onClick: this.show_iphone.bind(this, 6, "wall") }, React.createElement("div", { className: "draggable-handle" }, "Fan Wall")));
 	  }
 	});
 
@@ -307,9 +317,12 @@
 	    this.hex = event.hex;
 	    this.setState({ hex: event.hex });
 	  },
+	  chooseTemplate: function chooseTemplate(id) {
+	    store.dispatch({ type: "CHANGE_TEMPLATE_STYLE", "id": id });
+	  },
 	  hex: null,
 	  render: function render() {
-	    return React.createElement("div", { id: "TemplateView", className: "animated fadeInUp" }, React.createElement("div", { id: "colorValue" }, "hex is: " + this.state.hex), React.createElement(ColorPicker, { type: "swatches", onChange: this.pickColor }));
+	    return React.createElement("div", { id: "TemplateView", className: "animated fadeInUp" }, React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three"), React.createElement("div", { id: "colorValue" }, "hex is: " + this.state.hex), React.createElement(ColorPicker, { type: "swatches", onChange: this.pickColor }));
 	  }
 	});
 
