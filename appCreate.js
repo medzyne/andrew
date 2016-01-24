@@ -69,7 +69,7 @@
 	  if (!localStorage.getItem("apppod")) {
 	    var initialState = {
 	      "iphone": { "show": false, display: "about_us",
-	        "template": { "shop_style_id": "", "shop_theme_color": "", "shop_bg_color": "", "shop_bg_image": "", "shop_layout": "" }
+	        "template": { "shop_style_id": "", "shop_theme_color": "", "shop_bg_color": "", "shop_bg_image": "", "shop_layout": "1" }
 	      },
 	      "steps": { "step": 1 },
 	      "feature": { "show": 0 },
@@ -118,6 +118,9 @@
 	        state.iphone.display = action.key;
 	        localStorage.setItem("apppod", JSON.stringify(state));
 	      }
+	      return state;
+	    case 'IPHONE_HOME':
+	      state.iphone.show = false;
 	      return state;
 	    case 'FEATURE_SHOW':
 	      if (validate_input(action.step, Number)) {
@@ -187,16 +190,21 @@
 	  getInitialState: function getInitialState() {
 	    return store.getState().iphone;
 	  },
+	  chooseTemplate: function chooseTemplate(id) {
+	    console.log("chooseTemplate " + id);
+	    console.log(this.state);
+	    var Templates = [React.createElement(IphoneApps, { show: this.state.show }), React.createElement(IphoneApps, { show: this.state.show }), React.createElement(IphoneApps, { show: this.state.show })];
+	    return Templates[id - 1];
+	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "content" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(IphoneApps, { show: this.state.show }), React.createElement(IphoneHome, null))));
+	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "content" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : this.chooseTemplate(this.state.template.shop_layout), React.createElement(IphoneHome, null))));
 	  }
 	});
 
 	var IphoneHome = React.createClass({
 	  displayName: "IphoneHome",
 	  goHome: function goHome() {
-	    console.log("honme button");
-	    store.dispatch({ type: "IPHONE_SHOW", section: "null" });
+	    store.dispatch({ type: "IPHONE_HOME" });
 	  },
 	  render: function render() {
 	    return React.createElement("div", { className: "home_button", onClick: this.goHome });
@@ -206,6 +214,7 @@
 	var IphoneTemplate = React.createClass({
 	  displayName: "IphoneTemplate",
 	  getInitialState: function getInitialState() {
+	    console.log(this.props.children);
 	    return store.getState().iphone;
 	  },
 	  render: function render() {

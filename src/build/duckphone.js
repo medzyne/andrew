@@ -13,7 +13,7 @@ function getState(){
 {
    var initialState = {
     "iphone": { "show": false, display: "about_us",
-      "template" : { "shop_style_id": "", "shop_theme_color": "", "shop_bg_color": "", "shop_bg_image": "", "shop_layout": ""}
+      "template" : { "shop_style_id": "", "shop_theme_color": "", "shop_bg_color": "", "shop_bg_image": "", "shop_layout": "1"}
     },
     "steps": {"step": 1},
     "feature": {"show": 0},
@@ -67,6 +67,9 @@ function reducer(state, action)
         localStorage.setItem("apppod", JSON.stringify(state));
        }
       return state
+    case 'IPHONE_HOME':
+      state.iphone.show = false;
+      return state;
     case 'FEATURE_SHOW':
       if(validate_input(action.step, Number)){
         state.feature.show = action.step;
@@ -190,6 +193,14 @@ var Iphone = React.createClass({
   getInitialState: function () {
     return store.getState().iphone;
   },
+  chooseTemplate: function(id) {
+    var Templates = [
+      React.createElement(IphoneApps, { show: this.state.show }),
+      React.createElement(IphoneApps, { show: this.state.show }),
+      React.createElement(IphoneApps, { show: this.state.show }) ];
+    return Templates[id - 1];
+
+  },
   render: function () {
     return React.createElement(
       "div",
@@ -201,7 +212,7 @@ var Iphone = React.createClass({
         React.createElement(
           IphoneTemplate,
           null,
-          this.state.show ? React.createElement(IphoneShow, {  }) : React.createElement(IphoneApps, { show: this.state.show }),
+          this.state.show ? React.createElement(IphoneShow, {  }) : this.chooseTemplate(this.state.template.shop_layout),
           React.createElement(
             IphoneHome, null
           )
@@ -214,9 +225,7 @@ var Iphone = React.createClass({
 var IphoneHome = React.createClass({
   displayName: "IphoneHome",
   goHome: function(){
-    console.log("honme button");
-    store.dispatch({type: "IPHONE_SHOW", section: "null"});
-
+    store.dispatch({type: "IPHONE_HOME"});
   },
   render: function(){
     return React.createElement(
@@ -228,6 +237,7 @@ var IphoneHome = React.createClass({
 var IphoneTemplate = React.createClass({
   displayName: "IphoneTemplate",
   getInitialState: function(){
+    console.log(this.props.children);
     return store.getState().iphone;
   },
   render: function(){
