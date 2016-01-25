@@ -13,7 +13,7 @@ function getState(){
 {
    var initialState = {
     "iphone": { "show": false, display: "about_us",
-      "template" : { "shop_style_id": "", "shop_theme_color": "", "shop_bg_color": "", "shop_bg_image": "", "shop_layout": "1"}
+      "template" : { "shop_style_id": "", "shop_theme_color": "#fff", "shop_bg_color": "#fff", "shop_bg_image": "", "shop_layout": "1"}
     },
     "steps": {"step": 1},
     "feature": {"show": 0},
@@ -94,7 +94,9 @@ function reducer(state, action)
         state.iphone.template.shop_layout = action.id;
       }
       return state;
-
+    case "CHANGE_TEMPLATE_COLOR":
+      state.iphone.template[action.section] = action.color[0] == "#" ? action.color : "#" + action.color;
+      return state;
     default:
       console.log(action);
       return state
@@ -214,7 +216,7 @@ var Iphone = React.createClass({
         React.createElement(
           IphoneTemplate,
           null,
-          this.state.show ? React.createElement(IphoneShow, {  }) : React.createElement(Template, { classType: this.chooseTemplate(this.state.template.shop_layout) }),
+          this.state.show ? React.createElement(IphoneShow, {  }) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }),
           React.createElement(
             IphoneHome, null
           )
@@ -239,7 +241,6 @@ var IphoneHome = React.createClass({
 var IphoneTemplate = React.createClass({
   displayName: "IphoneTemplate",
   getInitialState: function(){
-    console.log(this.props.children);
     return store.getState().iphone;
   },
   render: function(){
@@ -292,7 +293,15 @@ var IphoneHeader = React.createClass({
   }
 })
 
+/*
+dynamicStyle: function(){ return StyleSheet.create({ background: { backgroundColor: "black" } }); },
+style: { backgroundColor: "black" },
+*/
+
 var IphoneApps = React.createClass({
+  getInitialState: function(){
+    return store.getState().iphone.template;
+  },
   show_iphone: function(int, section){
     store.dispatch({ type: "FEATURE_SHOW", step: int });
     store.dispatch({type: "STEP_STEP", step: 2});
@@ -303,7 +312,10 @@ var IphoneApps = React.createClass({
         { id: "phone_apps"},
         React.createElement(
           "div",
-          { className: "draggable-element aboutus " + this.props.classType, value: 1, onClick: this.show_iphone.bind(this, 1, "about_us")  },
+          { className: "draggable-element aboutus " + this.props.classType,
+          value: 1,
+          onClick: this.show_iphone.bind(this, 1, "about_us"),
+          style: {backgroundColor: this.state.shop_theme_color} } ,
           React.createElement(
             "div",
             { className: "draggable-handle", value: 1 },
@@ -312,7 +324,9 @@ var IphoneApps = React.createClass({
         ),
         React.createElement(
           "div",
-          { className: "draggable-element callus " + this.props.classType, onClick: this.show_iphone.bind(this, 2, "call_us") },
+          { className: "draggable-element callus " + this.props.classType,
+          onClick: this.show_iphone.bind(this, 2, "call_us"),
+          style: {backgroundColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
             { className: "draggable-handle" },
@@ -321,7 +335,9 @@ var IphoneApps = React.createClass({
         ),
         React.createElement(
           "div",
-          { className: "draggable-element gallery " + this.props.classType, onClick: this.show_iphone.bind(this, 3, "gallery") },
+          { className: "draggable-element gallery " + this.props.classType,
+          onClick: this.show_iphone.bind(this, 3, "gallery"),
+          style: {backgroundColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
             { className: "draggable-handle" },
@@ -330,7 +346,9 @@ var IphoneApps = React.createClass({
         ),
         React.createElement(
           "div",
-          { className: "draggable-element video " + this.props.classType, onClick: this.show_iphone.bind(this, 4, "video") },
+          { className: "draggable-element video " + this.props.classType,
+          onClick: this.show_iphone.bind(this, 4, "video"),
+          style: {backgroundColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
             { className: "draggable-handle" },
@@ -339,7 +357,9 @@ var IphoneApps = React.createClass({
         ),
         React.createElement(
           "div",
-          { className: "draggable-element fb " + this.props.classType, onClick: this.show_iphone.bind(this, 5, "facebook") },
+          { className: "draggable-element fb " + this.props.classType,
+          onClick: this.show_iphone.bind(this, 5, "facebook"),
+          style: {backgroundColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
             { className: "draggable-handle" },
@@ -348,7 +368,9 @@ var IphoneApps = React.createClass({
         ),
         React.createElement(
           "div",
-          { className: "draggable-element fanwall " + this.props.classType, onClick: this.show_iphone.bind(this, 6, "wall") },
+          { className: "draggable-element fanwall " + this.props.classType,
+          onClick: this.show_iphone.bind(this, 6, "wall"),
+          style: {backgroundColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
             { className: "draggable-handle" },
@@ -480,9 +502,10 @@ var TemplateView = React.createClass({
   getInitialState: function(){
     return { hex: null };
   },
-  pickColor: function(event){
+  pickColor: function(section, event){
     this.hex = event.hex;
     this.setState({ hex: event.hex })
+    store.dispatch({type: "CHANGE_TEMPLATE_COLOR", color: event.hex, section: section})
   },
   chooseTemplate: function(id){
     store.dispatch({type: "CHANGE_TEMPLATE_STYLE", "id": id});
@@ -491,16 +514,17 @@ var TemplateView = React.createClass({
   render: function () {
     return React.createElement(
       "div",
-      { id: "TemplateView", className: "animated fadeInUp" },
+      { id: "TemplateView", className: "animated fadeInUp panel" },
+      React.createElement("div", { className: "btn-group" },
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"),
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"),
-      React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three"),
+      React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")),
       React.createElement(
-        "div", { id: "colorValue" },
+        "div", { id: "colorValue", className: "well" },
         "hex is: " + this.state.hex
       ),
       React.createElement(
-        ColorPicker, { type: "swatches", onChange: this.pickColor }
+        ColorPicker, { type: "swatches", section: "shop_theme_color", onChange: this.pickColor.bind(this, "shop_theme_color") }
       )
     );
   }
