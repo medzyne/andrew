@@ -69,6 +69,7 @@ function reducer(state, action)
       return state
     case 'IPHONE_HOME':
       state.iphone.show = false;
+      localStorage.setItem("apppod", JSON.stringify(state));
       return state;
     case 'FEATURE_SHOW':
       if(validate_input(action.step, Number)){
@@ -92,10 +93,12 @@ function reducer(state, action)
     case "CHANGE_TEMPLATE_STYLE":
       if(validate_input(action.id, Number)){
         state.iphone.template.shop_layout = action.id;
+        localStorage.setItem("apppod", JSON.stringify(state));
       }
       return state;
     case "CHANGE_TEMPLATE_COLOR":
       state.iphone.template[action.section] = action.color[0] == "#" ? action.color : "#" + action.color;
+      localStorage.setItem("apppod", JSON.stringify(state));
       return state;
     default:
       console.log(action);
@@ -268,13 +271,21 @@ var IphoneHeader = React.createClass({
   getInitialState: function(){
     return store.getState().data;
   },
+  getLogoUrl: function(){
+    var base = "http://52.11.4.98/shop/lantern12/Duck/Pic2.png";
+    if(this.state.about_us.shop_photo_name && this.state.about_us.shop_id)
+    {
+      base = "http://52.11.4.98/shop/" + this.state.about_us.shop_id + "/shopPhoto/" + this.state.about_us.shop_photo_name;
+    }
+    return base;
+  },
   render: function(){
     return React.createElement(
       "div", { id: "header", className: "row"},
       React.createElement(
         "div", { className: "col-xs-4 shopLogo"},
         React.createElement(
-          "img", { className: "logo", src: "http://52.11.4.98/shop/lantern12/Duck/Pic2.png" }
+          "img", { className: "logo", src: this.getLogoUrl() }
         )
       ),
       React.createElement(
@@ -706,7 +717,7 @@ var Step_AboutUs = React.createClass({
   UPDATE_DATA: function(key, event){
     store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: key, value: event.target.value });
   },
-  post_form: function(data){
+  post_form: function(data, fileName){
       jQuery.ajax(
       {
       url: "http://52.11.4.98/allaboutshop/record_shop.php",
@@ -715,7 +726,13 @@ var Step_AboutUs = React.createClass({
       cache: false,
       contentType: false,
       processData: false,
-      success: function(response){ console.log(response); },
+      success: function(response)
+      { console.log(fileName);
+            var justNumbers = /([0-9]+)/;
+            store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: "shop_id", value: justNumbers.exec(response)[0] });
+            store.dispatch( {type: "UPDATE_DATA", section: "about_us", key: "shop_photo_name", value: fileName } );
+
+       },
       error: function(response) { console.log("error"); }
     });
 
@@ -723,7 +740,7 @@ var Step_AboutUs = React.createClass({
   componentWillUnmount: function(){
     var currentElement = jQuery("#SetAboutUs form");
     var data = new FormData(currentElement[0]);
-    this.post_form(data);
+    this.post_form(data, jQuery("#SetAboutUs form [type='file']")[0].files[0].name);
 
   },
   render: function () {
