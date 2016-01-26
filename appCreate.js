@@ -264,17 +264,17 @@
 	    return React.createElement(ReactReorderable, { id: "phone_apps" }, React.createElement("div", { className: "draggable-element aboutus " + this.props.classType,
 	      value: 1,
 	      onClick: this.show_iphone.bind(this, 1, "about_us"),
-	      style: { backgroundColor: this.state.shop_bg_color } }, React.createElement("div", { className: "draggable-handle", value: 1 }, "About Us")), React.createElement("div", { className: "draggable-element callus " + this.props.classType,
+	      style: { backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", value: 1, style: { color: this.state.shop_theme_color } }, "About Us")), React.createElement("div", { className: "draggable-element callus " + this.props.classType,
 	      onClick: this.show_iphone.bind(this, 2, "call_us"),
-	      style: { backgroundColor: this.state.shop_bg_color } }, React.createElement("div", { className: "draggable-handle" }, "Call Us")), React.createElement("div", { className: "draggable-element gallery " + this.props.classType,
+	      style: { backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } }, "Call Us")), React.createElement("div", { className: "draggable-element gallery " + this.props.classType,
 	      onClick: this.show_iphone.bind(this, 3, "gallery"),
-	      style: { backgroundColor: this.state.shop_bg_color } }, React.createElement("div", { className: "draggable-handle" }, "Gallery")), React.createElement("div", { className: "draggable-element video " + this.props.classType,
+	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } }, "Gallery")), React.createElement("div", { className: "draggable-element video " + this.props.classType,
 	      onClick: this.show_iphone.bind(this, 4, "video"),
-	      style: { backgroundColor: this.state.shop_bg_color } }, React.createElement("div", { className: "draggable-handle" }, "Video")), React.createElement("div", { className: "draggable-element fb " + this.props.classType,
+	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } }, "Video")), React.createElement("div", { className: "draggable-element fb " + this.props.classType,
 	      onClick: this.show_iphone.bind(this, 5, "facebook"),
-	      style: { backgroundColor: this.state.shop_bg_color } }, React.createElement("div", { className: "draggable-handle" }, "Facebook")), React.createElement("div", { className: "draggable-element fanwall " + this.props.classType,
+	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } }, "Facebook")), React.createElement("div", { className: "draggable-element fanwall " + this.props.classType,
 	      onClick: this.show_iphone.bind(this, 6, "wall"),
-	      style: { backgroundColor: this.state.shop_bg_color } }, React.createElement("div", { className: "draggable-handle" }, "Fan Wall")));
+	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } }, "Fan Wall")));
 	  }
 	});
 
@@ -347,7 +347,7 @@
 	    store.dispatch({ type: "CHANGE_TEMPLATE_STYLE", "id": id });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "TemplateView", className: "animated fadeInUp panel" }, React.createElement("div", { className: "btn-group" }, React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")), React.createElement(TemplateColorPicker, { section: "shop_bg_color" }), React.createElement(TemplateColorPicker, { section: "shop_theme_color" }));
+	    return React.createElement("div", { id: "TemplateView", className: "animated fadeInUp panel" }, React.createElement("h4", { className: "panel-head" }, "Templates"), React.createElement("div", { className: "btn-group" }, React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")), React.createElement(TemplateColorPicker, { title: "Background Color", section: "shop_bg_color" }), React.createElement(TemplateColorPicker, { title: "Theme Color", section: "shop_theme_color" }));
 	  }
 	});
 
@@ -367,7 +367,7 @@
 	  },
 	  hex: null,
 	  render: function render() {
-	    return React.createElement("div", { className: "row panel" }, React.createElement("div", { className: "panel-body" }, React.createElement(ColorPicker, { type: "swatches", onChange: this.pickColor.bind(this, this.props.section) })), React.createElement("div", { className: "panel-body col-xs-8" }, React.createElement("div", { id: "colorValue", className: "well" }, "hex is: " + this.state.hex)));
+	    return React.createElement("div", { className: "row panel" }, React.createElement("h4", { className: "panel-head" }, this.props.title), React.createElement("div", { className: "panel-body" }, React.createElement(ColorPicker, { type: "swatches", onChange: this.pickColor.bind(this, this.props.section) })), React.createElement("div", { className: "panel-body col-xs-8" }, React.createElement("div", { id: "colorValue", className: "well" }, "hex is: " + this.state.hex)));
 	  }
 	});
 
