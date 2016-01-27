@@ -513,6 +513,10 @@ var TemplateView = React.createClass({
   chooseTemplate: function(id){
     store.dispatch({type: "CHANGE_TEMPLATE_STYLE", "id": id});
   },
+  upload_style: function(){
+    var iphone_data = store.getState().iphone;
+    console.log(iphone_data);
+  },
   render: function () {
     return React.createElement(
       "div",
@@ -527,6 +531,10 @@ var TemplateView = React.createClass({
       ),
       React.createElement(
         TemplateColorPicker, { title: "Theme Color", section: "shop_theme_color" }
+      ),
+      React.createElement(
+        "button", { id: "upload_style", type: "button", onClick: this.upload_style, className: "btn btn-primary" },
+        "Submit"
       )
     );
   }
@@ -534,7 +542,7 @@ var TemplateView = React.createClass({
 
 var TemplateColorPicker = React.createClass({
   getInitialState: function(){
-    return { hex: null };
+    return store.getState().iphone.template;
   },
   pickColor: function(section, event){
     this.hex = event.hex;
@@ -544,7 +552,6 @@ var TemplateColorPicker = React.createClass({
   chooseTemplate: function(id){
     store.dispatch({type: "CHANGE_TEMPLATE_STYLE", "id": id});
   },
-  hex: null,
   render: function(){
     return React.createElement(
       "div", { className: "row panel" },
@@ -556,10 +563,13 @@ var TemplateColorPicker = React.createClass({
         )
       ),
       React.createElement(
-        "div", { className: "panel-body col-xs-8" },
+        "div", { className: "panel col-xs-8" },
         React.createElement(
-          "div", { id: "colorValue", className: "well" },
-          "hex is: " + this.state.hex
+          "div", { id: "colorValue", className: "panel-heading col-xs-6" },
+          "hex is: " + this.state[this.props.section]
+        ),
+        React.createElement(
+          "div", { className: "panel-body col-xs-2", style: { backgroundColor: this.state[this.props.section] } }
         )
       )
     )
@@ -728,9 +738,11 @@ var Step_AboutUs = React.createClass({
       processData: false,
       success: function(response)
       { console.log(fileName);
+            if(fileName){
             var justNumbers = /([0-9]+)/;
             store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: "shop_id", value: justNumbers.exec(response)[0] });
             store.dispatch( {type: "UPDATE_DATA", section: "about_us", key: "shop_photo_name", value: fileName } );
+          }
 
        },
       error: function(response) { console.log("error"); }
@@ -740,7 +752,11 @@ var Step_AboutUs = React.createClass({
   componentWillUnmount: function(){
     var currentElement = jQuery("#SetAboutUs form");
     var data = new FormData(currentElement[0]);
-    this.post_form(data, jQuery("#SetAboutUs form [type='file']")[0].files[0].name);
+    var fileName = null;
+    if(jQuery("#SetAboutUs form [type='file']")[0].files[0]){
+      fileName = jQuery("#SetAboutUs form [type='file']")[0].files[0].name;
+    }
+    this.post_form(data, fileName);
 
   },
   render: function () {
