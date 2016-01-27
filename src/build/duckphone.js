@@ -513,9 +513,26 @@ var TemplateView = React.createClass({
   chooseTemplate: function(id){
     store.dispatch({type: "CHANGE_TEMPLATE_STYLE", "id": id});
   },
+  image_preview: function(event){
+    console.log(event);
+  },
   upload_style: function(){
-    var iphone_data = store.getState().iphone;
-    console.log(iphone_data);
+    var iphone_data = store.getState().iphone.template;
+    var data = new FormData(iphone_data);
+    jQuery.ajax(
+    {
+    url: "http://52.11.4.98/allaboutshop/insert_shop_style.php",
+    data: iphone_data,
+    type: "POST",
+    cache: false,
+    success: function(response)
+    { console.log(response);
+
+     },
+    error: function(response) { console.log("error"); }
+  });
+
+
   },
   render: function () {
     return React.createElement(
@@ -526,6 +543,7 @@ var TemplateView = React.createClass({
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"),
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"),
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")),
+      React.createElement("input", { type: "file", accept: "image/*", onChange: this.image_preview } ),
       React.createElement(
         TemplateColorPicker, { title: "Background Color", section: "shop_bg_color" }
       ),
@@ -563,9 +581,9 @@ var TemplateColorPicker = React.createClass({
         )
       ),
       React.createElement(
-        "div", { className: "panel col-xs-8" },
+        "div", { className: "panel col-xs-9" },
         React.createElement(
-          "div", { id: "colorValue", className: "panel-heading col-xs-6" },
+          "div", { id: "colorValue", className: "panel-heading col-xs-7" },
           "hex is: " + this.state[this.props.section]
         ),
         React.createElement(
