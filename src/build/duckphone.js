@@ -543,7 +543,9 @@ var TemplateView = React.createClass({
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"),
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"),
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")),
-      React.createElement("input", { type: "file", accept: "image/*", onChange: this.image_preview } ),
+      React.createElement("div", { className: "form-group" },
+        React.createElement("input", { id:"iphone_background", type: "file", accept: "image/*", onChange: this.image_preview } )
+      ),
       React.createElement(
         TemplateColorPicker, { title: "Background Color", section: "shop_bg_color" }
       ),

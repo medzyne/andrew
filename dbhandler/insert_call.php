@@ -9,18 +9,11 @@
 	$call_num = $_POST['call_num'];
 	$call_branch = $_POST['call_branch'];
 	$shopID = $_SESSION['shop_id'];
-	$anyOuery = "SELECT FIRST(call_id) FROM shop_call WHERE shop_id =".$shopID;
-	$call_id = mysql_query($anyOuery);
+	$countOuery = "SELECT COUNT(*) FROM shop_call WHERE shop_id = ".$shopID;
+	$shopCount =  mysql_result(mysql_query($countOuery), 0);
 
-
-		http_response_code(404);
-		echo $call_id;
-		exit();
-
-
-
-	if($call_num){
-			$sql_update = "update shop_call SET call_num = '23123123131321' WHERE shop_id=". $shopID;
+	if($call_num && $shopCount > 0){
+			$sql_update = "update shop_call SET call_num = '$call_num' WHERE shop_id=". $shopID;
 		if(mysql_query($sql_update) == true)
 		{
 			http_response_code(200);
@@ -34,9 +27,28 @@
 		}
 
 	}
+	if($call_num && $shopCount == 0)
+	{
+		if($shopID){
+			$query = "INSERT INTO shop_call (shop_id, call_num, branch) VALUES ('$shopID','$call_num', '$call_branch')";
+			if(mysql_query($query) == true)
+			{
+				http_response_code(200);
+				echo("number added");
+				exit();
+			}
+			else{
+				http_response_code(400);
+				echo mysql_error();
+				exit();
+			}
+		}
+	}
 
 	http_response_code(400);
 	echo("form did not contain valid stuff");
+	var_dump($_SESSION);
+	var_dump($_POST);
 	exit();
 
 
