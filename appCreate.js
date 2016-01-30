@@ -205,7 +205,7 @@
 	    return Templates[id - 1];
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "content" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }), React.createElement(IphoneHome, null))));
+	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "col-xs-6" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }), React.createElement(IphoneHome, null))));
 	  }
 	});
 
@@ -325,7 +325,7 @@
 	    }
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "stepbar", className: "content_left" }, "Steps to create your app", React.createElement("div", { className: "spacer" }), React.createElement("span", { onClick: this.go_to_screen.bind(this, 1) }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2) }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3) }, " 3. Templates "), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
+	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row" }, React.createElement("span", { onClick: this.go_to_screen.bind(this, 1) }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2) }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3) }, " 3. Templates ")), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
 	  }
 	});
 
@@ -376,7 +376,7 @@
 	    });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "TemplateView", className: "animated fadeInUp panel" }, React.createElement("h4", { className: "panel-head" }, "Templates"), React.createElement("div", { className: "btn-group" }, React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")), React.createElement("div", { className: "form-group" }, React.createElement("input", { type: "file", accept: "image/*", onChange: this.image_preview })), React.createElement(TemplateColorPicker, { title: "Background Color", section: "shop_bg_color" }), React.createElement(TemplateColorPicker, { title: "Theme Color", section: "shop_theme_color" }), React.createElement("button", { id: "upload_style", type: "button", onClick: this.upload_style, className: "btn btn-primary" }, "Submit"));
+	    return React.createElement("div", { id: "TemplateView", className: "animated fadeInUp panel" }, React.createElement("h4", { className: "panel-head" }, "Templates"), React.createElement("div", { className: "btn-group" }, React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")), React.createElement("div", { className: "form-group" }, React.createElement("input", { id: "iphone_background", type: "file", accept: "image/*", onChange: this.image_preview })), React.createElement(TemplateColorPicker, { title: "Background Color", section: "shop_bg_color" }), React.createElement(TemplateColorPicker, { title: "Theme Color", section: "shop_theme_color" }), React.createElement("button", { id: "upload_style", type: "button", onClick: this.upload_style, className: "btn btn-primary" }, "Submit"));
 	  }
 	});
 

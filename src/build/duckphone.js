@@ -214,7 +214,7 @@ var Iphone = React.createClass({
       { id: "thephone" },
       React.createElement(
         "div",
-        { className: "content" },
+        { className: "col-xs-6" },
         React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }),
         React.createElement(
           IphoneTemplate,
@@ -441,12 +441,15 @@ var Steps = React.createClass({
   render: function () {
     return React.createElement(
       "div",
-      { id: "stepbar", className: "content_left" },
-      "Steps to create your app",
+      { id: "stepbar", className: "panel col-xs-6" },
+      React.createElement("h2",
+       { id: "steps_title", className: "panel-heading text-muted"},
+      "Steps to create your app"),
       React.createElement(
         "div",
         {className: "spacer"}
       ),
+      React.createElement("div", { id: "step_options", className: "row" },
       React.createElement(
         "span",
         { onClick: this.go_to_screen.bind(this, 1) },
@@ -461,7 +464,7 @@ var Steps = React.createClass({
         "span",
         { onClick: this.go_to_screen.bind(this, 3) },
         " 3. Templates "
-      ),
+      )),
       React.createElement(StepView, { step: this.state.step, data: this.props.data })
     );
   }
