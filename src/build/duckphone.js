@@ -568,7 +568,7 @@ var TemplateView = React.createClass({
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"),
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")),
       React.createElement("div", { className: "form-group" },
-      React.createElement(DropZone, { id: "mydropzone4", label: "", url: 'upload_iphone.php' })
+      React.createElement(DropZone, { id: "mydropzone4", label: "", url: 'allaboutshop/upload_iphone.php' })
         //React.createElement("input", { id:"iphone_background", type: "file", accept: "image/*", onChange: this.image_preview } )
       ),
       React.createElement(
