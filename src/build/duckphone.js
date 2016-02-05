@@ -7,31 +7,41 @@ var dropzone = require('dropzone');
 
 function getState(){
   var loadOldShop = location.search;
+  var shopRegex = /([\?|\&]shop\=)([0-9]+)/;
   var cookies = document.cookie;
   // building a localStorage function here
-  if(!localStorage.getItem("apppod"))
+  if(shopRegex.test(loadOldShop)){
+    return loadState(shopRegex.exec(loadOldShop)[2]);
+  }
+  else{
+    return loadState(null);
+  }
+}
+
+function loadState(id){
+  if(!id || !localStorage.getItem("apppod" + id))
 {
    var initialState = {
-    "iphone": { "show": false, display: "about_us",
-      "template" : { "shop_style_id": "", "shop_theme_color": "#fff", "shop_bg_color": "#fff", "shop_bg_image": "", "shop_layout": "1"}
-    },
-    "steps": {"step": 1},
-    "feature": {"show": 0},
-    "data": {
-      "about_us": { "shop_name": "", "shop_subtitle": "", "shop_description": "" },
-      "call_us": {"phone": ""},
-      "gallery": {},
-      "video": {"link": "", "name": "", "description": ""},
-      "facebook": {"name": ""},
-      "wall": {"detail": ""}
+     "shop_id": id,
+      "iphone": { "show": false, display: "about_us",
+        "template" : { "shop_style_id": "", "shop_theme_color": "#fff", "shop_bg_color": "#fff", "shop_bg_image": "", "shop_layout": "1"}
+      },
+      "steps": {"step": 1},
+      "feature": {"show": 0},
+      "data": {
+        "about_us": { "shop_name": "", "shop_subtitle": "", "shop_description": "" },
+        "call_us": {"phone": ""},
+        "gallery": {},
+        "video": {"link": "", "name": "", "description": ""},
+        "facebook": {"name": ""},
+        "wall": {"detail": ""}
     } };
 
       return initialState;
     }
     else{
-      return JSON.parse(localStorage.getItem("apppod"));
+      return JSON.parse(localStorage.getItem("apppod" + id));
     }
-
 }
 
 
@@ -49,6 +59,17 @@ function validate_input(input, type){
   }
 }
 
+function saveState(state)
+{
+  if(state.shop_id)
+  {
+    localStorage.setItem("apppod" + state.shop_id, JSON.stringify(state));
+  }
+  else{
+    localStorage.setItem("apppod" + state.shop_id, JSON.stringify(state));
+  }
+}
+
 // in a flux app you dispatch actions to modify the state
 function reducer(state, action)
 {
@@ -58,47 +79,47 @@ function reducer(state, action)
     if(validate_input(action.section, String)){
       state.iphone.show = !state.iphone.show;
       state.iphone.display = action.section;
-      localStorage.setItem("apppod", JSON.stringify(state));
+      saveState(state);
     }
       return state
     case 'IPHONE_DISPLAY':
       if(validate_input(action.key, String)){
         state.iphone.display = action.key;
-        localStorage.setItem("apppod", JSON.stringify(state));
+        saveState(state);
        }
       return state
     case 'IPHONE_HOME':
       state.iphone.show = false;
-      localStorage.setItem("apppod", JSON.stringify(state));
+      saveState(state);
       return state;
     case 'FEATURE_SHOW':
       if(validate_input(action.step, Number)){
         state.feature.show = action.step;
-        localStorage.setItem("apppod", JSON.stringify(state));
+        saveState(state);
       }
       return state
     case "STEP_STEP":
       if(validate_input(action.step, Number) && action.step < 5){
         state.steps.step = action.step;
-        localStorage.setItem("apppod", JSON.stringify(state));
+        saveState(state);
       }
       return state
     case "UPDATE_DATA":
       if(validate_input(action.key, String) &&
        validate_input(action.value, String)){
       state.data[action.section][action.key] = action.value;
-      localStorage.setItem("apppod", JSON.stringify(state));
+      saveState(state);
     }
       return state;
     case "CHANGE_TEMPLATE_STYLE":
       if(validate_input(action.id, Number)){
         state.iphone.template.shop_layout = action.id;
-        localStorage.setItem("apppod", JSON.stringify(state));
+        saveState(state);
       }
       return state;
     case "CHANGE_TEMPLATE_COLOR":
       state.iphone.template[action.section] = action.color[0] == "#" ? action.color : "#" + action.color;
-      localStorage.setItem("apppod", JSON.stringify(state));
+      saveState(state);
       return state;
     default:
       console.log(action);
@@ -547,7 +568,8 @@ var TemplateView = React.createClass({
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"),
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")),
       React.createElement("div", { className: "form-group" },
-        React.createElement("input", { id:"iphone_background", type: "file", accept: "image/*", onChange: this.image_preview } )
+      React.createElement(DropZone, { id: "mydropzone4", label: "", url: 'upload_iphone.php' })
+        //React.createElement("input", { id:"iphone_background", type: "file", accept: "image/*", onChange: this.image_preview } )
       ),
       React.createElement(
         TemplateColorPicker, { title: "Background Color", section: "shop_bg_color" }
@@ -945,9 +967,9 @@ var Step_Gallery = React.createClass({
       { id: "SetGallery", className: "row" },
       React.createElement(
         "div", { className: "col-xs-12 well"},
-        React.createElement(DropZone, { id: "mydropzone1", label: "1" }),
-        React.createElement(DropZone, { id: "mydropzone2", label: "2" }),
-        React.createElement(DropZone, { id: "mydropzone3", label: "3" })
+        React.createElement(DropZone, { id: "mydropzone1", label: "1", url: 'gall_upload.php?album=' }),
+        React.createElement(DropZone, { id: "mydropzone2", label: "2", url: 'gall_upload.php?album=' }),
+        React.createElement(DropZone, { id: "mydropzone3", label: "3", url: 'gall_upload.php?album=' })
       ),
       React.createElement(NextButton, { next: 4, stepType: "FEATURE_SHOW" })
     );
@@ -1159,7 +1181,7 @@ var DropZone = React.createClass({
 				var options =
 				{
 					maxFiles: 10,
-					url: 'gall_upload.php?album=' + this.props.label,
+					url: this.props.url + this.props.label,
 					dictDefaultMessage: "Drag your images",
 					addRemoveLinks: true,
 					acceptedFiles: "image/jpeg,image/png,image/gif",
