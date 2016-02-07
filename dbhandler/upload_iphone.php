@@ -15,7 +15,7 @@ if($shop_id && $styleID){
   if(save_file($shop_id, $photo_name, $photo_path, $section))
   {
     http_response_code(200);
-    echo(json_encode(array("message" => "style_photo_updated", "shopID" => $shopID, "styleID" => $styleID)));
+    echo(json_encode(array("message" => "style_photo_updated", "shopID" => $shop_id, "styleID" => $styleID)));
     exit();
   }
 }
@@ -24,7 +24,7 @@ if($shop_id && !$styleID)
   if(save_file($shop_id, $photo_name, $photo_path, $section))
   {
     http_response_code(200);
-    echo(json_encode(array("message" => "style_photo_updated", "shopID" => $shopID, "styleID" => $styleID)));
+    echo(json_encode(array("message" => "style_photo_updated", "shopID" => $shop_id, "styleID" => $styleID)));
     exit();
   }
 }

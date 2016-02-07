@@ -49,6 +49,7 @@
 	{
 		$query = "INSERT INTO shop_video (shop_id, video_url, video_name, video_description) VALUES ('$shopID','$video_url', '$video_name', '$video_description')";
 		queryWithError($query, "new video added", $shopID);
+		exit();
 	}
 
 

@@ -508,6 +508,7 @@
 	      processData: false,
 	      success: function success(response) {
 	        console.log(fileName);
+	        console.log(response);
 	        if (fileName) {
 	          var justNumbers = /([0-9]+)/;
 	          store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: "shop_id", value: justNumbers.exec(response)[0] });
@@ -713,7 +714,7 @@
 	      accept: function accept(file, done) {
 	        done();
 	      },
-	      init: function init() {
+	      init: function init(albumNumber) {
 	        this.on("addedfile", function (file) {
 	          //alert("Add File");
 	          var id = location.search.split('shop=')[1] ? location.search.split('shop=')[1] : 'Not Found';
@@ -722,10 +723,10 @@
 	            alert("Please Update Shop Name at first tab.");
 	            this.removeFile(file);
 	          }
-	          if (document.getElementsByName(albumID)[0].value == "") {
+	          if (albumNumber && document.getElementsByName(albumID)[0].value == "") {
 	            alert("Please insert Album name first.");
 	            this.removeFile(file);
-	          } else if (!/^[A-z]+[A-z -_]*$/.test(document.getElementsByName(albumID)[0].value)) {
+	          } else if (albumNumber && !/^[A-z]+[A-z -_]*$/.test(document.getElementsByName(albumID)[0].value)) {
 	            alert("Album name is not correct format.");
 	            this.removeFile(file);
 	          }

@@ -48,7 +48,7 @@
 			if(mysql_query($sql_update) == true){
 				save_file($_SESSION['shop_id'], $shop_photo_name, $shop_photo, "shop_detail");
 				http_response_code(200);
-				json_encode(array("message" => "shop_updated", "shopID" => $shopID));
+				echo(json_encode(array("message" => "shop_updated", "shopID" => $shopID, "photo_name"=> $shop_photo_name)));
 				exit();
 		}
 		else{
@@ -70,7 +70,7 @@
 					$_SESSION['shop_id'] = $shopID;
 					save_file($_SESSION['shop_id'], $shop_photo_name, $shop_photo, "shop_detail");
 					http_response_code(200);
-					json_encode(array("message" => "shop_created", "shopID" => $shopID));
+					echo(json_encode(array("message" => "shop_created", "shopID" => $shopID, "photo_name"=> $shop_photo_name)));
 					exit();
 				}
 				else

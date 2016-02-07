@@ -783,6 +783,7 @@ var Step_AboutUs = React.createClass({
       processData: false,
       success: function(response)
       { console.log(fileName);
+        console.log(response);
             if(fileName){
             var justNumbers = /([0-9]+)/;
             store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: "shop_id", value: justNumbers.exec(response)[0] });
@@ -1190,7 +1191,7 @@ var DropZone = React.createClass({
 					{
 						done();
 					},
-					init: function()
+					init: function(albumNumber)
 					{
 						this.on("addedfile", function(file)
 						{
@@ -1202,12 +1203,12 @@ var DropZone = React.createClass({
 								alert("Please Update Shop Name at first tab.");
 								this.removeFile(file);
 							}
-							if(document.getElementsByName(albumID)[0].value == "")
+							if(albumNumber && document.getElementsByName(albumID)[0].value == "")
 							{
 								alert("Please insert Album name first.");
 								this.removeFile(file);
 							}
-							else if(!/^[A-z]+[A-z -_]*$/.test(document.getElementsByName(albumID)[0].value))
+							else if(albumNumber && !/^[A-z]+[A-z -_]*$/.test(document.getElementsByName(albumID)[0].value))
 							{
 								alert("Album name is not correct format.");
 								this.removeFile(file);

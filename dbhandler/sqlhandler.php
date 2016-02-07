@@ -4,7 +4,7 @@ function queryWithError ($query, $success, $shopID)
   $result = mysql_query($query);
   if($result == true){
     http_response_code(200);
-    echo(json_encode(array("message" => $success, "shopID" => $shopID)););
+    echo(json_encode(array("message" => $success, "shopID" => $shopID)));
     return $result;
   }
   else{
