@@ -15,7 +15,7 @@ if($image!='')
 	else
 	{
 		$sql = "INSERT INTO `shop_detail` (`user_id`, `user_photo`, `shop_photo_name`) VALUES ('".$_SESSION['id']."', '".$image."', '".$image_name."')";
-		//$sql = "UPDATE `shop_detail` SET `shop_photo_name` ='".$image_name."', `shop_photo` ='".$image."' WHERE `shop_detail`.`shop_id`= 
+		//$sql = "UPDATE `shop_detail` SET `shop_photo_name` ='".$image_name."', `shop_photo` ='".$image."' WHERE `shop_detail`.`shop_id`=
 																										//(SELECT max(shop_id) FROM user_detail WHERE user_id=".$_SESSION['id'].")";
 	}
 //echo $sql;
@@ -23,13 +23,13 @@ if($image!='')
 echo $image_name."</br>";
 echo $_FILES['image']['tmp_name'];
 if (!mysql_query($sql)) { // Error handling
-    echo "Something went wrong! :("; 
+    echo mysql_error();
 }
 else
 {
-	echo ("Update photo success!");
+	echo(json_encode(array("message" => "phot_updated", "shopID" => $shopID)));
 }
-	
+
 }
 
 

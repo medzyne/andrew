@@ -17,7 +17,7 @@
 		if(mysql_query($sql_update) == true)
 		{
 			http_response_code(200);
-			echo("number added");
+			echo(json_encode(array("message" => "number updated", "shopID" => $shopID)));
 			exit();
 		}
 		else{
