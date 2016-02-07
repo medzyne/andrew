@@ -797,7 +797,7 @@
 	      className: "dropzone dz-clickable",
 	      id: this.props.id,
 	      encType: "multipart/form-data"
-	    }, "Album " + this.props.label, React.createElement("input", { type: "text", name: "Album" + this.props.label }), React.createElement("div", { className: "dz-default dz-message" }, React.createElement("span", { id: "message" }, "Drag Your Images")));
+	    }, this.props.label ? "Album " + this.props.label : null, this.props.label ? React.createElement("input", { type: "text", name: "Album" + this.props.label }) : null, React.createElement("div", { className: "dz-default dz-message" }, React.createElement("span", { id: "message" }, "Drag Your Images")));
 	  }
 	});
 

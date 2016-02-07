@@ -10,8 +10,6 @@ $shop_id = $_SESSION['shop_id'];
 $section = "iphoneBackground";
 
 
-
-
 if(save_file($shop_id, $photo_name, $photo_path, $section))
 {
   http_response_code(200);

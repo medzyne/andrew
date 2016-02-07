@@ -34,7 +34,7 @@
 			if(mysql_query($query) == true)
 			{
 				http_response_code(200);
-				echo("number added");
+				json_encode(array("message" => "number_created", "shopID" => $shopID));
 				exit();
 			}
 			else{

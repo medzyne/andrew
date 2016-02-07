@@ -42,13 +42,13 @@
 		$sql_update = "update shop_video set video_name = '$video_name', video_url = '$video_url', video_description = '$video_description' WHERE shop_id=".$shopID;
 		mysql_query($sql_update) or die(mysql_error());
 
-		echo("Update video success!");
+		echo(json_encode(array("message" => "youtube_updated", "shopID" => $shopID)));
 
 	}
 	if($shopID && $video_count == 0)
 	{
 		$query = "INSERT INTO shop_video (shop_id, video_url, video_name, video_description) VALUES ('$shopID','$video_url', '$video_name', '$video_description')";
-		queryWithError($query, "new video added");
+		queryWithError($query, "new video added", $shopID);
 	}
 
 
