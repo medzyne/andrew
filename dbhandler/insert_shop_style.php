@@ -20,7 +20,7 @@ if($shopID && $styleID)
   if(mysql_query($updateStyle) == true)
   {
     http_response_code(200);
-    echo(json_encode(array("message" => "style updated", "shopID" => $shopID, "styleID" => $styleID)));
+    echo(json_encode(array("message" => "style_updated", "shopID" => $shopID, "styleID" => $styleID)));
     exit();
   }
 }
@@ -34,7 +34,7 @@ if($shopID && !$styleID){
     if(mysql_query($addStyleToShop) == true)
     {
       http_response_code(200);
-      echo(json_encode(array("message" => "style created", "shopID" => $shopID, "styleID" => $styleID)));
+      echo(json_encode(array("message" => "style_created", "shopID" => $shopID, "styleID" => $styleID)));
       exit();
     }
   }
