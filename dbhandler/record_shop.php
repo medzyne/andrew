@@ -86,8 +86,8 @@
 				exit();
 			}
 	}
-	header("HTTP/1.0 404 Not Found"); // for testing
-	echo("this is a really fatal error you should never see");
-	// header("Location: ../genpage.php?shop=".$shopID); /* Redirect browser */
-exit();
+
+	http_response_code(400);
+	echo(json_encode(array("error"=> "unknown", "sql_error"=> mysql_error() )));
+	exit();
 ?>

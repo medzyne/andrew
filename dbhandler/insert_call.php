@@ -45,10 +45,15 @@
 		}
 	}
 
+	if(!$shop_id)
+	{
+	  http_response_code(400);
+	  echo(json_encode(array("error"=> "no_shop_id")));
+	  exit();
+	}
+
 	http_response_code(400);
-	echo("form did not contain valid stuff");
-	var_dump($_SESSION);
-	var_dump($_POST);
+	echo(json_encode(array("error"=> "unknown", "sql_error"=> mysql_error() )));
 	exit();
 
 

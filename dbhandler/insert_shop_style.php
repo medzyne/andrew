@@ -40,11 +40,16 @@ if($shopID && !$styleID){
   }
 }
 
-else{
-  http_response_code(405);
-  echo(mysql_error());
+if(!$shop_id)
+{
+  http_response_code(400);
+  echo(json_encode(array("error"=> "no_shop_id")));
   exit();
 }
+
+http_response_code(400);
+echo(json_encode(array("error"=> "unknown", "sql_error"=> mysql_error() )));
+exit();
 
 
 
