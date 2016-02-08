@@ -62,12 +62,27 @@
 	var Redux = __webpack_require__(219);
 	var dropzone = __webpack_require__(228);
 
+	function fetchStateFromServer($id) {
+	  jQuery.ajax({
+	    url: "http://52.11.4.98/allaboutshop/requestapp.php",
+	    data: { "id": $id },
+	    type: "GET",
+	    success: function success(response) {
+	      console.log(response);
+	    },
+	    error: function error(response) {
+	      console.log("error");console.log(response);
+	    }
+	  });
+	}
+
 	function getState() {
 	  var loadOldShop = location.search;
 	  var shopRegex = /([\?|\&]shop\=)([0-9]+)/;
 	  var cookies = document.cookie;
 	  // building a localStorage function here
 	  if (shopRegex.test(loadOldShop)) {
+	    fetchStateFromServer(shopRegex.exec(loadOldShop)[2]);
 	    return loadState(shopRegex.exec(loadOldShop)[2]);
 	  } else {
 	    return loadState(null);

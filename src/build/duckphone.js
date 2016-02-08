@@ -5,12 +5,29 @@ var ColorPicker = require('react-color');
 var Redux = require('redux');
 var dropzone = require('dropzone');
 
+function fetchStateFromServer($id)
+{
+  jQuery.ajax(
+  {
+  url: "http://52.11.4.98/allaboutshop/requestapp.php",
+  data: {"id": $id},
+  type: "GET",
+  success: function(response)
+  { console.log(response);
+
+   },
+  error: function(response) { console.log("error"); console.log(response); }
+});
+
+}
+
 function getState(){
   var loadOldShop = location.search;
   var shopRegex = /([\?|\&]shop\=)([0-9]+)/;
   var cookies = document.cookie;
   // building a localStorage function here
   if(shopRegex.test(loadOldShop)){
+    fetchStateFromServer(shopRegex.exec(loadOldShop)[2]);
     return loadState(shopRegex.exec(loadOldShop)[2]);
   }
   else{
