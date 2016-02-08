@@ -114,9 +114,9 @@
 }
 
 .inside_the_phone{
-  padding-top: 170px;
-  margin-left: 35px;
-  height: inherit;
+  margin-top: 110px;
+  margin-left: 20px;
+  height: 635px;
   width: 350px;
 
 }
@@ -144,7 +144,11 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  border: #67675D;
+  border-style: ridge;
+  border-width: thin;
 }
+
 
 
 #layer2{
@@ -155,10 +159,20 @@
 
 .home_button{
   position: absolute;
+  height: 105px;
+  width: 100%;
+}
+
+.home_button.bottom{
   bottom: 0;
   left: 0;
-  height: 105px;
-  width: inherit;
+}
+
+.home_button.top{
+  top: 0;
+  left: 0;
+  position: relative;
+  height: 65px;
 }
 
 #result{

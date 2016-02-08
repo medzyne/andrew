@@ -242,7 +242,7 @@ var Iphone = React.createClass({
           null,
           this.state.show ? React.createElement(IphoneShow, {  }) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }),
           React.createElement(
-            IphoneHome, null
+            IphoneHome, {position: "bottom" }
           )
         )
       )
@@ -257,7 +257,7 @@ var IphoneHome = React.createClass({
   },
   render: function(){
     return React.createElement(
-      "div", { className: "home_button", onClick: this.goHome }
+      "div", { className: "home_button " + this.props.position, onClick: this.goHome }
     )
   }
 })
@@ -270,6 +270,7 @@ var IphoneTemplate = React.createClass({
   render: function(){
     return React.createElement(
       "div", {id: "layer2", className: "inside_the_phone"},
+      React.createElement(IphoneHome, {position: "top"}),
       this.props.children
     )
   }
@@ -279,7 +280,7 @@ var Template = React.createClass({
   displayName: "IphoneApps",
   render: function () {
     return React.createElement(
-    "div", { id: "phone_body"},
+    "div", { id: "phone_body", className: "phone_body"},
       React.createElement("div", { id: "app_top" },
         React.createElement(IphoneHeader, {id: "iphone_header"})
     ),
@@ -302,7 +303,7 @@ var IphoneHeader = React.createClass({
   },
   render: function(){
     return React.createElement(
-      "div", { id: "header", className: "row"},
+      "div", { id: "header", className: "row iphone_header"},
       React.createElement(
         "div", { className: "col-xs-4 shopLogo"},
         React.createElement(

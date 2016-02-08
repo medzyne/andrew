@@ -223,7 +223,7 @@
 	    return Templates[id - 1];
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "col-xs-6" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }), React.createElement(IphoneHome, null))));
+	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "col-xs-6" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }), React.createElement(IphoneHome, { position: "bottom" }))));
 	  }
 	});
 
@@ -233,7 +233,7 @@
 	    store.dispatch({ type: "IPHONE_HOME" });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { className: "home_button", onClick: this.goHome });
+	    return React.createElement("div", { className: "home_button " + this.props.position, onClick: this.goHome });
 	  }
 	});
 
@@ -243,14 +243,14 @@
 	    return store.getState().iphone;
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "layer2", className: "inside_the_phone" }, this.props.children);
+	    return React.createElement("div", { id: "layer2", className: "inside_the_phone" }, React.createElement(IphoneHome, { position: "top" }), this.props.children);
 	  }
 	});
 
 	var Template = React.createClass({
 	  displayName: "IphoneApps",
 	  render: function render() {
-	    return React.createElement("div", { id: "phone_body" }, React.createElement("div", { id: "app_top" }, React.createElement(IphoneHeader, { id: "iphone_header" })), React.createElement(IphoneApps, { classType: this.props.classType }));
+	    return React.createElement("div", { id: "phone_body", className: "phone_body" }, React.createElement("div", { id: "app_top" }, React.createElement(IphoneHeader, { id: "iphone_header" })), React.createElement(IphoneApps, { classType: this.props.classType }));
 	  }
 	});
 
@@ -268,7 +268,7 @@
 	    return base;
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "header", className: "row" }, React.createElement("div", { className: "col-xs-4 shopLogo" }, React.createElement("img", { className: "logo", src: this.getLogoUrl() })), React.createElement("ul", { className: "col-xs-4 list-unstyled unstyled" }, React.createElement("li", null, this.state.about_us.shop_name), React.createElement("li", null, this.state.about_us.shop_subtitle), React.createElement("li", null, this.state.about_us.shop_description)));
+	    return React.createElement("div", { id: "header", className: "row iphone_header" }, React.createElement("div", { className: "col-xs-4 shopLogo" }, React.createElement("img", { className: "logo", src: this.getLogoUrl() })), React.createElement("ul", { className: "col-xs-4 list-unstyled unstyled" }, React.createElement("li", null, this.state.about_us.shop_name), React.createElement("li", null, this.state.about_us.shop_subtitle), React.createElement("li", null, this.state.about_us.shop_description)));
 	  }
 	});
 
