@@ -63,17 +63,21 @@
 	var dropzone = __webpack_require__(228);
 
 	function fetchStateFromServer($id) {
+	  var result;
 	  jQuery.ajax({
 	    url: "http://52.11.4.98/allaboutshop/requestapp.php",
 	    data: { "id": $id },
+	    async: false,
 	    type: "GET",
 	    success: function success(response) {
-	      console.log(response);
+	      result = JSON.parse(response);
 	    },
 	    error: function error(response) {
-	      console.log("error");console.log(response);
+	      result = false;
 	    }
 	  });
+
+	  return result;
 	}
 
 	function getState() {
@@ -82,14 +86,36 @@
 	  var cookies = document.cookie;
 	  // building a localStorage function here
 	  if (shopRegex.test(loadOldShop)) {
-	    fetchStateFromServer(shopRegex.exec(loadOldShop)[2]);
-	    return loadState(shopRegex.exec(loadOldShop)[2]);
+	    var result = fetchStateFromServer(shopRegex.exec(loadOldShop)[2]);
+	    return loadState(shopRegex.exec(loadOldShop)[2], result.data ? result.data : false);
 	  } else {
-	    return loadState(null);
+	    return loadState(null, false);
 	  }
 	}
 
-	function loadState(id) {
+	function loadState(id, result) {
+	  /*
+	  branch: ""
+	  call_id: "17"
+	  call_num: "2147483647"
+	  fanwall_id: null
+	  page_view: "0"
+	  shop_catagory: ""
+	  shop_description: "hey see this"
+	  shop_fb_feed_id: null
+	  shop_id: "118"
+	  shop_name: "new pod"
+	  shop_photo: null
+	  shop_photo_name: "pony.gif"
+	  shop_qr_code: null
+	  shop_style: "8"
+	  shop_subtitle: "something there"
+	  video_description: "eouoeuoeu"
+	  video_id: "0"
+	  video_name: "eouoeu"
+	  video_url: "uoeuoeu"
+	  */
+	  console.log(result);
 	  if (!id || !localStorage.getItem("apppod" + id)) {
 	    var initialState = {
 	      "shop_id": id,
@@ -106,6 +132,9 @@
 	        "facebook": { "name": "" },
 	        "wall": { "detail": "" }
 	      } };
+	    if (result) {
+	      initialState.data.about_us = { "shop_name": result[0].shop_name, "shop_subtitle": result[0].shop_subtitle, "shop_description": result[0].shop_description, "shop_photo_name": result[0].shop_photo_name };
+	    }
 
 	    return initialState;
 	  } else {

@@ -11,6 +11,8 @@ $section = "iphoneBackground";
 $countOuery = "SELECT shop_style FROM shop_detail WHERE shop_id = '$shop_id'";
 $styleID = mysql_result(mysql_query($countOuery), 0);
 
+
+
 if($shop_id && $styleID){
   if(save_file($shop_id, $photo_name, $photo_path, $section))
   {

@@ -2,7 +2,17 @@
 session_start();
 include("../connectdb.php");
 include('sqlhandler.php');
+
+
+if($_SESSION['shop_id'] != $_GET["id"])
+{
+  $_SESSION['shop_id'] = $_GET["id"];
+  echo("mismatch shop_id");
+}
+
 $shop_id = $_SESSION['shop_id'];
+
+
 
 $getAll = "SELECT shop_detail.* , shop_call.* , shop_video.*
 FROM shop_detail
