@@ -45,13 +45,10 @@ function getState(){
 function loadState(id, result){
   /*
   branch: ""
-call_id: "17"
-call_num: "2147483647"
 fanwall_id: null
 page_view: "0"
 shop_catagory: ""
 shop_fb_feed_id: null
-shop_id: "118"
 shop_photo: null
 shop_qr_code: null
 shop_style: "8"
@@ -158,6 +155,10 @@ function reducer(state, action)
       state.data[action.section][action.key] = action.value;
       saveState(state);
     }
+      return state;
+    case "CHANGE_TEMPLATE":
+      state.iphone.template[action.section] = action.value;
+      saveState(state)
       return state;
     case "CHANGE_TEMPLATE_STYLE":
       if(validate_input(action.id, Number)){
@@ -464,17 +465,21 @@ var IphoneApps = React.createClass({
 
 var IphoneShow = React.createClass({
   displayName: "IphoneShow",
+  getInitialState: function(){
+    return store.getState().iphone.template;
+  },
   mapToElement: function(value, index, list){
     return React.createElement(
       IphoneElement, { key: index, id: value, text: this.section()[value], template: store.getState().iphone.display  }
     );
   },
   section: function() { return store.getState().data[store.getState().iphone.display]; },
+  background: function(){ return "url(http://52.11.4.98/shop/" + store.getState().shop_id + "/iphoneBackground/" + this.state.shop_bg_image + ")"; },
 
   render: function () {
     return React.createElement(
       "div",
-      { id: "iphone_show" },
+      { id: "iphone_show", style: { background: this.background() } },
       Object.keys(this.section()).map(this.mapToElement)
     );
   }
@@ -586,8 +591,9 @@ var TemplateView = React.createClass({
   chooseTemplate: function(id){
     store.dispatch({type: "CHANGE_TEMPLATE_STYLE", "id": id});
   },
-  image_preview: function(event){
-    console.log(event);
+  image_preview: function(file){
+    console.log(file);
+    store.dispatch({type: "CHANGE_TEMPLATE", section: "shop_bg_image", value: file.name });
   },
   upload_style: function(){
     var iphone_data = store.getState().iphone.template;
@@ -599,7 +605,7 @@ var TemplateView = React.createClass({
     type: "POST",
     cache: false,
     success: function(response)
-    { console.log(response);
+    {
 
      },
     error: function(response) { console.log("error"); }
@@ -617,7 +623,7 @@ var TemplateView = React.createClass({
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"),
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")),
       React.createElement("div", { className: "form-group" },
-      React.createElement(DropZone, { id: "mydropzone4", label: "", url: 'allaboutshop/upload_iphone.php' })
+      React.createElement(DropZone, { id: "mydropzone4", label: "", url: 'allaboutshop/upload_iphone.php', callBack: this.image_preview })
         //React.createElement("input", { id:"iphone_background", type: "file", accept: "image/*", onChange: this.image_preview } )
       ),
       React.createElement(
@@ -831,8 +837,7 @@ var Step_AboutUs = React.createClass({
       contentType: false,
       processData: false,
       success: function(response)
-      { console.log(fileName);
-        console.log(response);
+      {
             if(fileName){
             var justNumbers = /([0-9]+)/;
             store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: "shop_id", value: justNumbers.exec(response)[0] });
@@ -957,7 +962,7 @@ var Step_CallUs = React.createClass({
       cache: false,
       contentType: false,
       processData: false,
-      success: function(response){ console.log(response); },
+      success: function(response){ },
       error: function(response) { console.log("error"); }
     });
 
@@ -1010,16 +1015,18 @@ var Step_CallUs = React.createClass({
 
 var Step_Gallery = React.createClass({
   displayName: "Step_Gallery",
+  update_model: function(){
 
+  },
   render: function () {
     return React.createElement(
       "div",
       { id: "SetGallery", className: "row" },
       React.createElement(
         "div", { className: "col-xs-12 well"},
-        React.createElement(DropZone, { id: "mydropzone1", label: "1", url: 'gall_upload.php?album=' }),
-        React.createElement(DropZone, { id: "mydropzone2", label: "2", url: 'gall_upload.php?album=' }),
-        React.createElement(DropZone, { id: "mydropzone3", label: "3", url: 'gall_upload.php?album=' })
+        React.createElement(DropZone, { id: "mydropzone1", label: "1", url: 'gall_upload.php?album=', callBack: this.update_model }),
+        React.createElement(DropZone, { id: "mydropzone2", label: "2", url: 'gall_upload.php?album=', callBack: this.update_model }),
+        React.createElement(DropZone, { id: "mydropzone3", label: "3", url: 'gall_upload.php?album=', callBack: this.update_model })
       ),
       React.createElement(NextButton, { next: 4, stepType: "FEATURE_SHOW" })
     );
@@ -1234,6 +1241,7 @@ var DropZone = React.createClass({
 					url: this.props.url + this.props.label,
 					dictDefaultMessage: "Drag your images",
 					addRemoveLinks: true,
+          success: this.props.callBack,
 					acceptedFiles: "image/jpeg,image/png,image/gif",
 
 					accept: function(file, done)
