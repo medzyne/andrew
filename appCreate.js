@@ -101,15 +101,11 @@
 	  fanwall_id: null
 	  page_view: "0"
 	  shop_catagory: ""
-	  shop_description: "hey see this"
 	  shop_fb_feed_id: null
 	  shop_id: "118"
-	  shop_name: "new pod"
 	  shop_photo: null
-	  shop_photo_name: "pony.gif"
 	  shop_qr_code: null
 	  shop_style: "8"
-	  shop_subtitle: "something there"
 	  video_description: "eouoeuoeu"
 	  video_id: "0"
 	  video_name: "eouoeu"
@@ -125,7 +121,7 @@
 	      "steps": { "step": 1 },
 	      "feature": { "show": 0 },
 	      "data": {
-	        "about_us": { "shop_name": "", "shop_subtitle": "", "shop_description": "" },
+	        "about_us": { "shop_id": id, "shop_name": "", "shop_subtitle": "", "shop_description": "" },
 	        "call_us": { "phone": "" },
 	        "gallery": {},
 	        "video": { "link": "", "name": "", "description": "" },
@@ -133,7 +129,7 @@
 	        "wall": { "detail": "" }
 	      } };
 	    if (result) {
-	      initialState.data.about_us = { "shop_name": result[0].shop_name, "shop_subtitle": result[0].shop_subtitle, "shop_description": result[0].shop_description, "shop_photo_name": result[0].shop_photo_name };
+	      initialState.data.about_us = { "shop_id": result[0].shop_id, "shop_name": result[0].shop_name, "shop_subtitle": result[0].shop_subtitle, "shop_description": result[0].shop_description, "shop_photo_name": result[0].shop_photo_name };
 	    }
 
 	    return initialState;
