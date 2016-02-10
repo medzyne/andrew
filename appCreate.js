@@ -392,7 +392,7 @@
 	    }
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row" }, React.createElement("span", { onClick: this.go_to_screen.bind(this, 1) }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2) }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3) }, " 3. Templates ")), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
+	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6 blur_white" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row" }, React.createElement("span", { onClick: this.go_to_screen.bind(this, 1), className: "steps_option" }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2), className: "steps_option" }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3), className: "steps_option" }, " 3. Templates ")), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
 	  }
 	});
 
@@ -535,7 +535,7 @@
 	    return React.createElement("div", { className: "col-xs-4 animated fadeIn",
 	      onMouseOver: this.UserFocus.bind(this, true),
 	      onMouseOut: this.UserFocus.bind(this, false),
-	      onClick: this.showFeature.bind(this, this.props.id) }, React.createElement("div", { className: "gradient-box" }, React.createElement("img", { src: this.state.focus ? this.props.active : this.props.inactive,
+	      onClick: this.showFeature.bind(this, this.props.id) }, React.createElement("div", { id: "gradient-box", className: "gradient-box focus_white" }, React.createElement("img", { src: this.state.focus ? this.props.active : this.props.inactive,
 	      className: "center-block" })));
 	  }
 	});

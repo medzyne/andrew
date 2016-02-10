@@ -38,6 +38,21 @@
   background-position: center;
 }
 
+.blur_white{
+  background: #EEE;
+  background-color: #EEE;
+}
+
+#stepbar, #ShopName{
+  background: #EEE;
+  background-color: #EEE;
+}
+
+#gradient-box, .focus_white{
+  background: #FFF;
+  background-color: #FFF;
+}
+
 .gallery{
   background-image: url(../dist/img/image-icon.png);
 }
@@ -118,7 +133,11 @@
   margin-left: 20px;
   height: 690px;
   width: 350px;
+}
 
+.steps_option{
+  font-size: 17px;
+  margin-right: 15px;
 }
 
 .template1{

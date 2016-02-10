@@ -28,7 +28,7 @@ if($_SESSION['shop_id']){
 
   </head>
 
-  <body class="hold-transition skin-Purple sidebar-mini">
+  <body class="hold-transition skin-Purple sidebar-mini blur_white">
 	  <?php include ('header.php');?>
 		<div id="reactComponents">
 	  </div>
