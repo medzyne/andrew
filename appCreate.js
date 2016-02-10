@@ -108,8 +108,7 @@
 	  video_name: "eouoeu"
 	  video_url: "uoeuoeu"
 	  */
-	  console.log(result);
-	  if (!id || !localStorage.getItem("apppod" + id)) {
+	  if (!id && !localStorage.getItem("apppod")) {
 	    var initialState = {
 	      "shop_id": id,
 	      "iphone": { "show": false, display: "about_us",
@@ -124,16 +123,19 @@
 	        "video": { "link": "", "name": "", "description": "" },
 	        "facebook": { "name": "" },
 	        "wall": { "detail": "" }
-	      } };
-	    if (result) {
-	      initialState.data.about_us = { "shop_id": result[0].shop_id, "shop_name": result[0].shop_name, "shop_subtitle": result[0].shop_subtitle, "shop_description": result[0].shop_description, "shop_photo_name": result[0].shop_photo_name };
-	      initialState.data.call_us = { "phone": result[0].call_num, "call_id": result[0].call_id };
-	    }
-	    console.log(initialState);
-
+	      }
+	    };
 	    return initialState;
 	  } else {
-	    return JSON.parse(localStorage.getItem("apppod" + id));
+	    if (localStorage.getItem("apppod" + id)) {
+	      var initialState = JSON.parse(localStorage.getItem("apppod" + id));
+	      if (result) {
+	        initialState.data.about_us = { "shop_id": result[0].shop_id, "shop_name": result[0].shop_name, "shop_subtitle": result[0].shop_subtitle, "shop_description": result[0].shop_description, "shop_photo_name": result[0].shop_photo_name };
+	        initialState.data.call_us = { "phone": result[0].call_num, "call_id": result[0].call_id };
+	      }
+	      return initialState;
+	    }
+	    return JSON.parse(localStorage.getItem("apppod"));
 	  }
 	}
 
@@ -156,7 +158,7 @@
 	  if (state.shop_id) {
 	    localStorage.setItem("apppod" + state.shop_id, JSON.stringify(state));
 	  } else {
-	    localStorage.setItem("apppod" + state.shop_id, JSON.stringify(state));
+	    localStorage.setItem("apppod", JSON.stringify(state));
 	  }
 	}
 

@@ -57,36 +57,38 @@ video_id: "0"
 video_name: "eouoeu"
 video_url: "uoeuoeu"
 */
-  console.log(result);
-  if(!id || !localStorage.getItem("apppod" + id))
-{
-   var initialState = {
-     "shop_id": id,
-      "iphone": { "show": false, display: "about_us",
-        "template" : { "shop_style_id": "", "shop_theme_color": "#fff", "shop_bg_color": "#fff", "shop_bg_image": "", "shop_layout": "1"}
-      },
-      "steps": {"step": 1},
-      "feature": {"show": 0},
-      "data": {
-        "about_us": {"shop_id": id, "shop_name": "", "shop_subtitle": "", "shop_description": "" },
-        "call_us": {"phone": ""},
-        "gallery": {},
-        "video": {"link": "", "name": "", "description": ""},
-        "facebook": {"name": ""},
-        "wall": {"detail": ""}
-    } };
-    if(result)
-    {
-      initialState.data.about_us = {"shop_id": result[0].shop_id, "shop_name": result[0].shop_name, "shop_subtitle": result[0].shop_subtitle, "shop_description": result[0].shop_description, "shop_photo_name": result[0].shop_photo_name };
-      initialState.data.call_us = {"phone": result[0].call_num, "call_id": result[0].call_id };
+    if(!id && !localStorage.getItem("apppod"))
+  {
+     var initialState = {
+       "shop_id": id,
+        "iphone": { "show": false, display: "about_us",
+          "template" : { "shop_style_id": "", "shop_theme_color": "#fff", "shop_bg_color": "#fff", "shop_bg_image": "", "shop_layout": "1"}
+        },
+        "steps": {"step": 1},
+        "feature": {"show": 0},
+        "data": {
+          "about_us": {"shop_id": id, "shop_name": "", "shop_subtitle": "", "shop_description": "" },
+          "call_us": {"phone": ""},
+          "gallery": {},
+          "video": {"link": "", "name": "", "description": ""},
+          "facebook": {"name": ""},
+          "wall": {"detail": ""}
+      }
+    };
+        return initialState;
     }
-    console.log(initialState);
-
-      return initialState;
+  else{
+      if(localStorage.getItem("apppod" + id)){
+        var initialState = JSON.parse(localStorage.getItem("apppod" + id));
+        if(result)
+        {
+          initialState.data.about_us = {"shop_id": result[0].shop_id, "shop_name": result[0].shop_name, "shop_subtitle": result[0].shop_subtitle, "shop_description": result[0].shop_description, "shop_photo_name": result[0].shop_photo_name };
+          initialState.data.call_us = {"phone": result[0].call_num, "call_id": result[0].call_id };
+        }
+        return initialState;
     }
-    else{
-      return JSON.parse(localStorage.getItem("apppod" + id));
-    }
+      return JSON.parse(localStorage.getItem("apppod"));
+  }
 }
 
 
@@ -111,7 +113,7 @@ function saveState(state)
     localStorage.setItem("apppod" + state.shop_id, JSON.stringify(state));
   }
   else{
-    localStorage.setItem("apppod" + state.shop_id, JSON.stringify(state));
+    localStorage.setItem("apppod", JSON.stringify(state));
   }
 }
 
