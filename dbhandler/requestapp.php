@@ -26,7 +26,8 @@ if($theQuery)
   http_response_code(200);
   $result = array();
   while($r = mysql_fetch_assoc($theQuery)){
-    $result["data"][] = $r;
+    array_push($result, $r);
+    //$result["data"][] = $r;
   }
   print(json_encode($result));
   exit();

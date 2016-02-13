@@ -21,3 +21,15 @@ These are the things I think I need to get done:
 
 Here is the design attached with this email, I think it might help you to create CSS
 However, the color that you have to use are #4fa5b8 and #beded6
+
+
+the border of each features on step 2,
+can you make its corner a bit rounder?
+and just adjust the space of each box properly
+
+and the navigation: (1. Name Your Shop 2. Features 3. Templates)
+ can you add more CSS based on the mock up file  I send you?
+ I think it would look nicer 😃
+oh and the colour,we didn’t use the blue and green anymore,
+I believe I send you the HEX code via email
+(the email that mock up files are attached I think)
