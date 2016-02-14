@@ -516,13 +516,13 @@
 	  displayName: 'Features',
 
 	  render: function render() {
-	    return React.createElement("div", { className: "features" }, React.createElement("div", { className: "row" }, React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/about-us.png",
+	    return React.createElement("div", { className: "features" }, React.createElement("div", { className: "row relative" }, React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/about-us.png",
 	      inactive: "http://52.11.4.98/dist/img/about-us-before.png", id: 1
 	    }), React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/call-us.png",
 	      inactive: "http://52.11.4.98/dist/img/call-us-before.png", id: 2
 	    }), React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/image-icon.png",
 	      inactive: "http://52.11.4.98/dist/img/image-icon-before.png", id: 3
-	    })), React.createElement("div", { className: "row" }, React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/video-icon.png",
+	    })), React.createElement("div", { className: "row relative" }, React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/video-icon.png",
 	      inactive: "http://52.11.4.98/dist/img/video-icon-before.png", id: 4
 	    }), React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/fb-icon.png",
 	      inactive: "http://52.11.4.98/dist/img/fb-icon-before.png", id: 5
@@ -545,11 +545,11 @@
 	    this.setState({ focus: focused });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { className: "col-xs-4 animated fadeIn",
+	    return React.createElement("div", { className: "col-xs-4 animated fadeIn relative",
 	      onMouseOver: this.UserFocus.bind(this, true),
 	      onMouseOut: this.UserFocus.bind(this, false),
-	      onClick: this.showFeature.bind(this, this.props.id) }, React.createElement("div", { id: "gradient-box", className: "gradient-box focus_white" }, React.createElement("img", { src: this.state.focus ? this.props.active : this.props.inactive,
-	      className: "center-block" })));
+	      onClick: this.showFeature.bind(this, this.props.id) }, React.createElement("div", { className: "gradient-round" }, React.createElement("div", { id: "gradient-box", className: "gradient-box focus_white" }, React.createElement("img", { src: this.state.focus ? this.props.active : this.props.inactive,
+	      className: "center-block" }))));
 	  }
 	});
 
@@ -568,8 +568,11 @@
 	      contentType: false,
 	      processData: false,
 	      success: function success(response) {
+	        var justNumbers = /([0-9]+)/;
+	        var path = location.pathname;
+	        window.history.pushState({}, null, path + "?shop=" + justNumbers.exec(response)[0]);
 	        if (fileName) {
-	          var justNumbers = /([0-9]+)/;
+
 	          store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: "shop_id", value: justNumbers.exec(response)[0] });
 	          store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: "shop_photo_name", value: fileName });
 	        }

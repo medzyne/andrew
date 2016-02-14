@@ -761,7 +761,7 @@ var Features = React.createClass({
         {className: "features"},
         React.createElement(
           "div",
-          { className: "row"},
+          { className: "row relative"},
           React.createElement(
             FeatureBox, { active: "http://52.11.4.98/dist/img/about-us.png",
             inactive: "http://52.11.4.98/dist/img/about-us-before.png", id: 1
@@ -780,7 +780,7 @@ var Features = React.createClass({
      ),
      React.createElement(
        "div",
-       { className: "row"},
+       { className: "row relative"},
        React.createElement(
          FeatureBox, { active: "http://52.11.4.98/dist/img/video-icon.png",
          inactive: "http://52.11.4.98/dist/img/video-icon-before.png", id: 4
@@ -816,10 +816,11 @@ var FeatureBox = React.createClass({
     return(
       React.createElement(
         "div",
-        { className: "col-xs-4 animated fadeIn",
+        { className: "col-xs-4 animated fadeIn relative",
         onMouseOver: this.UserFocus.bind(this, true),
         onMouseOut: this.UserFocus.bind(this, false),
         onClick: this.showFeature.bind(this, this.props.id)},
+        React.createElement("div", {className: "gradient-round" },
         React.createElement(
           "div",
           { id: "gradient-box", className: "gradient-box focus_white"},
@@ -828,6 +829,7 @@ var FeatureBox = React.createClass({
             {src: this.state.focus ? this.props.active : this.props.inactive,
                className: "center-block"}
           )
+        )
         )
       )
     )
@@ -852,8 +854,11 @@ var Step_AboutUs = React.createClass({
       processData: false,
       success: function(response)
       {
+        var justNumbers = /([0-9]+)/;
+        var path = location.pathname;
+        window.history.pushState({}, null, path + "?shop=" + justNumbers.exec(response)[0])
             if(fileName){
-            var justNumbers = /([0-9]+)/;
+
             store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: "shop_id", value: justNumbers.exec(response)[0] });
             store.dispatch( {type: "UPDATE_DATA", section: "about_us", key: "shop_photo_name", value: fileName } );
           }

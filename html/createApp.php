@@ -14,12 +14,13 @@ if($_SESSION['shop_id']){
 ?><!DOCTYPE html>
 <html>
   <head>
-		<link rel="stylesheet" type="text/css" href="/andrew/css/main.css">
 		<link rel="stylesheet" href="andrew/node_modules/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="http://52.11.4.98/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="http://52.11.4.98/dist/css/duck.css">
 		<link rel="stylesheet" href="http://52.11.4.98/dist/css/dropzone.css">
 		<link rel="stylesheet" href="http://52.11.4.98/css/animate.css">
+		<link rel="stylesheet" type="text/css" href="/andrew/css/main.css">
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>APPOD | </title>
