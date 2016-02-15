@@ -54,19 +54,15 @@
 }
 
 .gradient-box {
-  position: relative;
     margin: auto;
     width: 125px;
     height: 125px;
-    background: transparent;
-    background: linear-gradient(to left, #c2d469 0%, #1ba6e1 100%);
-    border: 3px solid transparent;
-    -moz-border-image: -moz-linear-gradient(right, #c2d469 0%, #1ba6e1 100%);
-    -webkit-border-image: -webkit-linear-gradient(right, #c2d469 0%, #1ba6e1 100%);
-    border-image-slice: 3;
+    border: #4fa5b8;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 10%;
     margin-left: auto;
     margin-right: auto;
-    z-index: -1;
   }
 
   .relative{
@@ -74,14 +70,18 @@
     margin-bottom: 5px;
   }
 
+  .step_row{
+    height: 135px;
+  }
+
   .gradient-round{
+    position: absolute;
     margin: auto;
     width: 135px;
-    height: 135px;
+    height: inherit;
     border: 5px solid transparent;
     border-color: #EEE;
     border-radius: 10%;
-    z-index: 1;
   }
 
 .gallery{

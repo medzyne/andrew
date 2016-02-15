@@ -117,12 +117,12 @@
 	    "steps": { "step": 1 },
 	    "feature": { "show": 0 },
 	    "data": {
-	      "about_us": { "shop_id": id, "shop_name": "", "shop_subtitle": "", "shop_description": "" },
-	      "call_us": { "phone": "" },
-	      "gallery": {},
-	      "video": { "link": "", "name": "", "description": "" },
-	      "facebook": { "name": "" },
-	      "wall": { "detail": "" }
+	      "about_us": { "shop_id": id, "shop_name": "", "shop_subtitle": "", "shop_description": "", "send": true },
+	      "call_us": { "phone": "", "send": true },
+	      "gallery": { "send": true },
+	      "video": { "link": "", "name": "", "description": "", "send": true },
+	      "facebook": { "name": "", "send": true },
+	      "wall": { "detail": "", "send": true }
 	    }
 	  };
 	  if (!id && !localStorage.getItem("apppod")) {
@@ -244,7 +244,7 @@
 	    return null;
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "main", className: "container animated fadeInDown" }, React.createElement(Controller, null, React.createElement(Steps, { show: this.show, data: this.data }), React.createElement(Iphone, { show: this.show, data: this.data })));
+	    return React.createElement("div", { id: "main", className: "animated fadeInDown" }, React.createElement(Controller, null, React.createElement(Steps, { show: this.show, data: this.data }), React.createElement(Iphone, { show: this.show, data: this.data })));
 	  }
 	});
 	// all of the other elements are children of this one
@@ -279,7 +279,7 @@
 	    return Templates[id - 1];
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "col-xs-6" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }), React.createElement(IphoneHome, { position: "bottom" }))));
+	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "col-xs-6 col-md-6" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }), React.createElement(IphoneHome, { position: "bottom" }))));
 	  }
 	});
 
@@ -324,7 +324,7 @@
 	    return base;
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "header", className: "row iphone_header" }, React.createElement("div", { className: "col-xs-4 shopLogo" }, React.createElement("img", { className: "logo", src: this.getLogoUrl() })), React.createElement("ul", { className: "col-xs-4 list-unstyled unstyled" }, React.createElement("li", null, this.state.about_us.shop_name), React.createElement("li", null, this.state.about_us.shop_subtitle), React.createElement("li", null, this.state.about_us.shop_description)));
+	    return React.createElement("div", { id: "header", className: "row iphone_header" }, React.createElement("div", { className: "col-xs-4 col-md-4 shopLogo" }, React.createElement("img", { className: "logo", src: this.getLogoUrl() })), React.createElement("ul", { className: "col-xs-4 col-md-4 list-unstyled unstyled" }, React.createElement("li", null, this.state.about_us.shop_name), React.createElement("li", null, this.state.about_us.shop_subtitle), React.createElement("li", null, this.state.about_us.shop_description)));
 	  }
 	});
 
@@ -388,7 +388,7 @@
 	    return null;
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "IphoneElement", className: "row animated slideInRight" }, React.createElement("div", { id: "FormValue", className: "well col-xs-8 col-xs-offset-1" }, this.props.id + " : " + this.props.text));
+	    return React.createElement("div", { id: "IphoneElement", className: "row animated slideInRight" }, React.createElement("div", { id: "FormValue", className: "well col-xs-8 col-xs-offset-1 col-md-8 col-md-offset-1" }, this.props.id + " : " + this.props.text));
 	  }
 	});
 
@@ -405,7 +405,7 @@
 	    }
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6 blur_white" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row" }, React.createElement("span", { onClick: this.go_to_screen.bind(this, 1), className: "steps_option" }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2), className: "steps_option" }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3), className: "steps_option" }, " 3. Templates ")), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
+	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6 col-md-6 blur_white" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row" }, React.createElement("span", { onClick: this.go_to_screen.bind(this, 1), className: "steps_option" }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2), className: "steps_option" }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3), className: "steps_option" }, " 3. Templates ")), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
 	  }
 	});
 
@@ -476,7 +476,7 @@
 	    store.dispatch({ type: "CHANGE_TEMPLATE_STYLE", "id": id });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { className: "row panel" }, React.createElement("h4", { className: "panel-head" }, this.props.title), React.createElement("div", { className: "panel-body" }, React.createElement(ColorPicker, { type: "swatches", onChange: this.pickColor.bind(this, this.props.section) })), React.createElement("div", { className: "panel col-xs-9" }, React.createElement("div", { id: "colorValue", className: "panel-heading col-xs-7" }, "hex is: " + this.state[this.props.section]), React.createElement("div", { className: "panel-body col-xs-2", style: { backgroundColor: this.state[this.props.section] } })));
+	    return React.createElement("div", { className: "row panel" }, React.createElement("h4", { className: "panel-head" }, this.props.title), React.createElement("div", { className: "panel-body" }, React.createElement(ColorPicker, { type: "swatches", onChange: this.pickColor.bind(this, this.props.section) })), React.createElement("div", { className: "panel col-xs-9 col-md-9" }, React.createElement("div", { id: "colorValue", className: "panel-heading col-xs-7 col-md-7" }, "hex is: " + this.state[this.props.section]), React.createElement("div", { className: "panel-body col-xs-2", style: { backgroundColor: this.state[this.props.section] } })));
 	  }
 	});
 
@@ -516,13 +516,13 @@
 	  displayName: 'Features',
 
 	  render: function render() {
-	    return React.createElement("div", { className: "features" }, React.createElement("div", { className: "row relative" }, React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/about-us.png",
+	    return React.createElement("div", { className: "features" }, React.createElement("div", { className: "row step_row" }, React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/about-us.png",
 	      inactive: "http://52.11.4.98/dist/img/about-us-before.png", id: 1
 	    }), React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/call-us.png",
 	      inactive: "http://52.11.4.98/dist/img/call-us-before.png", id: 2
 	    }), React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/image-icon.png",
 	      inactive: "http://52.11.4.98/dist/img/image-icon-before.png", id: 3
-	    })), React.createElement("div", { className: "row relative" }, React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/video-icon.png",
+	    })), React.createElement("div", { className: "row step_row" }, React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/video-icon.png",
 	      inactive: "http://52.11.4.98/dist/img/video-icon-before.png", id: 4
 	    }), React.createElement(FeatureBox, { active: "http://52.11.4.98/dist/img/fb-icon.png",
 	      inactive: "http://52.11.4.98/dist/img/fb-icon-before.png", id: 5
@@ -545,11 +545,11 @@
 	    this.setState({ focus: focused });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { className: "col-xs-4 animated fadeIn relative",
+	    return React.createElement("div", { className: "col-xs-4 col-md-4 animated fadeIn relative",
 	      onMouseOver: this.UserFocus.bind(this, true),
 	      onMouseOut: this.UserFocus.bind(this, false),
-	      onClick: this.showFeature.bind(this, this.props.id) }, React.createElement("div", { className: "gradient-round" }, React.createElement("div", { id: "gradient-box", className: "gradient-box focus_white" }, React.createElement("img", { src: this.state.focus ? this.props.active : this.props.inactive,
-	      className: "center-block" }))));
+	      onClick: this.showFeature.bind(this, this.props.id) }, React.createElement("div", { id: "gradient-box", className: "gradient-box focus_white" }, React.createElement("img", { src: this.state.focus ? this.props.active : this.props.inactive,
+	      className: "center-block" })));
 	  }
 	});
 
@@ -592,7 +592,7 @@
 	    this.post_form(data, fileName);
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "SetAboutUs", className: "row animated fadeIn" }, React.createElement("div", { className: "col-xs-12" }, React.createElement("form", { method: "POST", encType: "multipart/form-data" }, React.createElement("h3", { className: "duck-underline" }, "About Us"), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Shop Name: " + this.props.data.shop_name), React.createElement("input", { type: "hidden", value: this.props.data.shop_name, name: "shop_name" })), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Upload Shop Logo"), React.createElement("img", { className: "img-circle col-xs-10 col-xs-offset-1", name: "shop_logo", src: null }), React.createElement("input", { type: "file", id: "shop_photo", name: "shop_photo", accept: "image/*" })), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Subtitle"), React.createElement("input", { type: "text",
+	    return React.createElement("div", { id: "SetAboutUs", className: "row animated fadeIn" }, React.createElement("div", { className: "col-xs-12 col-md-12" }, React.createElement("form", { method: "POST", encType: "multipart/form-data" }, React.createElement("h3", { className: "duck-underline" }, "About Us"), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Shop Name: " + this.props.data.shop_name), React.createElement("input", { type: "hidden", value: this.props.data.shop_name, name: "shop_name" })), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Upload Shop Logo"), React.createElement("img", { className: "img-circle col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1", name: "shop_logo", src: null }), React.createElement("input", { type: "file", id: "shop_photo", name: "shop_photo", accept: "image/*" })), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Subtitle"), React.createElement("input", { type: "text",
 	      className: "subtitle form-control",
 	      placeholder: "Enter subtitle less than 35 characters",
 	      onChange: this.UPDATE_DATA.bind(this, "shop_subtitle"),
@@ -637,7 +637,7 @@
 	  },
 
 	  render: function render() {
-	    return React.createElement("div", { id: "SetCallUS", className: "row" }, React.createElement("div", { className: "col-xs-12" }, React.createElement("form", { method: "POST", encType: "multipart/form-data" }, React.createElement("h3", { className: "duck-underline" }, "Call Us"), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Phone Number"), React.createElement("input", { type: "text",
+	    return React.createElement("div", { id: "SetCallUS", className: "row" }, React.createElement("div", { className: "col-xs-12 col-md-12" }, React.createElement("form", { method: "POST", encType: "multipart/form-data" }, React.createElement("h3", { className: "duck-underline" }, "Call Us"), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Phone Number"), React.createElement("input", { type: "text",
 	      className: "form-control",
 	      value: this.state.phone,
 	      onChange: this.UPDATE_DATA.bind(this, "phone"),
@@ -650,7 +650,7 @@
 	  displayName: "Step_Gallery",
 	  update_model: function update_model() {},
 	  render: function render() {
-	    return React.createElement("div", { id: "SetGallery", className: "row" }, React.createElement("div", { className: "col-xs-12 well" }, React.createElement(DropZone, { id: "mydropzone1", label: "1", url: 'gall_upload.php?album=', callBack: this.update_model }), React.createElement(DropZone, { id: "mydropzone2", label: "2", url: 'gall_upload.php?album=', callBack: this.update_model }), React.createElement(DropZone, { id: "mydropzone3", label: "3", url: 'gall_upload.php?album=', callBack: this.update_model })), React.createElement(NextButton, { next: 4, stepType: "FEATURE_SHOW" }));
+	    return React.createElement("div", { id: "SetGallery", className: "row" }, React.createElement("div", { className: "col-xs-12 col-md-12 well" }, React.createElement(DropZone, { id: "mydropzone1", label: "1", url: 'gall_upload.php?album=', callBack: this.update_model }), React.createElement(DropZone, { id: "mydropzone2", label: "2", url: 'gall_upload.php?album=', callBack: this.update_model }), React.createElement(DropZone, { id: "mydropzone3", label: "3", url: 'gall_upload.php?album=', callBack: this.update_model })), React.createElement(NextButton, { next: 4, stepType: "FEATURE_SHOW" }));
 	  }
 	});
 
