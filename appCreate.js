@@ -405,7 +405,7 @@
 	    }
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6 col-md-6 blur_white" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row" }, React.createElement("span", { onClick: this.go_to_screen.bind(this, 1), className: "steps_option" }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2), className: "steps_option" }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3), className: "steps_option" }, " 3. Templates ")), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
+	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6 col-md-5 col-md-offset-1 blur_white" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row" }, React.createElement("span", { onClick: this.go_to_screen.bind(this, 1), className: "steps_option" }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2), className: "steps_option" }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3), className: "steps_option" }, " 3. Templates ")), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
 	  }
 	});
 
@@ -419,8 +419,8 @@
 	  render: function render() {
 	    switch (this.props.step) {
 	      case 1:
-	        return React.createElement("div", { id: "ShopName", className: "panel animated fadeIn" }, React.createElement("h3", {}, "Label your pod"), React.createElement("input", { type: "text", value: this.props.data.about_us.shop_name,
-	          className: "form-control", onChange: this.updateAppName }), React.createElement(NextButton, { next: 2, stepType: "STEP_STEP" }));
+	        return React.createElement("div", { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1" }, React.createElement("h3", {}, "Label your pod"), React.createElement("input", { type: "text", value: this.props.data.about_us.shop_name,
+	          className: "form-control spacer", onChange: this.updateAppName }), React.createElement(NextButton, { next: 2, stepType: "STEP_STEP" }));
 	      case 2:
 	        return React.createElement("div", { id: "feature_menu" }, React.createElement(Features, {}), React.createElement(FeatureView, { data: this.props.data }));
 	      case 3:
@@ -545,7 +545,7 @@
 	    this.setState({ focus: focused });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { className: "col-xs-4 col-md-4 animated fadeIn relative",
+	    return React.createElement("div", { className: "col-xs-4 col-md-4 animated fadeIn",
 	      onMouseOver: this.UserFocus.bind(this, true),
 	      onMouseOut: this.UserFocus.bind(this, false),
 	      onClick: this.showFeature.bind(this, this.props.id) }, React.createElement("div", { id: "gradient-box", className: "gradient-box focus_white" }, React.createElement("img", { src: this.state.focus ? this.props.active : this.props.inactive,
@@ -873,7 +873,7 @@
 	    store.dispatch({ type: stepType, step: stepId });
 	  },
 	  render: function render() {
-	    return React.createElement("Div", { className: "form-group" }, React.createElement("button", {
+	    return React.createElement("Div", { className: "form-group spacer" }, React.createElement("button", {
 	      type: "button",
 	      className: "btn btn-primary",
 	      onClick: this.go_to.bind(this, this.props.stepType, this.props.next)

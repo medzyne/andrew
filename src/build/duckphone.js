@@ -530,7 +530,7 @@ var Steps = React.createClass({
   render: function () {
     return React.createElement(
       "div",
-      { id: "stepbar", className: "panel col-xs-6 col-md-6 blur_white" },
+      { id: "stepbar", className: "panel col-xs-6 col-md-5 col-md-offset-1 blur_white" },
       React.createElement("h2",
        { id: "steps_title", className: "panel-heading text-muted"},
       "Steps to create your app"),
@@ -571,10 +571,10 @@ var StepView = React.createClass({
       case 1:
         return React.createElement(
           "div",
-          { id: "ShopName", className: "panel animated fadeIn" },
+          { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1" },
           React.createElement("h3", { }, "Label your pod"),
           React.createElement("input", { type: "text", value: this.props.data.about_us.shop_name,
-          className: "form-control", onChange: this.updateAppName }),
+          className: "form-control spacer", onChange: this.updateAppName }),
           React.createElement(NextButton, { next: 2, stepType: "STEP_STEP" } )
         );
       case 2:
@@ -816,7 +816,7 @@ var FeatureBox = React.createClass({
     return(
       React.createElement(
         "div",
-        { className: "col-xs-4 col-md-4 animated fadeIn relative",
+        { className: "col-xs-4 col-md-4 animated fadeIn",
         onMouseOver: this.UserFocus.bind(this, true),
         onMouseOut: this.UserFocus.bind(this, false),
         onClick: this.showFeature.bind(this, this.props.id)},
@@ -1394,7 +1394,7 @@ var NextButton = React.createClass({
   },
   render: function(){
     return React.createElement(
-      "Div", { className: "form-group" },
+      "Div", { className: "form-group spacer" },
       React.createElement(
         "button", {
           type: "button",

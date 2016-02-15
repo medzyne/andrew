@@ -53,16 +53,23 @@
   background-color: #FFF;
 }
 
+.spacer{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .gradient-box {
     margin: auto;
-    width: 125px;
-    height: 125px;
     border: #4fa5b8;
     border-style: solid;
     border-width: thin;
     border-radius: 10%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .feature_row{
+
   }
 
   .relative{
