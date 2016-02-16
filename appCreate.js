@@ -404,8 +404,17 @@
 	      this.props.show({ type: "FEATURE_SHOW", step: 0 });
 	    }
 	  },
+	  getClasses: function getClasses(stepId) {
+	    var classes = "steps_option ";
+	    if (this.state.step == stepId) {
+	      classes += "text-blue duck-underline";
+	    } else {
+	      classes += "duck-underline-disabled";
+	    }
+	    return classes;
+	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6 col-md-5 col-md-offset-1 blur_white" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row" }, React.createElement("span", { onClick: this.go_to_screen.bind(this, 1), className: "steps_option" }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2), className: "steps_option" }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3), className: "steps_option" }, " 3. Templates ")), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
+	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6 col-md-5 col-md-offset-1 blur_white no-border" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row spacer col-xs-offset-1" }, React.createElement("span", { onClick: this.go_to_screen.bind(this, 1), className: this.getClasses(1) }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2), className: this.getClasses(2) }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3), className: this.getClasses(3) }, " 3. Templates ")), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
 	  }
 	});
 
@@ -419,8 +428,8 @@
 	  render: function render() {
 	    switch (this.props.step) {
 	      case 1:
-	        return React.createElement("div", { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1" }, React.createElement("h3", {}, "Label your pod"), React.createElement("input", { type: "text", value: this.props.data.about_us.shop_name,
-	          className: "form-control spacer", onChange: this.updateAppName }), React.createElement(NextButton, { next: 2, stepType: "STEP_STEP" }));
+	        return React.createElement("div", { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1 no-border foreground-white" }, React.createElement("h3", {}, "Label your pod"), React.createElement("input", { type: "text", placeholder: "Shop Name", value: this.props.data.about_us.shop_name,
+	          className: "form-control spacer", onChange: this.updateAppName }), React.createElement(NextButton, { next: 2, stepType: "STEP_STEP", addClass: "col-xs-offset-9" }));
 	      case 2:
 	        return React.createElement("div", { id: "feature_menu" }, React.createElement(Features, {}), React.createElement(FeatureView, { data: this.props.data }));
 	      case 3:
@@ -455,7 +464,7 @@
 	    });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "TemplateView", className: "animated fadeInUp panel" }, React.createElement("h4", { className: "panel-head" }, "Templates"), React.createElement("div", { className: "btn-group" }, React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")), React.createElement("div", { className: "form-group" }, React.createElement(DropZone, { id: "mydropzone4", label: "", url: 'allaboutshop/upload_iphone.php', callBack: this.image_preview })
+	    return React.createElement("div", { id: "TemplateView", className: "animated fadeInUp panel back_white" }, React.createElement("h4", { className: "panel-head" }, "Templates"), React.createElement("div", { className: "btn-group spacer" }, React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")), React.createElement("div", { className: "form-group" }, React.createElement(DropZone, { id: "mydropzone4", label: "", url: 'allaboutshop/upload_iphone.php', callBack: this.image_preview })
 	    //React.createElement("input", { id:"iphone_background", type: "file", accept: "image/*", onChange: this.image_preview } )
 	    ), React.createElement(TemplateColorPicker, { title: "Background Color", section: "shop_bg_color" }), React.createElement(TemplateColorPicker, { title: "Theme Color", section: "shop_theme_color" }), React.createElement("button", { id: "upload_style", type: "button", onClick: this.upload_style, className: "btn btn-primary" }, "Submit"));
 	  }
@@ -476,7 +485,7 @@
 	    store.dispatch({ type: "CHANGE_TEMPLATE_STYLE", "id": id });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { className: "row panel" }, React.createElement("h4", { className: "panel-head" }, this.props.title), React.createElement("div", { className: "panel-body" }, React.createElement(ColorPicker, { type: "swatches", onChange: this.pickColor.bind(this, this.props.section) })), React.createElement("div", { className: "panel col-xs-9 col-md-9" }, React.createElement("div", { id: "colorValue", className: "panel-heading col-xs-7 col-md-7" }, "hex is: " + this.state[this.props.section]), React.createElement("div", { className: "panel-body col-xs-2", style: { backgroundColor: this.state[this.props.section] } })));
+	    return React.createElement("div", { className: "row panel back_white" }, React.createElement("h4", { className: "panel-head" }, this.props.title), React.createElement("div", { className: "panel-body" }, React.createElement(ColorPicker, { type: "swatches", onChange: this.pickColor.bind(this, this.props.section) })), React.createElement("div", { className: "panel col-xs-9 col-md-9" }, React.createElement("div", { id: "colorValue", className: "panel-heading col-xs-7 col-md-7" }, "hex is: " + this.state[this.props.section]), React.createElement("div", { className: "panel-body col-xs-2", style: { backgroundColor: this.state[this.props.section] } })));
 	  }
 	});
 
@@ -650,7 +659,7 @@
 	  displayName: "Step_Gallery",
 	  update_model: function update_model() {},
 	  render: function render() {
-	    return React.createElement("div", { id: "SetGallery", className: "row" }, React.createElement("div", { className: "col-xs-12 col-md-12 well" }, React.createElement(DropZone, { id: "mydropzone1", label: "1", url: 'gall_upload.php?album=', callBack: this.update_model }), React.createElement(DropZone, { id: "mydropzone2", label: "2", url: 'gall_upload.php?album=', callBack: this.update_model }), React.createElement(DropZone, { id: "mydropzone3", label: "3", url: 'gall_upload.php?album=', callBack: this.update_model })), React.createElement(NextButton, { next: 4, stepType: "FEATURE_SHOW" }));
+	    return React.createElement("div", { id: "SetGallery", className: "row" }, React.createElement("div", { id: "gallery-well", className: "col-xs-12 col-md-12 well back_white no-border" }, React.createElement(DropZone, { id: "mydropzone1", label: "1", url: 'gall_upload.php?album=', callBack: this.update_model }), React.createElement(DropZone, { id: "mydropzone2", label: "2", url: 'gall_upload.php?album=', callBack: this.update_model }), React.createElement(DropZone, { id: "mydropzone3", label: "3", url: 'gall_upload.php?album=', callBack: this.update_model })), React.createElement(NextButton, { next: 4, stepType: "FEATURE_SHOW" }));
 	  }
 	});
 
@@ -875,7 +884,7 @@
 	  render: function render() {
 	    return React.createElement("Div", { className: "form-group spacer" }, React.createElement("button", {
 	      type: "button",
-	      className: "btn btn-primary",
+	      className: "btn btn-primary next-blue next-btn " + this.props.addClass,
 	      onClick: this.go_to.bind(this, this.props.stepType, this.props.next)
 	    }, "Next"));
 	  }

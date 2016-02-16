@@ -19,7 +19,6 @@ if($_SESSION['shop_id']){
 		<link rel="stylesheet" href="http://52.11.4.98/dist/css/duck.css">
 		<link rel="stylesheet" href="http://52.11.4.98/dist/css/dropzone.css">
 		<link rel="stylesheet" href="http://52.11.4.98/css/animate.css">
-		<link rel="stylesheet" type="text/css" href="/andrew/css/main.css">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,10 +30,12 @@ if($_SESSION['shop_id']){
 
   <body class="hold-transition skin-Purple sidebar-mini blur_white">
 	  <?php include ('header.php');?>
+
 		<div id="reactComponents">
 	  </div>
 
  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+ 		<link rel="stylesheet" type="text/css" href="/andrew/css/main.css">
     <script src="//52.11.4.98/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="//52.11.4.98/js/bootstrap.min.js"></script>

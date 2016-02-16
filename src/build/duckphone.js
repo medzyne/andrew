@@ -527,10 +527,16 @@ var Steps = React.createClass({
       this.props.show({type: "FEATURE_SHOW", step: 0});
     }
   },
+  getClasses: function(stepId){
+    var classes = "steps_option ";
+    if(this.state.step == stepId){ classes += "text-blue duck-underline"; }
+    else{ classes += "duck-underline-disabled"; }
+    return classes;
+  },
   render: function () {
     return React.createElement(
       "div",
-      { id: "stepbar", className: "panel col-xs-6 col-md-5 col-md-offset-1 blur_white" },
+      { id: "stepbar", className: "panel col-xs-6 col-md-5 col-md-offset-1 blur_white no-border" },
       React.createElement("h2",
        { id: "steps_title", className: "panel-heading text-muted"},
       "Steps to create your app"),
@@ -538,20 +544,20 @@ var Steps = React.createClass({
         "div",
         {className: "spacer"}
       ),
-      React.createElement("div", { id: "step_options", className: "row" },
+      React.createElement("div", { id: "step_options", className: "row spacer col-xs-offset-1" },
       React.createElement(
         "span",
-        { onClick: this.go_to_screen.bind(this, 1), className: "steps_option" },
+        { onClick: this.go_to_screen.bind(this, 1), className: this.getClasses(1) },
         " 1. Name Your Shop"
       ),
       React.createElement(
         "span",
-        { onClick: this.go_to_screen.bind(this, 2), className: "steps_option" },
+        { onClick: this.go_to_screen.bind(this, 2), className: this.getClasses(2) },
         " 2. Features "
       ),
       React.createElement(
         "span",
-        { onClick: this.go_to_screen.bind(this, 3), className: "steps_option" },
+        { onClick: this.go_to_screen.bind(this, 3), className: this.getClasses(3) },
         " 3. Templates "
       )),
       React.createElement(StepView, { step: this.state.step, data: this.props.data })
@@ -571,11 +577,11 @@ var StepView = React.createClass({
       case 1:
         return React.createElement(
           "div",
-          { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1" },
+          { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1 no-border foreground-white" },
           React.createElement("h3", { }, "Label your pod"),
-          React.createElement("input", { type: "text", value: this.props.data.about_us.shop_name,
+          React.createElement("input", { type: "text", placeholder: "Shop Name", value: this.props.data.about_us.shop_name,
           className: "form-control spacer", onChange: this.updateAppName }),
-          React.createElement(NextButton, { next: 2, stepType: "STEP_STEP" } )
+          React.createElement(NextButton, { next: 2, stepType: "STEP_STEP", addClass:"col-xs-offset-9" } )
         );
       case 2:
         return React.createElement(
@@ -630,9 +636,9 @@ var TemplateView = React.createClass({
   render: function () {
     return React.createElement(
       "div",
-      { id: "TemplateView", className: "animated fadeInUp panel" },
+      { id: "TemplateView", className: "animated fadeInUp panel back_white" },
       React.createElement("h4", { className: "panel-head" }, "Templates"),
-      React.createElement("div", { className: "btn-group" },
+      React.createElement("div", { className: "btn-group spacer" },
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"),
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"),
       React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")),
@@ -668,7 +674,7 @@ var TemplateColorPicker = React.createClass({
   },
   render: function(){
     return React.createElement(
-      "div", { className: "row panel" },
+      "div", { className: "row panel back_white" },
       React.createElement("h4", { className: "panel-head" }, this.props.title),
       React.createElement(
         "div", { className: "panel-body" },
@@ -1040,7 +1046,7 @@ var Step_Gallery = React.createClass({
       "div",
       { id: "SetGallery", className: "row" },
       React.createElement(
-        "div", { className: "col-xs-12 col-md-12 well"},
+        "div", { id: "gallery-well", className: "col-xs-12 col-md-12 well back_white no-border"},
         React.createElement(DropZone, { id: "mydropzone1", label: "1", url: 'gall_upload.php?album=', callBack: this.update_model }),
         React.createElement(DropZone, { id: "mydropzone2", label: "2", url: 'gall_upload.php?album=', callBack: this.update_model }),
         React.createElement(DropZone, { id: "mydropzone3", label: "3", url: 'gall_upload.php?album=', callBack: this.update_model })
@@ -1398,7 +1404,7 @@ var NextButton = React.createClass({
       React.createElement(
         "button", {
           type: "button",
-          className: "btn btn-primary",
+          className: "btn btn-primary next-blue next-btn " + this.props.addClass,
           onClick: this.go_to.bind(this, this.props.stepType, this.props.next)
         }, "Next"
       )
