@@ -108,7 +108,9 @@
 	  video_name: "eouoeu"
 	  video_url: "uoeuoeu"
 	  */
-
+	  if (!id) {
+	    id = "";
+	  };
 	  var initialState = {
 	    "shop_id": id,
 	    "iphone": { "show": false, display: "about_us",
@@ -125,7 +127,7 @@
 	      "wall": { "detail": "", "send": true }
 	    }
 	  };
-	  if (!id && !localStorage.getItem("apppod")) {
+	  if (!id) {
 
 	    return initialState;
 	  }
@@ -405,16 +407,53 @@
 	    }
 	  },
 	  getClasses: function getClasses(stepId) {
+	    console.log("called");
 	    var classes = "steps_option ";
 	    if (this.state.step == stepId) {
 	      classes += "text-blue duck-underline";
-	    } else {
-	      classes += "duck-underline-disabled";
+	    }
+	    //if(this.state.step != stepId && focus){ classes += "text-focus-blue duck-focus-underline"; }
+	    else {
+	        classes += "duck-underline-disabled";
+	      }
+	    return classes;
+	  },
+	  render: function render() {
+	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6 col-md-5 col-md-offset-1 blur_white no-border" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row spacer col-xs-offset-1" }, React.createElement(StepName, { click: this.go_to_screen.bind(this, 1), text: " 1. Name Your Shop", stepId: 1 }), React.createElement(StepName, { click: this.go_to_screen.bind(this, 2), text: " 2. Features ", stepId: 2 }), React.createElement(StepName, { click: this.go_to_screen.bind(this, 3), text: " 3. Templates ", stepId: 3 })), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
+	  }
+	});
+
+	var StepName = React.createClass({
+	  displayName: 'StepName',
+
+	  getStep: function getStep() {
+	    return store.getState().steps;
+	  },
+	  getInitialState: function getInitialState() {
+	    return { focus: false, steps: store.getState().steps };
+	  },
+	  flipFocus: function flipFocus(result) {
+	    this.setState({ focus: result, steps: store.getState().steps });
+	  },
+	  getClasses: function getClasses(stepId) {
+	    var classes = "steps_option ";
+	    if (this.state.steps.step == stepId) {
+	      classes += "text-blue duck-underline";
+	    }
+	    if (this.state.steps.step != stepId && this.state.focus) {
+	      classes += "text-focus-blue duck-focus-underline";
+	    }
+	    if (this.state.steps.step != stepId && !this.state.focus) {
+	      classes += " duck-underline-disabled";
 	    }
 	    return classes;
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "stepbar", className: "panel col-xs-6 col-md-5 col-md-offset-1 blur_white no-border" }, React.createElement("h2", { id: "steps_title", className: "panel-heading text-muted" }, "Steps to create your app"), React.createElement("div", { className: "spacer" }), React.createElement("div", { id: "step_options", className: "row spacer col-xs-offset-1" }, React.createElement("span", { onClick: this.go_to_screen.bind(this, 1), className: this.getClasses(1) }, " 1. Name Your Shop"), React.createElement("span", { onClick: this.go_to_screen.bind(this, 2), className: this.getClasses(2) }, " 2. Features "), React.createElement("span", { onClick: this.go_to_screen.bind(this, 3), className: this.getClasses(3) }, " 3. Templates ")), React.createElement(StepView, { step: this.state.step, data: this.props.data }));
+	    return React.createElement("span", { onClick: this.props.click.bind(this, this.props.stepId),
+	      className: this.getClasses(this.props.stepId),
+	      onMouseOver: this.flipFocus.bind(this, true),
+	      onMouseOut: this.flipFocus.bind(this, false)
+	    }, this.props.text);
 	  }
 	});
 

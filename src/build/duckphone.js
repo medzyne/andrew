@@ -57,7 +57,7 @@ video_id: "0"
 video_name: "eouoeu"
 video_url: "uoeuoeu"
 */
-
+if(!id){ id = ""};
 var initialState = {
   "shop_id": id,
    "iphone": { "show": false, display: "about_us",
@@ -74,7 +74,7 @@ var initialState = {
      "wall": {"detail": "", "send": true}
  }
 }
-    if(!id && !localStorage.getItem("apppod"))
+    if(!id)
     {
 
         return initialState;
@@ -528,8 +528,10 @@ var Steps = React.createClass({
     }
   },
   getClasses: function(stepId){
+    console.log("called");
     var classes = "steps_option ";
     if(this.state.step == stepId){ classes += "text-blue duck-underline"; }
+    //if(this.state.step != stepId && focus){ classes += "text-focus-blue duck-focus-underline"; }
     else{ classes += "duck-underline-disabled"; }
     return classes;
   },
@@ -546,22 +548,51 @@ var Steps = React.createClass({
       ),
       React.createElement("div", { id: "step_options", className: "row spacer col-xs-offset-1" },
       React.createElement(
-        "span",
-        { onClick: this.go_to_screen.bind(this, 1), className: this.getClasses(1) },
-        " 1. Name Your Shop"
+        StepName,
+        { click: this.go_to_screen.bind(this, 1), text: " 1. Name Your Shop", stepId: 1 }
       ),
       React.createElement(
-        "span",
-        { onClick: this.go_to_screen.bind(this, 2), className: this.getClasses(2) },
-        " 2. Features "
+        StepName,
+        { click: this.go_to_screen.bind(this, 2), text: " 2. Features ", stepId: 2  }
       ),
       React.createElement(
-        "span",
-        { onClick: this.go_to_screen.bind(this, 3), className: this.getClasses(3) },
-        " 3. Templates "
+        StepName,
+        { click: this.go_to_screen.bind(this, 3), text: " 3. Templates ", stepId: 3 }
       )),
       React.createElement(StepView, { step: this.state.step, data: this.props.data })
     );
+  }
+});
+
+var StepName = React.createClass({
+  getStep: function(){
+    return store.getState().steps;
+  },
+  getInitialState: function(){
+    return {focus: false, steps: store.getState().steps }
+  },
+  flipFocus: function(result){
+    this.setState({focus: result, steps: store.getState().steps });
+  },
+  getClasses: function(stepId){
+    var classes = "steps_option ";
+    if(this.state.steps.step == stepId){ classes += "text-blue duck-underline"; }
+    if(this.state.steps.step != stepId && this.state.focus){ classes += "text-focus-blue duck-focus-underline"; }
+    if(this.state.steps.step != stepId && !this.state.focus){ classes += " duck-underline-disabled"; }
+    return classes;
+  },
+  render: function(){
+    return(
+      React.createElement(
+        "span",
+        { onClick: this.props.click.bind(this, this.props.stepId),
+          className: this.getClasses(this.props.stepId),
+          onMouseOver: this.flipFocus.bind(this, true),
+          onMouseOut: this.flipFocus.bind(this, false)
+         },
+        this.props.text
+      )
+    )
   }
 });
 

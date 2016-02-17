@@ -33,3 +33,8 @@ and the navigation: (1. Name Your Shop 2. Features 3. Templates)
 oh and the colour,we didn’t use the blue and green anymore,
 I believe I send you the HEX code via email
 (the email that mock up files are attached I think)
+
+step2: the border of each feature, could you please make it a bit border?
+
+- for the iphone mockup, when it slide from to left side to the screen,
+could you please make it apprear just inside the iphone? I think it will look better &#X1f603
