@@ -390,7 +390,7 @@
 	    return null;
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "IphoneElement", className: "row animated slideInRight" }, React.createElement("div", { id: "FormValue", className: "well col-xs-8 col-xs-offset-1 col-md-8 col-md-offset-1" }, this.props.id + " : " + this.props.text));
+	    return React.createElement("div", { id: "IphoneElement", className: "row animated swipeRight" }, React.createElement("div", { id: "FormValue", className: "well col-xs-8 col-xs-offset-1 col-md-8 col-md-offset-1" }, this.props.id + " : " + this.props.text));
 	  }
 	});
 
