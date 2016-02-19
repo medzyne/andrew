@@ -350,17 +350,17 @@
 	    return React.createElement(ReactReorderable, { id: "phone_apps" }, React.createElement("div", { className: "draggable-element aboutus " + this.props.classType,
 	      value: 1,
 	      onClick: this.show_iphone.bind(this, 1, "about_us"),
-	      style: { backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", value: 1, style: { color: this.state.shop_theme_color } }, "About Us")), React.createElement("div", { className: "draggable-element callus " + this.props.classType,
+	      style: { backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", value: 1, style: { color: this.state.shop_theme_color } })), React.createElement("div", { className: "draggable-element callus " + this.props.classType,
 	      onClick: this.show_iphone.bind(this, 2, "call_us"),
-	      style: { backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } }, "Call Us")), React.createElement("div", { className: "draggable-element gallery " + this.props.classType,
+	      style: { backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } })), React.createElement("div", { className: "draggable-element gallery " + this.props.classType,
 	      onClick: this.show_iphone.bind(this, 3, "gallery"),
-	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } }, "Gallery")), React.createElement("div", { className: "draggable-element video " + this.props.classType,
+	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } })), React.createElement("div", { className: "draggable-element video " + this.props.classType,
 	      onClick: this.show_iphone.bind(this, 4, "video"),
-	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } }, "Video")), React.createElement("div", { className: "draggable-element fb " + this.props.classType,
+	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } })), React.createElement("div", { className: "draggable-element fb " + this.props.classType,
 	      onClick: this.show_iphone.bind(this, 5, "facebook"),
-	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } }, "Facebook")), React.createElement("div", { className: "draggable-element fanwall " + this.props.classType,
+	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } })), React.createElement("div", { className: "draggable-element fanwall " + this.props.classType,
 	      onClick: this.show_iphone.bind(this, 6, "wall"),
-	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } }, "Fan Wall")));
+	      style: { backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color } }, React.createElement("div", { className: "draggable-handle", style: { color: this.state.shop_theme_color } })));
 	  }
 	});
 
@@ -370,7 +370,9 @@
 	    return store.getState().iphone.template;
 	  },
 	  mapToElement: function mapToElement(value, index, list) {
-	    return React.createElement(IphoneElement, { key: index, id: value, text: this.section()[value], template: store.getState().iphone.display });
+	    if (value.toLowerCase() != "send") {
+	      return React.createElement(IphoneElement, { key: index, id: value, text: this.section()[value], template: store.getState().iphone.display });
+	    }
 	  },
 	  section: function section() {
 	    return store.getState().data[store.getState().iphone.display];
@@ -467,7 +469,7 @@
 	  render: function render() {
 	    switch (this.props.step) {
 	      case 1:
-	        return React.createElement("div", { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1 no-border foreground-white" }, React.createElement("h3", {}, "Label your pod"), React.createElement("input", { type: "text", placeholder: "Shop Name", value: this.props.data.about_us.shop_name,
+	        return React.createElement("div", { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1 no-border focus-white" }, React.createElement("h3", {}, "Label your pod"), React.createElement("input", { type: "text", placeholder: "Shop Name", value: this.props.data.about_us.shop_name,
 	          className: "form-control spacer", onChange: this.updateAppName }), React.createElement(NextButton, { next: 2, stepType: "STEP_STEP", addClass: "col-xs-offset-9" }));
 	      case 2:
 	        return React.createElement("div", { id: "feature_menu" }, React.createElement(Features, {}), React.createElement(FeatureView, { data: this.props.data }));

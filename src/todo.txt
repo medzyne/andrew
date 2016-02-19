@@ -11,30 +11,27 @@ webpack --optimize-minimize
 
 These are the things I think I need to get done:
 
-1. better css and design for the app
 2. a layout for the view when you click on an app
 6. only sending data to server if the inputs in a section were changed
-7. uploading the iphone background image and previewing it
 8. cache the images
 9. dropzone no cancel on server error
 10. this.update_model
 
+
+Front End:
+1 the iPad app view needs style
+2 mouse over highlights need better colors
+3 templates section needs a more uniform design
+4 the iPhone app name needs a gradient background
+5 the app buttons need to get rid of text
+6 don't show send
+
+Back End
+1 don't resend data unless the data has been altered
+2 get more of the app to load from server
+3 lock all features until shop id has been set
+4 if shop id hasn't been set return an error
+5 add validation to inputs
+
 Here is the design attached with this email, I think it might help you to create CSS
-However, the color that you have to use are #4fa5b8 and #beded6
-
-
-the border of each features on step 2,
-can you make its corner a bit rounder?
-and just adjust the space of each box properly
-
-and the navigation: (1. Name Your Shop 2. Features 3. Templates)
- can you add more CSS based on the mock up file  I send you?
- I think it would look nicer 😃
-oh and the colour,we didn’t use the blue and green anymore,
-I believe I send you the HEX code via email
-(the email that mock up files are attached I think)
-
-step2: the border of each feature, could you please make it a bit border?
-
-- for the iphone mockup, when it slide from to left side to the screen,
-could you please make it apprear just inside the iphone? I think it will look better &#X1f603
+However, the color that you have to use are #4fa5b8 and #beded6  #X1f603

@@ -414,8 +414,7 @@ var IphoneApps = React.createClass({
           style: {backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color} } ,
           React.createElement(
             "div",
-            { className: "draggable-handle", value: 1, style: { color: this.state.shop_theme_color } },
-            "About Us"
+            { className: "draggable-handle", value: 1, style: { color: this.state.shop_theme_color } }
           )
         ),
         React.createElement(
@@ -425,8 +424,7 @@ var IphoneApps = React.createClass({
           style: {backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
-            { className: "draggable-handle", style: { color: this.state.shop_theme_color } },
-            "Call Us"
+            { className: "draggable-handle", style: { color: this.state.shop_theme_color } }
           )
         ),
         React.createElement(
@@ -436,8 +434,7 @@ var IphoneApps = React.createClass({
           style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
-            { className: "draggable-handle", style: { color: this.state.shop_theme_color } },
-            "Gallery"
+            { className: "draggable-handle", style: { color: this.state.shop_theme_color } }
           )
         ),
         React.createElement(
@@ -447,8 +444,7 @@ var IphoneApps = React.createClass({
           style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
-            { className: "draggable-handle", style: { color: this.state.shop_theme_color } },
-            "Video"
+            { className: "draggable-handle", style: { color: this.state.shop_theme_color } }
           )
         ),
         React.createElement(
@@ -458,8 +454,7 @@ var IphoneApps = React.createClass({
           style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
-            { className: "draggable-handle", style: { color: this.state.shop_theme_color } },
-            "Facebook"
+            { className: "draggable-handle", style: { color: this.state.shop_theme_color } }
           )
         ),
         React.createElement(
@@ -469,8 +464,7 @@ var IphoneApps = React.createClass({
           style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
-            { className: "draggable-handle", style: { color: this.state.shop_theme_color } },
-            "Fan Wall"
+            { className: "draggable-handle", style: { color: this.state.shop_theme_color } }
           )
         )
       )
@@ -483,9 +477,11 @@ var IphoneShow = React.createClass({
     return store.getState().iphone.template;
   },
   mapToElement: function(value, index, list){
+    if(value.toLowerCase() != "send"){
     return React.createElement(
       IphoneElement, { key: index, id: value, text: this.section()[value], template: store.getState().iphone.display  }
     );
+  }
   },
   section: function() { return store.getState().data[store.getState().iphone.display]; },
   background: function(){ return "url(http://52.11.4.98/shop/" + store.getState().shop_id + "/iphoneBackground/" + this.state.shop_bg_image + ")"; },
@@ -608,7 +604,7 @@ var StepView = React.createClass({
       case 1:
         return React.createElement(
           "div",
-          { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1 no-border foreground-white" },
+          { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1 no-border focus-white" },
           React.createElement("h3", { }, "Label your pod"),
           React.createElement("input", { type: "text", placeholder: "Shop Name", value: this.props.data.about_us.shop_name,
           className: "form-control spacer", onChange: this.updateAppName }),

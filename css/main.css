@@ -1,3 +1,9 @@
+.iphone_header{
+  margin: 0px;
+  background: linear-gradient(rgba(238,246,245,0.5), rgba(255,255,255,0.1));
+  width: 340px;
+}
+
 @-webkit-keyframes swipeRight {
   0% {
     -webkit-transform: translateX(20%);
