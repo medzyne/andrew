@@ -1,3 +1,19 @@
+input:required:invalid, input:focus:invalid {
+  border-color: "red";
+  -moz-box-shadow: none;
+}
+
+input#ShopName:invalid{
+  border-style: dotted;
+  border-color: "red";
+  -moz-box-shadow: none;
+}
+
+#IphoneElement{
+  margin: 0px;
+  width: 340px;
+}
+
 .iphone_header{
   margin: 0px;
   background: linear-gradient(rgba(238,246,245,0.5), rgba(255,255,255,0.1));
@@ -96,13 +112,13 @@
 
 .text-focus-blue{
   text-align: center;
-  color: rgba(0,0,100,0.5);
+  color: rgba(0,10,100,0.3);
 }
 
 .duck-focus-underline{
   border-style:solid;
   border-width:2px;
-  border-color: rgba(0,0,100,0.5);
+  border-color: rgba(0,10,100,0.3);
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
@@ -130,7 +146,7 @@ border-radius: 2px;
 }
 
 
-#gradient-box, .focus_white{
+#gradient-box, .focus-white{
   background: #FFF;
   background-color: #FFF;
 }

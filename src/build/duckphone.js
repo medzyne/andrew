@@ -127,6 +127,8 @@ function saveState(state)
   else{
     localStorage.setItem("apppod", JSON.stringify(state));
   }
+
+  return state;
 }
 
 // in a flux app you dispatch actions to modify the state
@@ -134,6 +136,12 @@ function reducer(state, action)
 {
   switch(action.type)
   {
+    case 'DATA_SAVED':
+      state.data[action.section]["send"] = false;
+      return saveState(state);
+    case 'no_shop_id':
+      state.steps.step = 0;
+      return saveState(state);
     case 'IPHONE_SHOW':
     if(validate_input(action.section, String)){
       state.iphone.show = !state.iphone.show;
@@ -167,6 +175,7 @@ function reducer(state, action)
       if(validate_input(action.key, String) &&
        validate_input(action.value, String)){
       state.data[action.section][action.key] = action.value;
+      state.data[action.section]["send"] = true;
       saveState(state);
     }
       return state;
@@ -411,6 +420,7 @@ var IphoneApps = React.createClass({
           { className: "draggable-element aboutus " + this.props.classType,
           value: 1,
           onClick: this.show_iphone.bind(this, 1, "about_us"),
+          onTouchEnd: this.show_iphone.bind(this, 1, "about_us"),
           style: {backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color} } ,
           React.createElement(
             "div",
@@ -421,6 +431,7 @@ var IphoneApps = React.createClass({
           "div",
           { className: "draggable-element callus " + this.props.classType,
           onClick: this.show_iphone.bind(this, 2, "call_us"),
+          onTouchEnd: this.show_iphone.bind(this, 2, "call_us"),
           style: {backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
@@ -431,6 +442,7 @@ var IphoneApps = React.createClass({
           "div",
           { className: "draggable-element gallery " + this.props.classType,
           onClick: this.show_iphone.bind(this, 3, "gallery"),
+          onTouchEnd: this.show_iphone.bind(this, 3, "gallery"),
           style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
@@ -441,6 +453,7 @@ var IphoneApps = React.createClass({
           "div",
           { className: "draggable-element video " + this.props.classType,
           onClick: this.show_iphone.bind(this, 4, "video"),
+          onTouchEnd: this.show_iphone.bind(this, 4, "video"),
           style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
@@ -451,6 +464,7 @@ var IphoneApps = React.createClass({
           "div",
           { className: "draggable-element fb " + this.props.classType,
           onClick: this.show_iphone.bind(this, 5, "facebook"),
+          onTouchEnd: this.show_iphone.bind(this, 5, "facebook"),
           style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
@@ -461,6 +475,7 @@ var IphoneApps = React.createClass({
           "div",
           { className: "draggable-element fanwall " + this.props.classType,
           onClick: this.show_iphone.bind(this, 6, "wall"),
+          onTouchEnd: this.show_iphone.bind(this, 6, "wall"),
           style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
           React.createElement(
             "div",
@@ -489,7 +504,7 @@ var IphoneShow = React.createClass({
   render: function () {
     return React.createElement(
       "div",
-      { id: "iphone_show", style: { background: this.background() } },
+      { id: "iphone_show", style: { background: this.background() }, className: "panel focus-white" },
       Object.keys(this.section()).map(this.mapToElement)
     );
   }
@@ -500,9 +515,9 @@ var IphoneElement = React.createClass({
   getInitialState: function() { return null },
   render: function() {
     return React.createElement(
-      "div", { id: "IphoneElement", className: "row animated swipeRight" },
+      "div", { id: "IphoneElement", className: "row animated swipeRight back_white" },
       React.createElement(
-        "div", { id: "FormValue", className: "well col-xs-8 col-xs-offset-1 col-md-8 col-md-offset-1" },
+        "div", { id: "FormValue", className: "panel-body col-xs-8 col-xs-offset-1 col-md-8 col-md-offset-1" },
         this.props.id + " : " + this.props.text
       )
     )
@@ -606,8 +621,8 @@ var StepView = React.createClass({
           "div",
           { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1 no-border focus-white" },
           React.createElement("h3", { }, "Label your pod"),
-          React.createElement("input", { type: "text", placeholder: "Shop Name", value: this.props.data.about_us.shop_name,
-          className: "form-control spacer", onChange: this.updateAppName }),
+          React.createElement("input", { type: "text", id:"inputError", placeholder: "Shop Name", value: this.props.data.about_us.shop_name,
+          className: "form-control spacer", onChange: this.updateAppName, min: 2, max: 200 }),
           React.createElement(NextButton, { next: 2, stepType: "STEP_STEP", addClass:"col-xs-offset-9" } )
         );
       case 2:
@@ -855,7 +870,7 @@ var FeatureBox = React.createClass({
         onClick: this.showFeature.bind(this, this.props.id)},
         React.createElement(
           "div",
-          { id: "gradient-box", className: "gradient-box focus_white"},
+          { id: "gradient-box", className: "gradient-box focus-white"},
           React.createElement(
             "img",
             {src: this.state.focus ? this.props.active : this.props.inactive,
@@ -875,6 +890,7 @@ var Step_AboutUs = React.createClass({
     store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: key, value: event.target.value });
   },
   post_form: function(data, fileName){
+    if(this.props.data.send == false){ return false; }
       jQuery.ajax(
       {
       url: "http://52.11.4.98/allaboutshop/record_shop.php",
@@ -893,6 +909,8 @@ var Step_AboutUs = React.createClass({
             store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: "shop_id", value: justNumbers.exec(response)[0] });
             store.dispatch( {type: "UPDATE_DATA", section: "about_us", key: "shop_photo_name", value: fileName } );
           }
+          store.dispatch({ type: "DATA_SAVED", section: "about_us" });
+          console.log(store.getState());
 
        },
       error: function(response) { console.log("error"); }
@@ -962,7 +980,9 @@ var Step_AboutUs = React.createClass({
                 placeholder: "Enter subtitle less than 35 characters",
                 onChange: this.UPDATE_DATA.bind(this, "shop_subtitle"),
                 name: "shop_subtitle",
-                value: this.props.data.shop_subtitle
+                value: this.props.data.shop_subtitle,
+                min: 1,
+                max: 35
                }
               )
             ),
@@ -1004,6 +1024,7 @@ var Step_CallUs = React.createClass({
     store.dispatch({ type: "UPDATE_DATA", section: "call_us", key: key, value: event.target.value });
   },
   post_form: function(data){
+    if(this.state.send == false){ return false; }
       jQuery.ajax(
       {
       url: "http://52.11.4.98/allaboutshop/insert_call.php",
@@ -1012,7 +1033,9 @@ var Step_CallUs = React.createClass({
       cache: false,
       contentType: false,
       processData: false,
-      success: function(response){ },
+      success: function(response){
+        store.dispatch({ type: "DATA_SAVED", section: "call_us" });
+       },
       error: function(response) { console.log("error"); }
     });
 
@@ -1051,6 +1074,9 @@ var Step_CallUs = React.createClass({
                 className: "form-control",
                 value: this.state.phone,
                 onChange: this.UPDATE_DATA.bind(this, "phone"),
+                min: 1,
+                max: 35,
+                pattern: "[0-9]+",
                 name: "call_num" }
               ),
               React.createElement(
@@ -1092,6 +1118,7 @@ var Step_Video = React.createClass({
     store.dispatch({ type: "UPDATE_DATA", section: "video", key: key, value: event.target.value });
   },
   post_form: function(data){
+    if(this.state.send == false){ return false; }
       jQuery.ajax(
       {
       url: "http://52.11.4.98/allaboutshop/insert_youtube.php",
@@ -1100,7 +1127,9 @@ var Step_Video = React.createClass({
       cache: false,
       contentType: false,
       processData: false,
-      success: function(response){ console.log(response); },
+      success: function(response){
+        store.dispatch({ type: "DATA_SAVED", section: "video" });
+        console.log(response); },
       error: function(response) { console.log("error"); }
     });
 
@@ -1230,6 +1259,7 @@ var Step_FanWall = React.createClass({
     store.dispatch({ type: "UPDATE_DATA", section: "wall", key: key, value: event.target.value });
   },
   post_form: function(data){
+    if(this.state.send == false){ return false; }
       jQuery.ajax(
       {
       url: "http://52.11.4.98/allaboutshop/record_shop.php",
@@ -1238,7 +1268,9 @@ var Step_FanWall = React.createClass({
       cache: false,
       contentType: false,
       processData: false,
-      success: function(response){ console.log(response); },
+      success: function(response){
+        store.dispatch({ type: "DATA_SAVED", section: "wall" });
+        console.log(response); },
       error: function(response) { console.log("error"); }
     });
 

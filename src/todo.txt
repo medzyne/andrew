@@ -4,7 +4,7 @@ First- Choose Layout ( 3 layout as I send you in previous email)
 Second- color picker for Background color
 Third - color picker for icon color (color of the text and border)
 Forth- upload photo for background
-
+r
 
 webpack --optimize-minimize
 
@@ -19,18 +19,13 @@ These are the things I think I need to get done:
 
 
 Front End:
-1 the iPad app view needs style
-2 mouse over highlights need better colors
+1 the iPhone app view needs style
 3 templates section needs a more uniform design
-4 the iPhone app name needs a gradient background
-5 the app buttons need to get rid of text
-6 don't show send
 
 Back End
 1 don't resend data unless the data has been altered
 2 get more of the app to load from server
 3 lock all features until shop id has been set
-4 if shop id hasn't been set return an error
 5 add validation to inputs
 
 Here is the design attached with this email, I think it might help you to create CSS
