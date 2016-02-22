@@ -522,7 +522,7 @@
 	  render: function render() {
 	    return React.createElement("div", { id: "TemplateView", className: "animated fadeInUp panel back_white" }, React.createElement("h4", { className: "panel-head" }, "Templates"), React.createElement("div", { className: "btn-group spacer" }, React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"), React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")), React.createElement("div", { className: "form-group" }, React.createElement(DropZone, { id: "mydropzone4", label: "", url: 'allaboutshop/upload_iphone.php', callBack: this.image_preview })
 	    //React.createElement("input", { id:"iphone_background", type: "file", accept: "image/*", onChange: this.image_preview } )
-	    ), React.createElement(TemplateColorPicker, { title: "Background Color", section: "shop_bg_color" }), React.createElement(TemplateColorPicker, { title: "Theme Color", section: "shop_theme_color" }), React.createElement("button", { id: "upload_style", type: "button", onClick: this.upload_style, className: "btn btn-primary" }, "Submit"));
+	    ), React.createElement(TemplateColorPicker, { title: "Background Color", section: "shop_bg_color" }), React.createElement("div", { className: "row" }), React.createElement(TemplateColorPicker, { title: "Theme Color", section: "shop_theme_color" }), React.createElement("button", { id: "upload_style", type: "button", onClick: this.upload_style, className: "btn btn-primary" }, "Submit"));
 	  }
 	});
 
@@ -541,7 +541,7 @@
 	    store.dispatch({ type: "CHANGE_TEMPLATE_STYLE", "id": id });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { className: "row panel back_white" }, React.createElement("h4", { className: "panel-head" }, this.props.title), React.createElement("div", { className: "panel-body" }, React.createElement(ColorPicker, { type: "swatches", onChange: this.pickColor.bind(this, this.props.section) })), React.createElement("div", { className: "panel col-xs-9 col-md-9" }, React.createElement("div", { id: "colorValue", className: "panel-heading col-xs-7 col-md-7" }, "hex is: " + this.state[this.props.section]), React.createElement("div", { className: "panel-body col-xs-2", style: { backgroundColor: this.state[this.props.section] } })));
+	    return React.createElement("div", { className: "panel back_white" }, React.createElement("h4", { className: "panel-head" }, this.props.title), React.createElement("div", { className: "panel-body" }, React.createElement(ColorPicker, { type: "swatches", onChange: this.pickColor.bind(this, this.props.section) })), React.createElement("div", { className: "panel col-xs-9 col-md-9" }, React.createElement("div", { id: "colorValue", className: "panel-heading col-xs-7 col-md-7" }, "hex is: " + this.state[this.props.section]), React.createElement("div", { className: "panel-body col-xs-2", style: { backgroundColor: this.state[this.props.section] } })));
 	  }
 	});
 

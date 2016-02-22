@@ -1,29 +1,19 @@
-in step 3.  Template. There are 4 function
-
-First- Choose Layout ( 3 layout as I send you in previous email)
-Second- color picker for Background color
-Third - color picker for icon color (color of the text and border)
-Forth- upload photo for background
-r
-
 webpack --optimize-minimize
 
 
 These are the things I think I need to get done:
 
 2. a layout for the view when you click on an app
-6. only sending data to server if the inputs in a section were changed
 8. cache the images
 9. dropzone no cancel on server error
-10. this.update_model
 
 
 Front End:
 1 the iPhone app view needs style
 3 templates section needs a more uniform design
+4 onTouchEnd only if it didn't move
 
 Back End
-1 don't resend data unless the data has been altered
 2 get more of the app to load from server
 3 lock all features until shop id has been set
 5 add validation to inputs

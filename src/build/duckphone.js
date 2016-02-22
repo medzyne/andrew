@@ -691,6 +691,7 @@ var TemplateView = React.createClass({
       React.createElement(
         TemplateColorPicker, { title: "Background Color", section: "shop_bg_color" }
       ),
+      React.createElement("div", {className: "row" }),
       React.createElement(
         TemplateColorPicker, { title: "Theme Color", section: "shop_theme_color" }
       ),
@@ -716,7 +717,7 @@ var TemplateColorPicker = React.createClass({
   },
   render: function(){
     return React.createElement(
-      "div", { className: "row panel back_white" },
+      "div", { className: "panel back_white" },
       React.createElement("h4", { className: "panel-head" }, this.props.title),
       React.createElement(
         "div", { className: "panel-body" },
