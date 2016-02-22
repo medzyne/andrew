@@ -402,6 +402,41 @@ var IphoneHeader = React.createClass({
 dynamicStyle: function(){ return StyleSheet.create({ background: { backgroundColor: "black" } }); },
 style: { backgroundColor: "black" },
 */
+var DraggableIphoneBox = React.createClass({
+  getInitialState: function(){
+    return {tstart: null }
+  },
+  tstart: function(event){
+    console.log(event.timeStamp);
+    this.setState({tstart: event.timeStamp});
+    console.log(this.state);
+  },
+  tend: function(event){
+    console.log("end");
+    if(event.timeStamp -  this.state.tstart < 300){
+      this.show_iphone(this.props.id, this.props.section);
+    }
+  },
+  show_iphone: function(int, section){
+    store.dispatch({ type: "FEATURE_SHOW", step: int });
+    store.dispatch({type: "STEP_STEP", step: 2});
+    store.dispatch({ type: "IPHONE_SHOW", section: section }) },
+  render: function(){
+    return React.createElement(
+      "div",
+      { className: "draggable-element " + this.props.image + " " + this.props.classType,
+      value: 1,
+      onClick: this.show_iphone.bind(this, this.props.id, this.props.section),
+      onTouchStart: this.tstart,
+      onTouchEnd: this.tend,
+      style: {backgroundColor: this.props.bgcolor, color: this.props.themecolor, borderColor: this.props.themecolor} } ,
+      React.createElement(
+        "div",
+        { className: "draggable-handle", value: 1, style: { color: this.state.shop_theme_color } }
+      )
+    )
+  }
+})
 
 var IphoneApps = React.createClass({
   getInitialState: function(){
@@ -416,72 +451,17 @@ var IphoneApps = React.createClass({
         ReactReorderable,
         { id: "phone_apps"},
         React.createElement(
-          "div",
-          { className: "draggable-element aboutus " + this.props.classType,
-          value: 1,
-          onClick: this.show_iphone.bind(this, 1, "about_us"),
-          onTouchEnd: this.show_iphone.bind(this, 1, "about_us"),
-          style: {backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color} } ,
-          React.createElement(
-            "div",
-            { className: "draggable-handle", value: 1, style: { color: this.state.shop_theme_color } }
-          )
-        ),
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "aboutus", id: 1, section: "about_us" } ),
         React.createElement(
-          "div",
-          { className: "draggable-element callus " + this.props.classType,
-          onClick: this.show_iphone.bind(this, 2, "call_us"),
-          onTouchEnd: this.show_iphone.bind(this, 2, "call_us"),
-          style: {backgroundColor: this.state.shop_bg_color, color: this.state.shop_theme_color, borderColor: this.state.shop_theme_color} },
-          React.createElement(
-            "div",
-            { className: "draggable-handle", style: { color: this.state.shop_theme_color } }
-          )
-        ),
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "callus", id: 2, section: "call_us" } ),
         React.createElement(
-          "div",
-          { className: "draggable-element gallery " + this.props.classType,
-          onClick: this.show_iphone.bind(this, 3, "gallery"),
-          onTouchEnd: this.show_iphone.bind(this, 3, "gallery"),
-          style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
-          React.createElement(
-            "div",
-            { className: "draggable-handle", style: { color: this.state.shop_theme_color } }
-          )
-        ),
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "gallery", id: 3, section: "gallery" } ),
         React.createElement(
-          "div",
-          { className: "draggable-element video " + this.props.classType,
-          onClick: this.show_iphone.bind(this, 4, "video"),
-          onTouchEnd: this.show_iphone.bind(this, 4, "video"),
-          style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
-          React.createElement(
-            "div",
-            { className: "draggable-handle", style: { color: this.state.shop_theme_color } }
-          )
-        ),
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "video", id: 4, section: "video" } ),
         React.createElement(
-          "div",
-          { className: "draggable-element fb " + this.props.classType,
-          onClick: this.show_iphone.bind(this, 5, "facebook"),
-          onTouchEnd: this.show_iphone.bind(this, 5, "facebook"),
-          style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
-          React.createElement(
-            "div",
-            { className: "draggable-handle", style: { color: this.state.shop_theme_color } }
-          )
-        ),
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "fb", id: 5, section: "facebook" } ),
         React.createElement(
-          "div",
-          { className: "draggable-element fanwall " + this.props.classType,
-          onClick: this.show_iphone.bind(this, 6, "wall"),
-          onTouchEnd: this.show_iphone.bind(this, 6, "wall"),
-          style: {backgroundColor: this.state.shop_bg_color, borderColor: this.state.shop_theme_color} },
-          React.createElement(
-            "div",
-            { className: "draggable-handle", style: { color: this.state.shop_theme_color } }
-          )
-        )
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "fanwall", id: 6, section: "wall" } )
       )
   }
 })
