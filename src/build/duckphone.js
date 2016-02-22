@@ -505,8 +505,32 @@ var IphoneShow = React.createClass({
     return React.createElement(
       "div",
       { id: "iphone_show", style: { background: this.background() }, className: "panel focus-white" },
-      Object.keys(this.section()).map(this.mapToElement)
+      React.createElement(IphoneShowTemplate, { template: store.getState().iphone.display  })
     );
+  }
+});
+
+var IphoneShowTemplate = React.createClass({
+  getInitialState: function(){
+    return store.getState().iphone.template;
+  },
+  mapToElement: function(value, index, list){
+    if(value.toLowerCase() != "send"){
+    return React.createElement(
+      IphoneElement, { key: index, id: value, text: this.section()[value], template: store.getState().iphone.display  }
+    );
+  }
+  },
+  background: function(){ return "url(http://52.11.4.98/shop/" + store.getState().shop_id + "/iphoneBackground/" + this.state.shop_bg_image + ")"; },
+  section: function() { return store.getState().data[store.getState().iphone.display]; },
+  render: function () {
+    switch(this.props.template){
+      default:
+        return React.createElement(
+          "div", null,
+          Object.keys(this.section()).map(this.mapToElement)
+        );
+    }
   }
 });
 

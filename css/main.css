@@ -277,19 +277,19 @@ border-radius: 2px;
 }
 
 .template1{
-  margin-right: 10px;
+  margin-left: 10px;
   width: 150px;
 }
 
 .template2{
-  margin-right: 10px;
+  margin-left: 10px;
   width: 320px;
   height: 45px;
   background-size: 20px;
 }
 
 .template3{
-  margin-right: 10px;
+  margin-left: 10px;
   width: 150px;
   height: 115px;
   background-size: 50px;
