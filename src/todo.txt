@@ -11,7 +11,7 @@ These are the things I think I need to get done:
 Front End:
 1 the iPhone app view needs style
 3 templates section needs a more uniform design
-4 onTouchEnd only if it didn't move
+4 add filters to photos
 
 Back End
 2 get more of the app to load from server

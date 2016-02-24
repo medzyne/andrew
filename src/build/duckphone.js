@@ -35,7 +35,8 @@ function getState(){
   // building a localStorage function here
   if(shopRegex.test(loadOldShop)){
     var result = fetchStateFromServer(shopRegex.exec(loadOldShop)[2]);
-      return loadState(shopRegex.exec(loadOldShop)[2], result.data ? result.data : false);
+      return loadState(shopRegex.exec(loadOldShop)[2],
+      result.data ? result.data : false);
   }
   else{
     return loadState(null, false);
@@ -61,12 +62,14 @@ if(!id){ id = ""};
 var initialState = {
   "shop_id": id,
    "iphone": { "show": false, display: "about_us",
-     "template" : { "shop_style_id": "", "shop_theme_color": "#fff", "shop_bg_color": "#fff", "shop_bg_image": "", "shop_layout": "1"}
+     "template" : { "shop_style_id": "", "shop_theme_color": "#fff",
+     "shop_bg_color": "#fff", "shop_bg_image": "", "shop_layout": "1"}
    },
    "steps": {"step": 1},
    "feature": {"show": 0},
    "data": {
-     "about_us": {"shop_id": id, "shop_name": "", "shop_subtitle": "", "shop_description": "", "send": true },
+     "about_us": {"shop_id": id, "shop_name": "", "shop_subtitle": "",
+     "shop_description": "", "send": true },
      "call_us": {"phone": "","send": true},
      "gallery": {"send": true},
      "video": {"link": "", "name": "", "description": "", "send": true},
@@ -84,8 +87,13 @@ var initialState = {
     initialState = JSON.parse(localStorage.getItem("apppod" + id));
     if(result)
     {
-      initialState.data.about_us = {"shop_id": result[0].shop_id, "shop_name": result[0].shop_name, "shop_subtitle": result[0].shop_subtitle, "shop_description": result[0].shop_description, "shop_photo_name": result[0].shop_photo_name };
-      initialState.data.call_us = {"phone": result[0].call_num, "call_id": result[0].call_id };
+      initialState.data.about_us = {"shop_id": result[0].shop_id,
+      "shop_name": result[0].shop_name,
+      "shop_subtitle": result[0].shop_subtitle,
+      "shop_description": result[0].shop_description,
+      "shop_photo_name": result[0].shop_photo_name };
+      initialState.data.call_us = {"phone": result[0].call_num,
+      "call_id": result[0].call_id };
     }
     return initialState;
   }
@@ -94,8 +102,13 @@ var initialState = {
   {
     if(result)
     {
-      initialState.data.about_us = {"shop_id": result[0].shop_id, "shop_name": result[0].shop_name, "shop_subtitle": result[0].shop_subtitle, "shop_description": result[0].shop_description, "shop_photo_name": result[0].shop_photo_name };
-      initialState.data.call_us = {"phone": result[0].call_num, "call_id": result[0].call_id };
+      initialState.data.about_us = {"shop_id": result[0].shop_id,
+      "shop_name": result[0].shop_name,
+      "shop_subtitle": result[0].shop_subtitle,
+      "shop_description": result[0].shop_description,
+      "shop_photo_name": result[0].shop_photo_name };
+      initialState.data.call_us = {"phone": result[0].call_num,
+      "call_id": result[0].call_id };
     }
     return initialState;
   }
@@ -308,7 +321,8 @@ var Iphone = React.createClass({
       React.createElement(
         "div",
         { className: "col-xs-6 col-md-6" },
-        React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }),
+        React.createElement("img",
+        { id: "layer1", src: "../../images/iphone6.png" }),
         React.createElement(
           IphoneTemplate,
           null,
@@ -429,10 +443,12 @@ var DraggableIphoneBox = React.createClass({
       onClick: this.show_iphone.bind(this, this.props.id, this.props.section),
       onTouchStart: this.tstart,
       onTouchEnd: this.tend,
-      style: {backgroundColor: this.props.bgcolor, color: this.props.themecolor, borderColor: this.props.themecolor} } ,
+      style: {backgroundColor: this.props.bgcolor,
+        color: this.props.themecolor, borderColor: this.props.themecolor} } ,
       React.createElement(
         "div",
-        { className: "draggable-handle", value: 1, style: { color: this.state.shop_theme_color } }
+        { className: "draggable-handle", value: 1,
+        style: { color: this.state.shop_theme_color } }
       )
     )
   }
@@ -451,17 +467,35 @@ var IphoneApps = React.createClass({
         ReactReorderable,
         { id: "phone_apps"},
         React.createElement(
-          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "aboutus", id: 1, section: "about_us" } ),
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
+            themecolor: this.state.shop_theme_color,
+            classType: this.props.classType, image: "aboutus",
+            id: 1, section: "about_us" } ),
         React.createElement(
-          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "callus", id: 2, section: "call_us" } ),
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
+            themecolor: this.state.shop_theme_color,
+            classType: this.props.classType, image: "callus",
+            id: 2, section: "call_us" } ),
         React.createElement(
-          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "gallery", id: 3, section: "gallery" } ),
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
+            themecolor: this.state.shop_theme_color,
+            classType: this.props.classType, image: "gallery",
+            id: 3, section: "gallery" } ),
         React.createElement(
-          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "video", id: 4, section: "video" } ),
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
+            themecolor: this.state.shop_theme_color,
+            classType: this.props.classType, image: "video",
+            id: 4, section: "video" } ),
         React.createElement(
-          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "fb", id: 5, section: "facebook" } ),
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
+            themecolor: this.state.shop_theme_color,
+             classType: this.props.classType, image: "fb",
+             id: 5, section: "facebook" } ),
         React.createElement(
-          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color, themecolor: this.state.shop_theme_color, classType: this.props.classType, image: "fanwall", id: 6, section: "wall" } )
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
+            themecolor: this.state.shop_theme_color,
+            classType: this.props.classType, image: "fanwall",
+            id: 6, section: "wall" } )
       )
   }
 })
@@ -474,7 +508,8 @@ var IphoneShow = React.createClass({
   mapToElement: function(value, index, list){
     if(value.toLowerCase() != "send"){
     return React.createElement(
-      IphoneElement, { key: index, id: value, text: this.section()[value], template: store.getState().iphone.display  }
+      IphoneElement, { key: index, id: value, text: this.section()[value],
+        template: store.getState().iphone.display  }
     );
   }
   },
@@ -484,8 +519,10 @@ var IphoneShow = React.createClass({
   render: function () {
     return React.createElement(
       "div",
-      { id: "iphone_show", style: { background: this.background() }, className: "panel focus-white" },
-      React.createElement(IphoneShowTemplate, { template: store.getState().iphone.display  })
+      { id: "iphone_show", style: { background: this.background() },
+      className: "panel focus-white" },
+      React.createElement(IphoneShowTemplate,
+        { template: store.getState().iphone.display  })
     );
   }
 });
@@ -497,7 +534,8 @@ var IphoneShowTemplate = React.createClass({
   mapToElement: function(value, index, list){
     if(value.toLowerCase() != "send"){
     return React.createElement(
-      IphoneElement, { key: index, id: value, text: this.section()[value], template: store.getState().iphone.display  }
+      IphoneElement, { key: index, id: value, text: this.section()[value],
+        template: store.getState().iphone.display  }
     );
   }
   },
@@ -519,9 +557,11 @@ var IphoneElement = React.createClass({
   getInitialState: function() { return null },
   render: function() {
     return React.createElement(
-      "div", { id: "IphoneElement", className: "row animated swipeRight back_white" },
+      "div", { id: "IphoneElement",
+      className: "row animated swipeRight back_white" },
       React.createElement(
-        "div", { id: "FormValue", className: "panel-body col-xs-8 col-xs-offset-1 col-md-8 col-md-offset-1" },
+        "div", { id: "FormValue",
+        className: "panel-body col-xs-8 col-xs-offset-1 col-md-8 col-md-offset-1" },
         this.props.id + " : " + this.props.text
       )
     )
@@ -553,7 +593,8 @@ var Steps = React.createClass({
   render: function () {
     return React.createElement(
       "div",
-      { id: "stepbar", className: "panel col-xs-6 col-md-5 col-md-offset-1 blur_white no-border" },
+      { id: "stepbar",
+      className: "panel col-xs-6 col-md-5 col-md-offset-1 blur_white no-border" },
       React.createElement("h2",
        { id: "steps_title", className: "panel-heading text-muted"},
       "Steps to create your app"),
@@ -561,20 +602,25 @@ var Steps = React.createClass({
         "div",
         {className: "spacer"}
       ),
-      React.createElement("div", { id: "step_options", className: "row spacer col-xs-offset-1" },
+      React.createElement("div", { id: "step_options",
+      className: "row spacer col-xs-offset-1" },
       React.createElement(
         StepName,
-        { click: this.go_to_screen.bind(this, 1), text: " 1. Name Your Shop", stepId: 1 }
+        { click: this.go_to_screen.bind(this, 1),
+          text: " 1. Name Your Shop", stepId: 1 }
       ),
       React.createElement(
         StepName,
-        { click: this.go_to_screen.bind(this, 2), text: " 2. Features ", stepId: 2  }
+        { click: this.go_to_screen.bind(this, 2),
+          text: " 2. Features ", stepId: 2  }
       ),
       React.createElement(
         StepName,
-        { click: this.go_to_screen.bind(this, 3), text: " 3. Templates ", stepId: 3 }
+        { click: this.go_to_screen.bind(this, 3),
+          text: " 3. Templates ", stepId: 3 }
       )),
-      React.createElement(StepView, { step: this.state.step, data: this.props.data })
+      React.createElement(StepView, { step: this.state.step,
+        data: this.props.data })
     );
   }
 });
@@ -614,7 +660,8 @@ var StepName = React.createClass({
 var StepView = React.createClass({
   displayName: "StepView",
   updateAppName: function(event){
-    store.dispatch({ 'type': "UPDATE_DATA", 'section': "about_us", key: "shop_name", value: event.target.value });
+    store.dispatch({ 'type': "UPDATE_DATA", 'section': "about_us",
+    key: "shop_name", value: event.target.value });
     //var path = location.pathname;
     //window.history.pushState({}, null, path + "?shop=" + event.target.value)
    },
@@ -623,11 +670,15 @@ var StepView = React.createClass({
       case 1:
         return React.createElement(
           "div",
-          { id: "ShopName", className: "panel animated fadeIn col-xs-8 col-xs-offset-1 no-border focus-white" },
+          { id: "ShopName",
+          className: "panel animated fadeIn col-xs-8 col-xs-offset-1 no-border focus-white" },
           React.createElement("h3", { }, "Label your pod"),
-          React.createElement("input", { type: "text", id:"inputError", placeholder: "Shop Name", value: this.props.data.about_us.shop_name,
-          className: "form-control spacer", onChange: this.updateAppName, min: 2, max: 200 }),
-          React.createElement(NextButton, { next: 2, stepType: "STEP_STEP", addClass:"col-xs-offset-9" } )
+          React.createElement("input", { type: "text", id:"inputError",
+          placeholder: "Shop Name", value: this.props.data.about_us.shop_name,
+          className: "form-control spacer",
+          onChange: this.updateAppName, min: 2, max: 200 }),
+          React.createElement(NextButton, { next: 2,
+            stepType: "STEP_STEP", addClass:"col-xs-offset-9" } )
         );
       case 2:
         return React.createElement(
@@ -659,7 +710,8 @@ var TemplateView = React.createClass({
   },
   image_preview: function(file){
     console.log(file);
-    store.dispatch({type: "CHANGE_TEMPLATE", section: "shop_bg_image", value: file.name });
+    store.dispatch({type: "CHANGE_TEMPLATE",
+    section: "shop_bg_image", value: file.name });
   },
   upload_style: function(){
     var iphone_data = store.getState().iphone.template;
@@ -682,14 +734,18 @@ var TemplateView = React.createClass({
   render: function () {
     return React.createElement(
       "div",
-      { id: "TemplateView", className: "animated fadeInUp panel back_white" },
+      { id: "TemplateView", className: "animated fadeInUp panel back_white col-xs-10 col-xs-offset-1" },
       React.createElement("h4", { className: "panel-head" }, "Templates"),
       React.createElement("div", { className: "btn-group spacer" },
-      React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 1) }, "One"),
-      React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 2) }, "Two"),
-      React.createElement("button", { className: "btn btn-primary", onClick: this.chooseTemplate.bind(this, 3) }, "Three")),
+      React.createElement("button", { className: "btn btn-primary",
+      onClick: this.chooseTemplate.bind(this, 1) }, "One"),
+      React.createElement("button", { className: "btn btn-primary",
+      onClick: this.chooseTemplate.bind(this, 2) }, "Two"),
+      React.createElement("button", { className: "btn btn-primary",
+      onClick: this.chooseTemplate.bind(this, 3) }, "Three")),
       React.createElement("div", { className: "form-group" },
-      React.createElement(DropZone, { id: "mydropzone4", label: "", url: 'allaboutshop/upload_iphone.php', callBack: this.image_preview })
+      React.createElement(DropZone, { id: "mydropzone4", label: "",
+      url: 'allaboutshop/upload_iphone.php', callBack: this.image_preview })
         //React.createElement("input", { id:"iphone_background", type: "file", accept: "image/*", onChange: this.image_preview } )
       ),
       React.createElement(
@@ -700,7 +756,8 @@ var TemplateView = React.createClass({
         TemplateColorPicker, { title: "Theme Color", section: "shop_theme_color" }
       ),
       React.createElement(
-        "button", { id: "upload_style", type: "button", onClick: this.upload_style, className: "btn btn-primary" },
+        "button", { id: "upload_style", type: "button",
+        onClick: this.upload_style, className: "btn btn-primary" },
         "Submit"
       )
     );
@@ -714,7 +771,8 @@ var TemplateColorPicker = React.createClass({
   pickColor: function(section, event){
     this.hex = event.hex;
     this.setState({ hex: event.hex })
-    store.dispatch({type: "CHANGE_TEMPLATE_COLOR", color: event.hex, section: section})
+    store.dispatch({type: "CHANGE_TEMPLATE_COLOR",
+    color: event.hex, section: section})
   },
   chooseTemplate: function(id){
     store.dispatch({type: "CHANGE_TEMPLATE_STYLE", "id": id});
@@ -726,17 +784,20 @@ var TemplateColorPicker = React.createClass({
       React.createElement(
         "div", { className: "panel-body" },
         React.createElement(
-          ColorPicker, { type: "swatches", onChange: this.pickColor.bind(this, this.props.section) }
+          ColorPicker, { type: "swatches",
+          onChange: this.pickColor.bind(this, this.props.section) }
         )
       ),
       React.createElement(
         "div", { className: "panel col-xs-9 col-md-9" },
         React.createElement(
-          "div", { id: "colorValue", className: "panel-heading col-xs-7 col-md-7" },
+          "div", { id: "colorValue",
+          className: "panel-heading col-xs-7 col-md-7" },
           "hex is: " + this.state[this.props.section]
         ),
         React.createElement(
-          "div", { className: "panel-body col-xs-2", style: { backgroundColor: this.state[this.props.section] } }
+          "div", { className: "panel-body col-xs-2",
+          style: { backgroundColor: this.state[this.props.section] } }
         )
       )
     )
@@ -892,7 +953,8 @@ var Step_AboutUs = React.createClass({
   logProps: function () {
   },
   UPDATE_DATA: function(key, event){
-    store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: key, value: event.target.value });
+    store.dispatch({ type: "UPDATE_DATA",
+    section: "about_us", key: key, value: event.target.value });
   },
   post_form: function(data, fileName){
     if(this.props.data.send == false){ return false; }
@@ -908,11 +970,14 @@ var Step_AboutUs = React.createClass({
       {
         var justNumbers = /([0-9]+)/;
         var path = location.pathname;
-        window.history.pushState({}, null, path + "?shop=" + justNumbers.exec(response)[0])
+        window.history.pushState({}, null,
+          path + "?shop=" + justNumbers.exec(response)[0])
             if(fileName){
 
-            store.dispatch({ type: "UPDATE_DATA", section: "about_us", key: "shop_id", value: justNumbers.exec(response)[0] });
-            store.dispatch( {type: "UPDATE_DATA", section: "about_us", key: "shop_photo_name", value: fileName } );
+            store.dispatch({ type: "UPDATE_DATA", section: "about_us",
+            key: "shop_id", value: justNumbers.exec(response)[0] });
+            store.dispatch( {type: "UPDATE_DATA", section: "about_us",
+            key: "shop_photo_name", value: fileName } );
           }
           store.dispatch({ type: "DATA_SAVED", section: "about_us" });
           console.log(store.getState());
@@ -956,7 +1021,8 @@ var Step_AboutUs = React.createClass({
               ),
               React.createElement(
                 "input",
-                { type: "hidden", value: this.props.data.shop_name, name: "shop_name" }
+                { type: "hidden", value: this.props.data.shop_name,
+                name: "shop_name" }
               )
             ),
             React.createElement(
@@ -967,10 +1033,13 @@ var Step_AboutUs = React.createClass({
                 "Upload Shop Logo"
               ),
               React.createElement(
-                "img", {className: "img-circle col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1", name: "shop_logo", src: null }
+                "img",
+                {className: "img-circle col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1",
+                name: "shop_logo", src: null }
               ),
               React.createElement(
-                "input", { type: "file", id: "shop_photo", name: "shop_photo", accept: "image/*" }
+                "input", { type: "file", id: "shop_photo",
+                name: "shop_photo", accept: "image/*" }
               )
             ),
             React.createElement(
@@ -1026,7 +1095,8 @@ var Step_CallUs = React.createClass({
     return store.getState().data.call_us
   },
   UPDATE_DATA: function(key, event){
-    store.dispatch({ type: "UPDATE_DATA", section: "call_us", key: key, value: event.target.value });
+    store.dispatch({ type: "UPDATE_DATA", section: "call_us",
+    key: key, value: event.target.value });
   },
   post_form: function(data){
     if(this.state.send == false){ return false; }
@@ -1104,10 +1174,17 @@ var Step_Gallery = React.createClass({
       "div",
       { id: "SetGallery", className: "row" },
       React.createElement(
-        "div", { id: "gallery-well", className: "col-xs-12 col-md-12 well back_white no-border"},
-        React.createElement(DropZone, { id: "mydropzone1", label: "1", url: 'gall_upload.php?album=', callBack: this.update_model }),
-        React.createElement(DropZone, { id: "mydropzone2", label: "2", url: 'gall_upload.php?album=', callBack: this.update_model }),
-        React.createElement(DropZone, { id: "mydropzone3", label: "3", url: 'gall_upload.php?album=', callBack: this.update_model })
+        "div", { id: "gallery-well",
+        className: "col-xs-12 col-md-12 well back_white no-border"},
+        React.createElement(DropZone, { id: "mydropzone1",
+        label: "1", url: 'gall_upload.php?album=',
+        callBack: this.update_model }),
+        React.createElement(DropZone, { id: "mydropzone2",
+        label: "2", url: 'gall_upload.php?album=',
+        callBack: this.update_model }),
+        React.createElement(DropZone, { id: "mydropzone3",
+        label: "3", url: 'gall_upload.php?album=',
+        callBack: this.update_model })
       ),
       React.createElement(NextButton, { next: 4, stepType: "FEATURE_SHOW" })
     );
@@ -1120,7 +1197,8 @@ var Step_Video = React.createClass({
     return store.getState().data.video
   },
   UPDATE_DATA: function(key, event){
-    store.dispatch({ type: "UPDATE_DATA", section: "video", key: key, value: event.target.value });
+    store.dispatch({ type: "UPDATE_DATA", section: "video",
+    key: key, value: event.target.value });
   },
   post_form: function(data){
     if(this.state.send == false){ return false; }
@@ -1218,7 +1296,8 @@ var Step_FB = React.createClass({
     return store.getState().data.facebook
   },
   UPDATE_DATA: function(key, event){
-    store.dispatch({ type: "UPDATE_DATA", section: "facebook", key: key, value: event.target.value });
+    store.dispatch({ type: "UPDATE_DATA", section: "facebook",
+    key: key, value: event.target.value });
   },
   render: function () {
     return React.createElement(
@@ -1261,7 +1340,8 @@ var Step_FanWall = React.createClass({
     return store.getState().data.wall
   },
   UPDATE_DATA: function(key, event){
-    store.dispatch({ type: "UPDATE_DATA", section: "wall", key: key, value: event.target.value });
+    store.dispatch({ type: "UPDATE_DATA", section: "wall",
+    key: key, value: event.target.value });
   },
   post_form: function(data){
     if(this.state.send == false){ return false; }
@@ -1477,7 +1557,8 @@ var NextButton = React.createClass({
 })
 
 var formInstance = function(){
-  ReactDOM.render(React.createElement(Main, null), document.getElementById('reactComponents'));
+  ReactDOM.render(React.createElement(Main, null),
+  document.getElementById('reactComponents'));
 };
 store.subscribe(formInstance);
 formInstance();
