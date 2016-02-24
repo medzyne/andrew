@@ -1094,7 +1094,9 @@ var Step_CallUs = React.createClass({
   getInitialState: function() {
     return store.getState().data.call_us
   },
+  thai_number: /^(?:\+\d{0,3}\s?)?(?:\d{0,3}\-?)\d{0,7}$/,
   UPDATE_DATA: function(key, event){
+    console.log(this.thai_number.test(event.target.value));
     store.dispatch({ type: "UPDATE_DATA", section: "call_us",
     key: key, value: event.target.value });
   },
@@ -1145,14 +1147,19 @@ var Step_CallUs = React.createClass({
                 "Phone Number"
               ),
               React.createElement(
-                "input", { type: "text",
+                "input", { type: "tel",
                 className: "form-control",
                 value: this.state.phone,
                 onChange: this.UPDATE_DATA.bind(this, "phone"),
-                min: 1,
-                max: 35,
-                pattern: "[0-9]+",
-                name: "call_num" }
+                min: 7,
+                max: 20,
+                pattern: this.thai_number,
+                name: "call_num",
+                style:{
+                  borderColor: this.thai_number.test(this.state.phone) ? null : "red",
+                  boxShadow: this.thai_number.test(this.state.phone) ? null : "none",
+                }
+               }
               ),
               React.createElement(
                 NextButton, { next: 3, stepType: "FEATURE_SHOW" }

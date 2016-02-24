@@ -786,7 +786,9 @@
 	  getInitialState: function getInitialState() {
 	    return store.getState().data.call_us;
 	  },
+	  thai_number: /^(?:\+\d{0,3}\s?)?(?:\d{0,3}\-?)\d{0,7}$/,
 	  UPDATE_DATA: function UPDATE_DATA(key, event) {
+	    console.log(this.thai_number.test(event.target.value));
 	    store.dispatch({ type: "UPDATE_DATA", section: "call_us",
 	      key: key, value: event.target.value });
 	  },
@@ -816,14 +818,19 @@
 	  },
 
 	  render: function render() {
-	    return React.createElement("div", { id: "SetCallUS", className: "row" }, React.createElement("div", { className: "col-xs-12 col-md-12" }, React.createElement("form", { method: "POST", encType: "multipart/form-data" }, React.createElement("h3", { className: "duck-underline" }, "Call Us"), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Phone Number"), React.createElement("input", { type: "text",
+	    return React.createElement("div", { id: "SetCallUS", className: "row" }, React.createElement("div", { className: "col-xs-12 col-md-12" }, React.createElement("form", { method: "POST", encType: "multipart/form-data" }, React.createElement("h3", { className: "duck-underline" }, "Call Us"), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Phone Number"), React.createElement("input", { type: "tel",
 	      className: "form-control",
 	      value: this.state.phone,
 	      onChange: this.UPDATE_DATA.bind(this, "phone"),
-	      min: 1,
-	      max: 35,
-	      pattern: "[0-9]+",
-	      name: "call_num" }), React.createElement(NextButton, { next: 3, stepType: "FEATURE_SHOW" }))) // post
+	      min: 7,
+	      max: 20,
+	      pattern: this.thai_number,
+	      name: "call_num",
+	      style: {
+	        borderColor: this.thai_number.test(this.state.phone) ? null : "red",
+	        boxShadow: this.thai_number.test(this.state.phone) ? null : "none"
+	      }
+	    }), React.createElement(NextButton, { next: 3, stepType: "FEATURE_SHOW" }))) // post
 	    ));
 	  }
 	});
