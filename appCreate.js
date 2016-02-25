@@ -143,8 +143,8 @@
 	        "shop_subtitle": result[0].shop_subtitle,
 	        "shop_description": result[0].shop_description,
 	        "shop_photo_name": result[0].shop_photo_name };
-	      initialState.data.call_us = { "phone": result[0].call_num,
-	        "call_id": result[0].call_id };
+	      initialState.data.call_us = { "phone": result[1].call_num,
+	        "call_id": result[1].call_id };
 	    }
 	    return initialState;
 	  }

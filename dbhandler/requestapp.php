@@ -14,9 +14,9 @@ $shop_id = $_SESSION['shop_id'];
 
 
 
-$getAll = "SELECT `shop_style`, `fanwall_id`, `shop_fb_feed_id`
+$shopStyleQuery = "SELECT `shop_style`
 FROM `shop_detail` WHERE shop_id = $shop_id";
-$getAllResult = mysql_result(mysql_query($getAll), 0);
+$shopStyleID = mysql_result(mysql_query($shopStyleQuery), 0);
 
 $table_names =
 array("shop_detail","shop_activity",
@@ -40,6 +40,12 @@ function add_shop_ids($list, $id)
 
 $table_names = array_map("make_shopId_query", $table_names,
 add_shop_ids($table_names, $shop_id));
+
+if($shopStyleID)
+{
+  $get_shop_style = "SELECT * FROM shop_style WHERE shop_style_id = $shopStyleID";
+  array_push($table_names, $get_shop_style);
+}
 
 $results = array();
 
