@@ -14,11 +14,9 @@ $shop_id = $_SESSION['shop_id'];
 
 
 
-$getAll = "SELECT shop_detail.* , shop_call.* , shop_video.*
-FROM shop_detail
-JOIN shop_call ON shop_detail.shop_id = shop_call.shop_id
-JOIN shop_video ON shop_detail.shop_id = shop_video.shop_id
-WHERE shop_detail.shop_id = $shop_id";
+$getAll = "SELECT `shop_style`, `fanwall_id`, `shop_fb_feed_id`
+FROM `shop_detail` WHERE shop_id = $shop_id";
+$getAllResult = mysql_result(mysql_query($getAll), 0);
 
 $table_names =
 array("shop_detail","shop_activity",

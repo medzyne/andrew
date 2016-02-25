@@ -87,7 +87,7 @@
 	  // building a localStorage function here
 	  if (shopRegex.test(loadOldShop)) {
 	    var result = fetchStateFromServer(shopRegex.exec(loadOldShop)[2]);
-	    return loadState(shopRegex.exec(loadOldShop)[2], result.data ? result.data : false);
+	    return loadState(shopRegex.exec(loadOldShop)[2], result ? result : false);
 	  } else {
 	    return loadState(null, false);
 	  }
@@ -136,6 +136,7 @@
 
 	  if (localStorage.getItem("apppod" + id)) {
 	    initialState = JSON.parse(localStorage.getItem("apppod" + id));
+	    console.log(result);
 	    if (result) {
 	      initialState.data.about_us = { "shop_id": result[0].shop_id,
 	        "shop_name": result[0].shop_name,

@@ -36,7 +36,7 @@ function getState(){
   if(shopRegex.test(loadOldShop)){
     var result = fetchStateFromServer(shopRegex.exec(loadOldShop)[2]);
       return loadState(shopRegex.exec(loadOldShop)[2],
-      result.data ? result.data : false);
+      result ? result : false);
   }
   else{
     return loadState(null, false);
@@ -85,6 +85,7 @@ var initialState = {
 
   if(localStorage.getItem("apppod" + id)){
     initialState = JSON.parse(localStorage.getItem("apppod" + id));
+    console.log(result);
     if(result)
     {
       initialState.data.about_us = {"shop_id": result[0].shop_id,
