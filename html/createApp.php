@@ -6,6 +6,10 @@
 {
 	$_SESSION['shop_id'] = $_GET['shop'];
 }
+if(!$_GET['shop'])
+{
+	unset($_SESSION['shop_id']);
+}
 if($_SESSION['shop_id']){
 	$sql = "SELECT * FROM shop_detail WHERE  shop_id=".$_SESSION['shop_id'];
 	$result=mysql_query($sql);

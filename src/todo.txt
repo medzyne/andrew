@@ -10,10 +10,9 @@ These are the things I think I need to get done:
 
 Front End:
 1 the iPhone app view needs style
-4 add filters to photos
+4 add filters to photos use svg
 
 Back End
-2 get more of the app to load from server
 3 lock all features until shop id has been set
 5 add validation to inputs
 

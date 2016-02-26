@@ -59,26 +59,9 @@ foreach($table_names as $query)
     }
   }
 }
-
-http_response_code(200);
-echo(json_encode($results));
-exit();
-
-$theQuery = mysql_query($getAll);
-if($theQuery)
-{
+if($results){
   http_response_code(200);
-  $result = array();
-  while($r = mysql_fetch_assoc($theQuery)){
-    array_push($result, $r);
-    //$result["data"][] = $r;
-  }
-  print(json_encode($result));
-  exit();
-}
-else {
-  http_response_code(400);
-  echo(json_encode(array("error"=> "sql", "sql_error"=> mysql_error() )));
+  echo(json_encode($results));
   exit();
 }
 

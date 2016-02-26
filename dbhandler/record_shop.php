@@ -64,8 +64,9 @@
 		//mysql_query($sql_update)// or die(mysql_error());
 			if(mysql_query($sql_update) == true){
 				$shopID = mysql_insert_id();
-
-				$sql_update = "INSERT INTO r_user_shop (user_id, shop_id) VALUES (".$_SESSION['id'].", ". $shopID. ")";
+				$r_shop_count = "SELECT COUNT(*) FROM r_user_shop";
+				$r_count = mysql_result(mysql_query($r_shop_count), 0);
+				$sql_update = "INSERT INTO r_user_shop (r_user_shop_id, user_id, shop_id) VALUES (".$r_count.", ".$_SESSION['id'].", ". $shopID. ")";
 				if(mysql_query($sql_update) == true){
 					$_SESSION['shop_id'] = $shopID;
 					save_file($_SESSION['shop_id'], $shop_photo_name, $shop_photo, "shop_detail");
