@@ -20,6 +20,7 @@ function fetchStateFromServer($id)
 
      },
     error: function(response) {
+      console.log(response);
       result = false;
      }
  });
@@ -152,6 +153,9 @@ function reducer(state, action)
   {
     case 'DATA_SAVED':
       state.data[action.section]["send"] = false;
+      return saveState(state);
+    case 'DATA_FAILED':
+      state.data[action.section]["send"] = true;
       return saveState(state);
     case 'no_shop_id':
       state.steps.step = 0;
@@ -303,6 +307,73 @@ var Header = React.createClass({
   }
 });
 
+var svgFilters = React.createClass({
+  getInitialState: function(){
+    return store.getState().iphone.template;
+  },
+  componentDidMount: function(){
+    console.log(this);
+    jQuery("feColorMatrix").attr('values',
+    '0\.393 0\.769 0\.189 0 0 0\.349 0\.686 0\.168 0 0 0\.272 0\.534 0\.131 0 0 0 0 0 1 0');
+  },
+  componentDidUpdate: function()
+  {
+    console.log(this.state);
+    var new_values = this.makeValues(this.hextoRGB(this.state.shop_theme_color));
+    this.updateColorMatrix(this.escapeValues(new_values));
+  },
+  updateColorMatrix: function(values){
+    console.log(values);
+    jQuery("feColorMatrix").attr('values', values);
+  },
+  hextoRGB: function(hex){
+    hex = hex.replace(/\#/, '');
+    var rgba = {
+      'red': parseInt(hex.substring(0,2), 16) / 255,
+      'green': parseInt(hex.substring(2,4), 16) / 255,
+      'blue': parseInt(hex.substring(4,6), 16) / 255,
+      'alpha': "0.15"
+    };
+    return rgba;
+  },
+  escapeValues: function(values_string)
+  {
+    var rvalues = values_string.replace(/\./g, "\.");
+    return rvalues.replace(/\,\s?$/, '');
+  },
+  makeValues: function(rgba)
+  {
+    var values =
+    this.addFiveTimes(rgba.red) +
+    this.addFiveTimes(rgba.green) +
+    this.addFiveTimes(rgba.blue) +
+    this.addFiveTimes(rgba.alpha);
+    return values;
+
+  },
+  addFiveTimes: function(snippet)
+  {
+    if(isNaN(snippet)){ return "1 1 1 1 1"; }
+    var values = "";
+    for(var c = 0; c < 5; c++)
+    {
+      values += snippet + " ";
+    }
+    return values;
+  },
+  render: function(){
+    return React.createElement(
+      "svg", null,
+      React.createElement(
+        "filter", {id: "color-matrix"},
+        React.createElement(
+          "feColorMatrix", {type: "matrix", ref: "test" }
+        )
+      )
+    )
+  }
+});
+
 
 var Iphone = React.createClass({
   displayName: "Iphone",
@@ -319,6 +390,7 @@ var Iphone = React.createClass({
     return React.createElement(
       "div",
       { id: "thephone" },
+      React.createElement(svgFilters, null),
       React.createElement(
         "div",
         { className: "col-xs-6 col-md-6" },
@@ -430,6 +502,14 @@ var DraggableIphoneBox = React.createClass({
     console.log("end");
     if(event.timeStamp -  this.state.tstart < 300){
       this.show_iphone(this.props.id, this.props.section);
+    }
+  },
+  getImage: function(img)
+  {
+    switch(img)
+    {
+      case "callus":
+      return "../dist/img/call-us.png";
     }
   },
   show_iphone: function(int, section){
@@ -725,9 +805,11 @@ var TemplateView = React.createClass({
     cache: false,
     success: function(response)
     {
-
+      store.dispatch({ type: "DATA_SAVED", section: "template" });
      },
-    error: function(response) { console.log("error"); }
+    error: function(response) {
+      store.dispatch({ type: "DATA_FAILED", section: "template" });
+      console.log("error"); }
   });
 
 
@@ -984,7 +1066,9 @@ var Step_AboutUs = React.createClass({
           console.log(store.getState());
 
        },
-      error: function(response) { console.log("error"); }
+      error: function(response) {
+        store.dispatch({type: "DATA_FAILED", section: "about_us"});
+        console.log(respones); }
     });
 
   },
@@ -1114,7 +1198,9 @@ var Step_CallUs = React.createClass({
       success: function(response){
         store.dispatch({ type: "DATA_SAVED", section: "call_us" });
        },
-      error: function(response) { console.log("error"); }
+      error: function(response) {
+        store.dispatch({type: "DATA_FAILED", section: "call_us"});
+        console.log(response); }
     });
 
   },
@@ -1221,7 +1307,9 @@ var Step_Video = React.createClass({
       success: function(response){
         store.dispatch({ type: "DATA_SAVED", section: "video" });
         console.log(response); },
-      error: function(response) { console.log("error"); }
+      error: function(response) {
+        store.dispatch({type: "DATA_FAILED", section: "video"});
+        console.log(response); }
     });
 
   },
@@ -1362,9 +1450,12 @@ var Step_FanWall = React.createClass({
       contentType: false,
       processData: false,
       success: function(response){
+        console.log("fan wall no php handler for db");
         store.dispatch({ type: "DATA_SAVED", section: "wall" });
         console.log(response); },
-      error: function(response) { console.log("error"); }
+      error: function(response) {
+        store.dispatch({type: "DATA_FAILED", section: "wall"});
+        console.log(response); }
     });
 
   },

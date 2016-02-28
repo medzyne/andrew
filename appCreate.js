@@ -73,6 +73,7 @@
 	      result = JSON.parse(response);
 	    },
 	    error: function error(response) {
+	      console.log(response);
 	      result = false;
 	    }
 	  });
@@ -196,6 +197,9 @@
 	    case 'DATA_SAVED':
 	      state.data[action.section]["send"] = false;
 	      return saveState(state);
+	    case 'DATA_FAILED':
+	      state.data[action.section]["send"] = true;
+	      return saveState(state);
 	    case 'no_shop_id':
 	      state.steps.step = 0;
 	      return saveState(state);
@@ -292,6 +296,58 @@
 	  }
 	});
 
+	var svgFilters = React.createClass({
+	  displayName: 'svgFilters',
+
+	  getInitialState: function getInitialState() {
+	    return store.getState().iphone.template;
+	  },
+	  componentDidMount: function componentDidMount() {
+	    console.log(this);
+	    jQuery("feColorMatrix").attr('values', '0\.393 0\.769 0\.189 0 0 0\.349 0\.686 0\.168 0 0 0\.272 0\.534 0\.131 0 0 0 0 0 1 0');
+	  },
+	  componentDidUpdate: function componentDidUpdate() {
+	    console.log(this.state);
+	    var new_values = this.makeValues(this.hextoRGB(this.state.shop_theme_color));
+	    this.updateColorMatrix(this.escapeValues(new_values));
+	  },
+	  updateColorMatrix: function updateColorMatrix(values) {
+	    console.log(values);
+	    jQuery("feColorMatrix").attr('values', values);
+	  },
+	  hextoRGB: function hextoRGB(hex) {
+	    hex = hex.replace(/\#/, '');
+	    var rgba = {
+	      'red': parseInt(hex.substring(0, 2), 16) / 255,
+	      'green': parseInt(hex.substring(2, 4), 16) / 255,
+	      'blue': parseInt(hex.substring(4, 6), 16) / 255,
+	      'alpha': "0.15"
+	    };
+	    return rgba;
+	  },
+	  escapeValues: function escapeValues(values_string) {
+	    var rvalues = values_string.replace(/\./g, "\.");
+	    return rvalues.replace(/\,\s?$/, '');
+	  },
+	  makeValues: function makeValues(rgba) {
+	    var values = this.addFiveTimes(rgba.red) + this.addFiveTimes(rgba.green) + this.addFiveTimes(rgba.blue) + this.addFiveTimes(rgba.alpha);
+	    return values;
+	  },
+	  addFiveTimes: function addFiveTimes(snippet) {
+	    if (isNaN(snippet)) {
+	      return "1 1 1 1 1";
+	    }
+	    var values = "";
+	    for (var c = 0; c < 5; c++) {
+	      values += snippet + " ";
+	    }
+	    return values;
+	  },
+	  render: function render() {
+	    return React.createElement("svg", null, React.createElement("filter", { id: "color-matrix" }, React.createElement("feColorMatrix", { type: "matrix", ref: "test" })));
+	  }
+	});
+
 	var Iphone = React.createClass({
 	  displayName: "Iphone",
 
@@ -303,7 +359,7 @@
 	    return Templates[id - 1];
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "thephone" }, React.createElement("div", { className: "col-xs-6 col-md-6" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }), React.createElement(IphoneHome, { position: "bottom" }))));
+	    return React.createElement("div", { id: "thephone" }, React.createElement(svgFilters, null), React.createElement("div", { className: "col-xs-6 col-md-6" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }), React.createElement(IphoneHome, { position: "bottom" }))));
 	  }
 	});
 
@@ -371,6 +427,12 @@
 	    console.log("end");
 	    if (event.timeStamp - this.state.tstart < 300) {
 	      this.show_iphone(this.props.id, this.props.section);
+	    }
+	  },
+	  getImage: function getImage(img) {
+	    switch (img) {
+	      case "callus":
+	        return "../dist/img/call-us.png";
 	    }
 	  },
 	  show_iphone: function show_iphone(int, section) {
@@ -600,8 +662,11 @@
 	      data: iphone_data,
 	      type: "POST",
 	      cache: false,
-	      success: function success(response) {},
+	      success: function success(response) {
+	        store.dispatch({ type: "DATA_SAVED", section: "template" });
+	      },
 	      error: function error(response) {
+	        store.dispatch({ type: "DATA_FAILED", section: "template" });
 	        console.log("error");
 	      }
 	    });
@@ -747,7 +812,8 @@
 	        console.log(store.getState());
 	      },
 	      error: function error(response) {
-	        console.log("error");
+	        store.dispatch({ type: "DATA_FAILED", section: "about_us" });
+	        console.log(respones);
 	      }
 	    });
 	  },
@@ -808,7 +874,8 @@
 	        store.dispatch({ type: "DATA_SAVED", section: "call_us" });
 	      },
 	      error: function error(response) {
-	        console.log("error");
+	        store.dispatch({ type: "DATA_FAILED", section: "call_us" });
+	        console.log(response);
 	      }
 	    });
 	  },
@@ -876,7 +943,8 @@
 	        console.log(response);
 	      },
 	      error: function error(response) {
-	        console.log("error");
+	        store.dispatch({ type: "DATA_FAILED", section: "video" });
+	        console.log(response);
 	      }
 	    });
 	  },
@@ -943,11 +1011,13 @@
 	      contentType: false,
 	      processData: false,
 	      success: function success(response) {
+	        console.log("fan wall no php handler for db");
 	        store.dispatch({ type: "DATA_SAVED", section: "wall" });
 	        console.log(response);
 	      },
 	      error: function error(response) {
-	        console.log("error");
+	        store.dispatch({ type: "DATA_FAILED", section: "wall" });
+	        console.log(response);
 	      }
 	    });
 	  },

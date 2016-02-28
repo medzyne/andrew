@@ -9,6 +9,7 @@ blur.setAttribute( "stdDeviation", "5" );
 filter.appendChild( blur );
 svg.appendChild( filter );
 
+/*
 var pic = document.createElementNS(NS, "image");
 pic.setAttributeNS(null, 'height', '50');
 pic.setAttributeNS(null, 'width', '100');
@@ -20,4 +21,5 @@ pic.setAttributeNS("http://www.w3.org/1999/xlink",
 pic.setAttributeNS(null, 'visibility', 'visible');
 pic.setAttributeNS(null, 'filter', 'url(#f2)');
 svg.appendChild(pic);
+*/
 document.body.appendChild(svg);

@@ -94,6 +94,18 @@ input#ShopName:invalid{
   box-shadow:5px 5px 10px grey;
   background-repeat: no-repeat;
   background-position: center;
+  filter: url(#color-matrix);
+  -webkit-filter: url(#color-matrix);
+}
+
+.filter-me{
+  filter: url(#color-matrix);
+  -webkit-filter: url(#color-matrix);
+}
+
+svg{
+  width: 0px;
+  height: 0px;
 }
 
 .blur_white{
