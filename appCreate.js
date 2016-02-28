@@ -307,7 +307,6 @@
 	    jQuery("feColorMatrix").attr('values', '0\.393 0\.769 0\.189 0 0 0\.349 0\.686 0\.168 0 0 0\.272 0\.534 0\.131 0 0 0 0 0 1 0');
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
-	    console.log(this.state);
 	    var new_values = this.makeValues(this.hextoRGB(this.state.shop_theme_color));
 	    this.updateColorMatrix(this.escapeValues(new_values));
 	  },
@@ -330,15 +329,15 @@
 	    return rvalues.replace(/\,\s?$/, '');
 	  },
 	  makeValues: function makeValues(rgba) {
-	    var values = this.addFiveTimes(rgba.red) + this.addFiveTimes(rgba.green) + this.addFiveTimes(rgba.blue) + this.addFiveTimes(rgba.alpha);
+	    var values = this.addTimes(rgba.red, 3) + "0 0 " + this.addTimes(rgba.green, 3) + "0 0 " + "0 0 " + this.addTimes(rgba.blue, 3) + "0 0 0 1 0";
 	    return values;
 	  },
-	  addFiveTimes: function addFiveTimes(snippet) {
+	  addTimes: function addTimes(snippet, times) {
 	    if (isNaN(snippet)) {
 	      return "1 1 1 1 1";
 	    }
 	    var values = "";
-	    for (var c = 0; c < 5; c++) {
+	    for (var c = 0; c < times; c++) {
 	      values += snippet + " ";
 	    }
 	    return values;

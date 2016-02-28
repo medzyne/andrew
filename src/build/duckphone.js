@@ -318,7 +318,6 @@ var svgFilters = React.createClass({
   },
   componentDidUpdate: function()
   {
-    console.log(this.state);
     var new_values = this.makeValues(this.hextoRGB(this.state.shop_theme_color));
     this.updateColorMatrix(this.escapeValues(new_values));
   },
@@ -344,18 +343,18 @@ var svgFilters = React.createClass({
   makeValues: function(rgba)
   {
     var values =
-    this.addFiveTimes(rgba.red) +
-    this.addFiveTimes(rgba.green) +
-    this.addFiveTimes(rgba.blue) +
-    this.addFiveTimes(rgba.alpha);
+    this.addTimes(rgba.red, 3) + "0 0 " +
+    this.addTimes(rgba.green, 3) +  "0 0 " +
+    "0 0 " + this.addTimes(rgba.blue, 3) +
+    "0 0 0 1 0";
     return values;
 
   },
-  addFiveTimes: function(snippet)
+  addTimes: function(snippet, times)
   {
     if(isNaN(snippet)){ return "1 1 1 1 1"; }
     var values = "";
-    for(var c = 0; c < 5; c++)
+    for(var c = 0; c < times; c++)
     {
       values += snippet + " ";
     }
