@@ -628,7 +628,11 @@ var Gallery_Template = React.createClass({
   },
   render: function(){
     return React.createElement("div", {id: "Gallery-Template" },
-    this.state.images.map(this.makeImage)
+    for(var c = 0; c < 3; c++)
+    {
+      this.state.albums[c]['images'].map(this.makeImage);
+    }
+
   )
   }
 });
