@@ -59,7 +59,7 @@ if (!empty($_FILES))
   if($result)
   {
     http_response_code(200);
-    echo(json_encode(array("url" => $targetFile)));
+    echo(json_encode(array("url" => $targetFile, "index" => $album_id)));
   }
 }
 

@@ -124,7 +124,7 @@
 	      "about_us": { "shop_id": id, "shop_name": "", "shop_subtitle": "",
 	        "shop_description": "", "send": true },
 	      "call_us": { "phone": "", "send": true },
-	      "gallery": { "send": true, images: [] },
+	      "gallery": { "send": true, albums: [{ name: "", url: [] }, { name: "", url: [] }, { name: "", url: [] }] },
 	      "video": { "link": "", "name": "", "description": "", "send": true },
 	      "facebook": { "name": "", "send": true },
 	      "wall": { "detail": "", "send": true },
@@ -195,8 +195,12 @@
 	// in a flux app you dispatch actions to modify the state
 	function reducer(state, action) {
 	  switch (action.type) {
+	    //store.dispatch({type: "UPDATE_ALBUM", index: this.props.label, section: section, value: event.target.value});
+	    case 'UPDATE_ALBUM':
+	      state.data.gallery.albums[action.index - 1][action.section] = action.value;
+	      return saveState(state);
 	    case 'ADD_IMAGE_URL':
-	      state.data.gallery.images.push(action.url);
+	      state.data.gallery.albums[action.index - 1][images].push(action.url);
 	      return saveState(state);
 	    case 'DATA_SAVED':
 	      state.data[action.section]["send"] = false;
@@ -946,7 +950,7 @@
 	  update_model: function update_model(one, two) {
 	    var message = JSON.parse(two);
 	    var route = message.url.replace(/[A-z|\/]+shop/, "/shop");
-	    store.dispatch({ type: "ADD_IMAGE_URL", url: route });
+	    store.dispatch({ type: "ADD_IMAGE_URL", url: route, index: message.index });
 	  },
 	  render: function render() {
 	    return React.createElement("div", { id: "SetGallery", className: "row" }, React.createElement("div", { id: "gallery-well",
@@ -1080,6 +1084,10 @@
 	var DropZone = React.createClass({
 	  displayName: 'DropZone',
 
+	  getInitialState: function getInitialState() {
+	    console.log(store.getState().data.gallery);
+	    return store.getState().data.gallery;
+	  },
 	  componentDidMount: function componentDidMount() {
 	    var albumID = "Album" + this.props.label;
 	    var albumNumber = this.props.label;
@@ -1139,6 +1147,9 @@
 	    xmlhttp.open("GET", "gall_cancel.php?filename=" + value.name + "&album=" + album + "&shop=something", true);
 	    xmlhttp.send();
 	  },
+	  update_model: function update_model(event, section) {
+	    store.dispatch({ type: "UPDATE_ALBUM", index: this.props.label, section: section, value: event.target.value });
+	  },
 	  updateAlbumDetail: function updateAlbumDetail(id) {
 	    var description = document.getElementById("des" + id).value;
 	    //alert(description);
@@ -1179,7 +1190,7 @@
 	      className: "dropzone dz-clickable",
 	      id: this.props.id,
 	      encType: "multipart/form-data"
-	    }, this.props.label ? "Album " + this.props.label : null, this.props.label ? React.createElement("input", { type: "text", name: "Album" + this.props.label }) : null, React.createElement("div", { className: "dz-default dz-message" }, React.createElement("span", { id: "message" }, "Drag Your Images")));
+	    }, this.props.label ? "Album " + this.props.label : null, this.props.label ? React.createElement("input", { type: "text", value: this.state.albums[this.props.label - 1]['name'], name: "Album" + this.props.label, onChange: this.update_model.bind(this, event, "name") }) : null, React.createElement("div", { className: "dz-default dz-message" }, React.createElement("span", { id: "message" }, "Drag Your Images")));
 	  }
 	});
 
