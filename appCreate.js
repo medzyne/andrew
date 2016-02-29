@@ -127,7 +127,8 @@
 	      "gallery": { "send": true },
 	      "video": { "link": "", "name": "", "description": "", "send": true },
 	      "facebook": { "name": "", "send": true },
-	      "wall": { "detail": "", "send": true }
+	      "wall": { "detail": "", "send": true },
+	      "loyalty": {}
 	    }
 	  };
 	  if (!id) {
@@ -295,7 +296,7 @@
 	    return React.createElement("div", { id: "header", className: "header" }, React.createElement("span", { id: "logo" }, " AppPods "), React.createElement("span", { id: "right", className: "center-right" }, React.createElement("span", null, " Menu "), React.createElement("span", null, " Menu "), React.createElement("span", null, " Menu "), React.createElement("span", null, " Menu "), React.createElement("span", { id: "signout", className: "right" }, " Sign Out ")), React.createElement("hr", null));
 	  }
 	});
-
+	// filter to apply theme color to iphone elements
 	var svgFilters = React.createClass({
 	  displayName: 'svgFilters',
 
@@ -315,6 +316,7 @@
 	    jQuery("feColorMatrix").attr('values', values);
 	  },
 	  hextoRGB: function hextoRGB(hex) {
+	    // converts the hex value from the state to rgba
 	    hex = hex.replace(/\#/, '');
 	    var rgba = {
 	      'red': parseInt(hex.substring(0, 2), 16) / 255,
@@ -329,6 +331,7 @@
 	    return rvalues.replace(/\,\s?$/, '');
 	  },
 	  makeValues: function makeValues(rgba) {
+	    // constructs a matrix that will be multiplied against the image
 	    var values = this.addTimes(rgba.red, 3) + "0 0 " + this.addTimes(rgba.green, 3) + "0 0 " + "0 0 " + this.addTimes(rgba.blue, 3) + "0 0 0 1 0";
 	    return values;
 	  },
@@ -356,6 +359,7 @@
 	  chooseTemplate: function chooseTemplate(id) {
 	    var Templates = ["template1", "template2", "template3"];
 	    return Templates[id - 1];
+	    // these control the 3 layouts of the iphone app
 	  },
 	  render: function render() {
 	    return React.createElement("div", { id: "thephone" }, React.createElement(svgFilters, null), React.createElement("div", { className: "col-xs-6 col-md-6" }, React.createElement("img", { id: "layer1", src: "../../images/iphone6.png" }), React.createElement(IphoneTemplate, null, this.state.show ? React.createElement(IphoneShow, {}) : React.createElement(Template, { color: this.state.template.shop_theme_color, classType: this.chooseTemplate(this.state.template.shop_layout) }), React.createElement(IphoneHome, { position: "bottom" }))));
@@ -465,9 +469,6 @@
 	  render: function render() {
 	    return React.createElement(ReactReorderable, { id: "phone_apps" }, React.createElement(DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
 	      themecolor: this.state.shop_theme_color,
-	      classType: this.props.classType, image: "aboutus",
-	      id: 1, section: "about_us" }), React.createElement(DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
-	      themecolor: this.state.shop_theme_color,
 	      classType: this.props.classType, image: "callus",
 	      id: 2, section: "call_us" }), React.createElement(DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
 	      themecolor: this.state.shop_theme_color,
@@ -481,7 +482,10 @@
 	      id: 5, section: "facebook" }), React.createElement(DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
 	      themecolor: this.state.shop_theme_color,
 	      classType: this.props.classType, image: "fanwall",
-	      id: 6, section: "wall" }));
+	      id: 6, section: "wall" }), React.createElement(DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
+	      themecolor: this.state.shop_theme_color,
+	      classType: this.props.classType, image: "loyalty",
+	      id: 7, section: "loyalty" }));
 	  }
 	});
 
@@ -509,6 +513,20 @@
 	  }
 	});
 
+	var Call_Us_Template = React.createClass({
+	  displayName: 'Call_Us_Template',
+
+	  getInitialState: function getInitialState() {
+	    return store.getState().data.call_us;
+	  },
+	  goHome: function goHome() {
+	    store.dispatch({ type: "IPHONE_HOME" });
+	  },
+	  render: function render() {
+	    return React.createElement("div", { className: "call-us-template col-xs-8 col-xs-offset-2 panel" }, React.createElement("h4", { className: "bold text-center" }, "Would You Like To Call " + store.getState().data.about_us.shop_name), React.createElement("div", { className: "text-center call-t-phone" }, this.state.phone), React.createElement("div", { className: "call-bottom row col-xs-12" }, React.createElement("div", { className: "call-bottom-left text-blue", onClick: this.goHome }, "Don't Allow"), React.createElement("div", { className: "call-bottom-right text-blue", onClick: this.goHome }, "Call")));
+	  }
+	});
+
 	var IphoneShowTemplate = React.createClass({
 	  displayName: 'IphoneShowTemplate',
 
@@ -529,6 +547,8 @@
 	  },
 	  render: function render() {
 	    switch (this.props.template) {
+	      case "call_us":
+	        return React.createElement(Call_Us_Template, null);
 	      default:
 	        return React.createElement("div", null, Object.keys(this.section()).map(this.mapToElement));
 	    }

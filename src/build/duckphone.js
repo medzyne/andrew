@@ -75,7 +75,8 @@ var initialState = {
      "gallery": {"send": true},
      "video": {"link": "", "name": "", "description": "", "send": true},
      "facebook": {"name": "", "send": true},
-     "wall": {"detail": "", "send": true}
+     "wall": {"detail": "", "send": true},
+     "loyalty": {}
  }
 }
     if(!id)
@@ -306,7 +307,7 @@ var Header = React.createClass({
     );
   }
 });
-
+ // filter to apply theme color to iphone elements
 var svgFilters = React.createClass({
   getInitialState: function(){
     return store.getState().iphone.template;
@@ -326,6 +327,7 @@ var svgFilters = React.createClass({
     jQuery("feColorMatrix").attr('values', values);
   },
   hextoRGB: function(hex){
+    // converts the hex value from the state to rgba
     hex = hex.replace(/\#/, '');
     var rgba = {
       'red': parseInt(hex.substring(0,2), 16) / 255,
@@ -342,6 +344,7 @@ var svgFilters = React.createClass({
   },
   makeValues: function(rgba)
   {
+    // constructs a matrix that will be multiplied against the image
     var values =
     this.addTimes(rgba.red, 3) + "0 0 " +
     this.addTimes(rgba.green, 3) +  "0 0 " +
@@ -383,6 +386,7 @@ var Iphone = React.createClass({
   chooseTemplate: function(id) {
     var Templates = [ "template1", "template2", "template3" ];
     return Templates[id - 1];
+    // these control the 3 layouts of the iphone app
 
   },
   render: function () {
@@ -549,11 +553,6 @@ var IphoneApps = React.createClass({
         React.createElement(
           DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
             themecolor: this.state.shop_theme_color,
-            classType: this.props.classType, image: "aboutus",
-            id: 1, section: "about_us" } ),
-        React.createElement(
-          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
-            themecolor: this.state.shop_theme_color,
             classType: this.props.classType, image: "callus",
             id: 2, section: "call_us" } ),
         React.createElement(
@@ -575,7 +574,12 @@ var IphoneApps = React.createClass({
           DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
             themecolor: this.state.shop_theme_color,
             classType: this.props.classType, image: "fanwall",
-            id: 6, section: "wall" } )
+            id: 6, section: "wall" } ),
+        React.createElement(
+          DraggableIphoneBox, { bgcolor: this.state.shop_bg_color,
+            themecolor: this.state.shop_theme_color,
+            classType: this.props.classType, image: "loyalty",
+            id: 7, section: "loyalty" } )
       )
   }
 })
@@ -607,6 +611,33 @@ var IphoneShow = React.createClass({
   }
 });
 
+var Call_Us_Template = React.createClass({
+  getInitialState: function(){
+    return store.getState().data.call_us;
+  },
+  goHome: function(){
+    store.dispatch({type: "IPHONE_HOME"});
+  },
+  render: function(){
+    return React.createElement(
+      "div", { className: "call-us-template col-xs-8 col-xs-offset-2 panel" },
+      React.createElement(
+        "h4", { className: "bold text-center" },
+        "Would You Like To Call " + store.getState().data.about_us.shop_name
+      ),
+      React.createElement(
+        "div", { className: "text-center call-t-phone" }, this.state.phone
+      ),
+      React.createElement("div", { className: "call-bottom row col-xs-12" },
+        React.createElement("div",
+        { className: "call-bottom-left text-blue", onClick: this.goHome }, "Don't Allow"),
+        React.createElement("div",
+        { className: "call-bottom-right text-blue", onClick: this.goHome }, "Call")
+      )
+    )
+  }
+});
+
 var IphoneShowTemplate = React.createClass({
   getInitialState: function(){
     return store.getState().iphone.template;
@@ -623,6 +654,10 @@ var IphoneShowTemplate = React.createClass({
   section: function() { return store.getState().data[store.getState().iphone.display]; },
   render: function () {
     switch(this.props.template){
+      case "call_us":
+       return React.createElement(
+         Call_Us_Template, null
+       );
       default:
         return React.createElement(
           "div", null,

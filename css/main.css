@@ -200,6 +200,13 @@ border-radius: 2px;
     border-color: #EEE;
     border-radius: 10%;
   }
+  .call-bottom-left{
+    float: left;
+  }
+
+  .call-bottom-right{
+    float: right;
+  }
 
 .gallery{
   background-image: url(../dist/img/image-icon.png);
