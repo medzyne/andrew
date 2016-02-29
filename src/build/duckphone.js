@@ -72,7 +72,7 @@ var initialState = {
      "about_us": {"shop_id": id, "shop_name": "", "shop_subtitle": "",
      "shop_description": "", "send": true },
      "call_us": {"phone": "","send": true},
-     "gallery": {"send": true},
+     "gallery": {"send": true, images: []},
      "video": {"link": "", "name": "", "description": "", "send": true},
      "facebook": {"name": "", "send": true},
      "wall": {"detail": "", "send": true},
@@ -152,6 +152,9 @@ function reducer(state, action)
 {
   switch(action.type)
   {
+    case 'ADD_IMAGE_URL':
+      state.data.gallery.images.push(action.url);
+      return saveState(state);
     case 'DATA_SAVED':
       state.data[action.section]["send"] = false;
       return saveState(state);
@@ -611,6 +614,20 @@ var IphoneShow = React.createClass({
   }
 });
 
+var Gallery_Template = React.createClass({
+  getInitialState: function(){
+    return store.getState().data.gallery;
+  },
+  makeImage: function(value, index, list){
+    return React.createElement("img", {src: value, className: "gallery-image" });
+  },
+  render: function(){
+    return React.createElement("div", {id: "Gallery-Template" },
+    this.state.images.map(this.makeImage)
+  )
+  }
+});
+
 var Call_Us_Template = React.createClass({
   getInitialState: function(){
     return store.getState().data.call_us;
@@ -620,7 +637,7 @@ var Call_Us_Template = React.createClass({
   },
   render: function(){
     return React.createElement(
-      "div", { className: "call-us-template col-xs-8 col-xs-offset-2 panel" },
+      "div", { className: "call-us-template focus-white col-xs-8 col-xs-offset-2" },
       React.createElement(
         "h4", { className: "bold text-center" },
         "Would You Like To Call " + store.getState().data.about_us.shop_name
@@ -628,7 +645,10 @@ var Call_Us_Template = React.createClass({
       React.createElement(
         "div", { className: "text-center call-t-phone" }, this.state.phone
       ),
-      React.createElement("div", { className: "call-bottom row col-xs-12" },
+      React.createElement(
+        "div", { className: "spacer" }
+      ),
+      React.createElement("div", { className: "call-bottom" },
         React.createElement("div",
         { className: "call-bottom-left text-blue", onClick: this.goHome }, "Don't Allow"),
         React.createElement("div",
@@ -657,6 +677,10 @@ var IphoneShowTemplate = React.createClass({
       case "call_us":
        return React.createElement(
          Call_Us_Template, null
+       );
+       case "gallery":
+       return React.createElement(
+         Gallery_Template, null
        );
       default:
         return React.createElement(
@@ -1294,7 +1318,10 @@ var Step_CallUs = React.createClass({
 
 var Step_Gallery = React.createClass({
   displayName: "Step_Gallery",
-  update_model: function(){
+  update_model: function(one, two){
+    var message = JSON.parse(two);
+    var route = message.url.replace(/[A-z|\/]+shop/, "/shop");
+    store.dispatch({ type: "ADD_IMAGE_URL", url: route });
 
   },
   render: function () {

@@ -168,6 +168,19 @@ border-radius: 2px;
   margin-bottom: 20px;
 }
 
+.call-bottom{
+  width: 100%;
+}
+
+.call-us-template{
+  border-radius: 10px;
+}
+
+.gallery-image{
+  width: 40%;
+  height: 40%;
+}
+
 .gradient-box {
     margin: auto;
     border: 1px #4fa5b8;
@@ -230,6 +243,11 @@ border-radius: 2px;
 
 .aboutus{
   background-image: url(../dist/img/about-us.png);
+}
+
+.loyalty{
+  background-color: #F5EA04;
+  border-color: #F5EA04;
 }
 
 

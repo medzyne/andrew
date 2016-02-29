@@ -124,7 +124,7 @@
 	      "about_us": { "shop_id": id, "shop_name": "", "shop_subtitle": "",
 	        "shop_description": "", "send": true },
 	      "call_us": { "phone": "", "send": true },
-	      "gallery": { "send": true },
+	      "gallery": { "send": true, images: [] },
 	      "video": { "link": "", "name": "", "description": "", "send": true },
 	      "facebook": { "name": "", "send": true },
 	      "wall": { "detail": "", "send": true },
@@ -195,6 +195,9 @@
 	// in a flux app you dispatch actions to modify the state
 	function reducer(state, action) {
 	  switch (action.type) {
+	    case 'ADD_IMAGE_URL':
+	      state.data.gallery.images.push(action.url);
+	      return saveState(state);
 	    case 'DATA_SAVED':
 	      state.data[action.section]["send"] = false;
 	      return saveState(state);
@@ -513,6 +516,20 @@
 	  }
 	});
 
+	var Gallery_Template = React.createClass({
+	  displayName: 'Gallery_Template',
+
+	  getInitialState: function getInitialState() {
+	    return store.getState().data.gallery;
+	  },
+	  makeImage: function makeImage(value, index, list) {
+	    return React.createElement("img", { src: value, className: "gallery-image" });
+	  },
+	  render: function render() {
+	    return React.createElement("div", { id: "Gallery-Template" }, this.state.images.map(this.makeImage));
+	  }
+	});
+
 	var Call_Us_Template = React.createClass({
 	  displayName: 'Call_Us_Template',
 
@@ -523,7 +540,7 @@
 	    store.dispatch({ type: "IPHONE_HOME" });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { className: "call-us-template col-xs-8 col-xs-offset-2 panel" }, React.createElement("h4", { className: "bold text-center" }, "Would You Like To Call " + store.getState().data.about_us.shop_name), React.createElement("div", { className: "text-center call-t-phone" }, this.state.phone), React.createElement("div", { className: "call-bottom row col-xs-12" }, React.createElement("div", { className: "call-bottom-left text-blue", onClick: this.goHome }, "Don't Allow"), React.createElement("div", { className: "call-bottom-right text-blue", onClick: this.goHome }, "Call")));
+	    return React.createElement("div", { className: "call-us-template focus-white col-xs-8 col-xs-offset-2" }, React.createElement("h4", { className: "bold text-center" }, "Would You Like To Call " + store.getState().data.about_us.shop_name), React.createElement("div", { className: "text-center call-t-phone" }, this.state.phone), React.createElement("div", { className: "spacer" }), React.createElement("div", { className: "call-bottom" }, React.createElement("div", { className: "call-bottom-left text-blue", onClick: this.goHome }, "Don't Allow"), React.createElement("div", { className: "call-bottom-right text-blue", onClick: this.goHome }, "Call")));
 	  }
 	});
 
@@ -549,6 +566,8 @@
 	    switch (this.props.template) {
 	      case "call_us":
 	        return React.createElement(Call_Us_Template, null);
+	      case "gallery":
+	        return React.createElement(Gallery_Template, null);
 	      default:
 	        return React.createElement("div", null, Object.keys(this.section()).map(this.mapToElement));
 	    }
@@ -924,7 +943,11 @@
 
 	var Step_Gallery = React.createClass({
 	  displayName: "Step_Gallery",
-	  update_model: function update_model() {},
+	  update_model: function update_model(one, two) {
+	    var message = JSON.parse(two);
+	    var route = message.url.replace(/[A-z|\/]+shop/, "/shop");
+	    store.dispatch({ type: "ADD_IMAGE_URL", url: route });
+	  },
 	  render: function render() {
 	    return React.createElement("div", { id: "SetGallery", className: "row" }, React.createElement("div", { id: "gallery-well",
 	      className: "col-xs-12 col-md-12 well back_white no-border" }, React.createElement(DropZone, { id: "mydropzone1",
