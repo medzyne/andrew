@@ -5,6 +5,17 @@ var ColorPicker = require('react-color');
 var Redux = require('redux');
 var dropzone = require('dropzone');
 
+function deployed(loc)
+{
+  switch(loc.hostname)
+  {
+    case "192.168.1.115":
+      return false;
+    default:
+      return true;
+  }
+}
+
 function fetchStateFromServer($id)
 {
   var result;
@@ -24,9 +35,7 @@ function fetchStateFromServer($id)
       result = false;
      }
  });
-
   return result;
-
 }
 
 function getState(){
@@ -59,9 +68,9 @@ video_id: "0"
 video_name: "eouoeu"
 video_url: "uoeuoeu"
 */
-if(!id){ id = ""};
 var initialState = {
   "shop_id": id,
+  "deployed": deployed(window.location),
    "iphone": { "show": false, display: "about_us",
      "template" : { "shop_style_id": "", "shop_theme_color": "#fff",
      "shop_bg_color": "#fff", "shop_bg_image": "", "shop_layout": "1"}
@@ -153,12 +162,11 @@ function reducer(state, action)
 {
   switch(action.type)
   {
-    //store.dispatch({type: "UPDATE_ALBUM", index: this.props.label, section: section, value: event.target.value});
     case 'UPDATE_ALBUM':
       state.data.gallery.albums[action.index - 1][action.section] = action.value;
       return saveState(state);
     case 'ADD_IMAGE_URL':
-      state.data.gallery.albums[action.index - 1][images].push(action.url);
+      state.data.gallery.albums[action.index - 1]['url'].push(action.url);
       return saveState(state);
     case 'DATA_SAVED':
       state.data[action.section]["send"] = false;
@@ -613,6 +621,10 @@ var IphoneShow = React.createClass({
       "div",
       { id: "iphone_show", style: { background: this.background() },
       className: "panel focus-white" },
+      React.createElement("div", { id: "app_top" },
+        React.createElement(IphoneHeader, {id: "iphone_header"}),
+        React.createElement("div", {className: "spacer" })
+    ),
       React.createElement(IphoneShowTemplate,
         { template: store.getState().iphone.display  })
     );
@@ -626,12 +638,17 @@ var Gallery_Template = React.createClass({
   makeImage: function(value, index, list){
     return React.createElement("img", {src: value, className: "gallery-image" });
   },
+  checkAlbums: function(count){
+    var images = [];
+    for(var c = 0; c < count; c++)
+    {
+      images.push(this.state.albums[c]['url'].map(this.makeImage));
+    }
+    return images;
+  },
   render: function(){
     return React.createElement("div", {id: "Gallery-Template" },
-    for(var c = 0; c < 3; c++)
-    {
-      this.state.albums[c]['images'].map(this.makeImage);
-    }
+    this.checkAlbums(3)
 
   )
   }

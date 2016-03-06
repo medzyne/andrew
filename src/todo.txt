@@ -10,7 +10,6 @@ These are the things I think I need to get done:
 
 Front End:
 1 the iPhone app view needs style
-4 add filters to photos use svg
 
 Back End
 3 lock all features until shop id has been set
@@ -18,3 +17,13 @@ Back End
 
 Here is the design attached with this email, I think it might help you to create CSS
 However, the color that you have to use are #4fa5b8 and #beded6  #X1f603
+
+1. Call us box look great!, but can you make it background still at the first page?
+2. Call number don’t update to the database (table name shop_call)
+3. gallery- it keep saying 'Please Update Shop Name at first tab’
+(even I check the database that the shop name already created)
+4. Template- selected color code not updated to the database
+(table name shop_style) and also the template pattern (one, two, three)
+5. Template- the Background color and Theme color make me confusing.
+Seem like you apply  the filter over all the whole button right?
+I mean the color I selected and the color show on the iPhone is not match (because the overlap filter?)
