@@ -94,8 +94,6 @@ input#ShopName:invalid{
   box-shadow:5px 5px 10px grey;
   background-repeat: no-repeat;
   background-position: center;
-  filter: url(#color-matrix);
-  -webkit-filter: url(#color-matrix);
 }
 
 .filter-me{
@@ -341,8 +339,6 @@ border-radius: 2px;
   border-width: thin;
 }
 
-
-
 #layer2{
   position: relative;
   z-index: 1;
@@ -416,4 +412,7 @@ border-radius: 2px;
 }
 .react-reorderable-handle {
   position: absolute;
+}
+.grey-text{
+  color: rgba(0,0,0,0.2);
 }

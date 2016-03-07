@@ -21,7 +21,7 @@ function fetchStateFromServer($id)
   var result;
   jQuery.ajax(
   {
-    url: "http://52.11.4.98/allaboutshop/requestapp.php",
+    url: "allaboutshop/requestapp.php",
     data: {"id": $id},
     async: false,
     type: "GET",
@@ -127,6 +127,32 @@ var initialState = {
   }
 
     return initialState;
+}
+
+function parseResult(result, istate)
+{
+  for(var c = 0; c < result; c++)
+  {
+    var currentSection = result[c];
+    istate = identifySection(currentSection, istate);
+  }
+
+  return istate;
+};
+
+function identifySection(section, istate)
+{
+  switch(section)
+  {
+    case section.shop_name:
+      istate.data.about_us = section;
+      return istate;
+    case section.call_num:
+      istate.data.call_us = section;
+      return istate;
+    default:
+      return istate;
+  }
 }
 
 
@@ -472,10 +498,10 @@ var IphoneHeader = React.createClass({
     return store.getState().data;
   },
   getLogoUrl: function(){
-    var base = "http://52.11.4.98/shop/lantern12/Duck/Pic2.png";
+    var base = "shop/lantern12/Duck/Pic2.png";
     if(this.state.about_us.shop_photo_name && this.state.about_us.shop_id)
     {
-      base = "http://52.11.4.98/shop/" + this.state.about_us.shop_id + "/shopPhoto/" + this.state.about_us.shop_photo_name;
+      base = "shop/" + this.state.about_us.shop_id + "/shopPhoto/" + this.state.about_us.shop_photo_name;
     }
     return base;
   },
@@ -538,13 +564,14 @@ var DraggableIphoneBox = React.createClass({
   render: function(){
     return React.createElement(
       "div",
-      { className: "draggable-element " + this.props.image + " " + this.props.classType,
+      { className: this.props.image + " draggable-element " + this.props.classType,
       value: 1,
       onClick: this.show_iphone.bind(this, this.props.id, this.props.section),
       onTouchStart: this.tstart,
       onTouchEnd: this.tend,
       style: {backgroundColor: this.props.bgcolor,
         color: this.props.themecolor, borderColor: this.props.themecolor} } ,
+      React.createElement("div", {className: "filter-me " + this.props.image}),
       React.createElement(
         "div",
         { className: "draggable-handle", value: 1,
@@ -614,7 +641,7 @@ var IphoneShow = React.createClass({
   }
   },
   section: function() { return store.getState().data[store.getState().iphone.display]; },
-  background: function(){ return "url(http://52.11.4.98/shop/" + store.getState().shop_id + "/iphoneBackground/" + this.state.shop_bg_image + ")"; },
+  background: function(){ return "url(shop/" + store.getState().shop_id + "/iphoneBackground/" + this.state.shop_bg_image + ")"; },
 
   render: function () {
     return React.createElement(
@@ -684,8 +711,29 @@ var Call_Us_Template = React.createClass({
   }
 });
 
+var Wall_Template = React.createClass({
+  render: function(){
+    return React.createElement("div", {className: "col-xs-12"},
+      React.createElement("div", {className:"panel"},
+        React.createElement("h3", {className: "grey-text"}, "Rating"),
+        React.createElement("div", {className: "panel-body"}, "5 stars!")
+    ),
+      React.createElement("div", {className:"panel"},
+        React.createElement("h3", {className: "grey-text"}, "Rate this app?"),
+        React.createElement("div", {className: "panel-body"})
+    ),
+      React.createElement("div", {className:"panel"},
+        React.createElement("h3", {className: "grey-text"}, "Comments"),
+        React.createElement("div", {className: "panel-body"})
+    )
+  );
+  }
+})
+
 var IphoneShowTemplate = React.createClass({
   getInitialState: function(){
+    console.log(this.props.template);
+    console.log("template");
     return store.getState().iphone.template;
   },
   mapToElement: function(value, index, list){
@@ -696,7 +744,7 @@ var IphoneShowTemplate = React.createClass({
     );
   }
   },
-  background: function(){ return "url(http://52.11.4.98/shop/" + store.getState().shop_id + "/iphoneBackground/" + this.state.shop_bg_image + ")"; },
+  background: function(){ return "url(http://shop/" + store.getState().shop_id + "/iphoneBackground/" + this.state.shop_bg_image + ")"; },
   section: function() { return store.getState().data[store.getState().iphone.display]; },
   render: function () {
     switch(this.props.template){
@@ -707,6 +755,10 @@ var IphoneShowTemplate = React.createClass({
        case "gallery":
        return React.createElement(
          Gallery_Template, null
+       );
+       case "wall":
+       return React.createElement(
+         Wall_Template, null
        );
       default:
         return React.createElement(
@@ -883,7 +935,7 @@ var TemplateView = React.createClass({
     var data = new FormData(iphone_data);
     jQuery.ajax(
     {
-    url: "http://52.11.4.98/allaboutshop/insert_shop_style.php",
+    url: "allaboutshop/insert_shop_style.php",
     data: iphone_data,
     type: "POST",
     cache: false,
@@ -1044,18 +1096,18 @@ var Features = React.createClass({
           "div",
           { className: "row step_row"},
           React.createElement(
-            FeatureBox, { active: "http://52.11.4.98/dist/img/about-us.png",
-            inactive: "http://52.11.4.98/dist/img/about-us-before.png", id: 1
+            FeatureBox, { active: "dist/img/about-us.png",
+            inactive: "dist/img/about-us-before.png", id: 1
            }
          ),
          React.createElement(
-           FeatureBox, { active: "http://52.11.4.98/dist/img/call-us.png",
-           inactive: "http://52.11.4.98/dist/img/call-us-before.png", id: 2
+           FeatureBox, { active: "dist/img/call-us.png",
+           inactive: "dist/img/call-us-before.png", id: 2
           }
         ),
         React.createElement(
-          FeatureBox, { active: "http://52.11.4.98/dist/img/image-icon.png",
-          inactive: "http://52.11.4.98/dist/img/image-icon-before.png", id: 3
+          FeatureBox, { active: "dist/img/image-icon.png",
+          inactive: "dist/img/image-icon-before.png", id: 3
          }
        )
      ),
@@ -1063,18 +1115,18 @@ var Features = React.createClass({
        "div",
        { className: "row step_row"},
        React.createElement(
-         FeatureBox, { active: "http://52.11.4.98/dist/img/video-icon.png",
-         inactive: "http://52.11.4.98/dist/img/video-icon-before.png", id: 4
+         FeatureBox, { active: "dist/img/video-icon.png",
+         inactive: "dist/img/video-icon-before.png", id: 4
         }
       ),
       React.createElement(
-        FeatureBox, { active: "http://52.11.4.98/dist/img/fb-icon.png",
-        inactive: "http://52.11.4.98/dist/img/fb-icon-before.png", id: 5
+        FeatureBox, { active: "dist/img/fb-icon.png",
+        inactive: "dist/img/fb-icon-before.png", id: 5
        }
      ),
        React.createElement(
-         FeatureBox, { active: "http://52.11.4.98/dist/img/fanwall.png",
-         inactive: "http://52.11.4.98/dist/img/fanwall-before.png", id: 6
+         FeatureBox, { active: "dist/img/fanwall.png",
+         inactive: "dist/img/fanwall-before.png", id: 6
         }
       )
     )
@@ -1127,7 +1179,7 @@ var Step_AboutUs = React.createClass({
     if(this.props.data.send == false){ return false; }
       jQuery.ajax(
       {
-      url: "http://52.11.4.98/allaboutshop/record_shop.php",
+      url: "allaboutshop/record_shop.php",
       data: data,
       type: "POST",
       cache: false,
@@ -1152,7 +1204,7 @@ var Step_AboutUs = React.createClass({
        },
       error: function(response) {
         store.dispatch({type: "DATA_FAILED", section: "about_us"});
-        console.log(respones); }
+        console.log(response); }
     });
 
   },
@@ -1273,7 +1325,7 @@ var Step_CallUs = React.createClass({
     if(this.state.send == false){ return false; }
       jQuery.ajax(
       {
-      url: "http://52.11.4.98/allaboutshop/insert_call.php",
+      url: "allaboutshop/insert_call.php",
       data: data,
       type: "POST",
       cache: false,
@@ -1385,7 +1437,7 @@ var Step_Video = React.createClass({
     if(this.state.send == false){ return false; }
       jQuery.ajax(
       {
-      url: "http://52.11.4.98/allaboutshop/insert_youtube.php",
+      url: "allaboutshop/insert_youtube.php",
       data: data,
       type: "POST",
       cache: false,
@@ -1530,7 +1582,7 @@ var Step_FanWall = React.createClass({
     if(this.state.send == false){ return false; }
       jQuery.ajax(
       {
-      url: "http://52.11.4.98/allaboutshop/record_shop.php",
+      url: "allaboutshop/record_shop.php",
       data: data,
       type: "POST",
       cache: false,
