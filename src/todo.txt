@@ -2,10 +2,11 @@ webpack --optimize-minimize
 
 
 These are the things I think I need to get done:
-
-2. a layout for the view when you click on an app
+1. ADD FACEBOOK FAN PAGE IMPORT
 8. cache the images
 9. dropzone no cancel on server error
+10. make iphone apps scrollable
+
 
 
 Front End:
@@ -14,7 +15,6 @@ Front End:
 Back End
 3 lock all features until shop id has been set
 5 add validation to inputs
-6 push history not working on ipad
 
 Here is the design attached with this email, I think it might help you to create CSS
 However, the color that you have to use are #4fa5b8 and #beded6  #X1f603

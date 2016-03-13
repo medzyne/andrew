@@ -663,7 +663,8 @@ var Gallery_Template = React.createClass({
     return store.getState().data.gallery;
   },
   makeImage: function(value, index, list){
-    return React.createElement("img", {src: value, className: "gallery-image" });
+    return React.createElement("div", {className: "panel-body col-xs-5 gallery-image-holder focus-white"},
+      React.createElement("img", {src: value, className: "gallery-image" }));
   },
   checkAlbums: function(count){
     var images = [];
@@ -674,7 +675,7 @@ var Gallery_Template = React.createClass({
     return images;
   },
   render: function(){
-    return React.createElement("div", {id: "Gallery-Template" },
+    return React.createElement("div", {id: "Gallery-Template", className: "col-xs-12" },
     this.checkAlbums(3)
 
   )
@@ -1534,13 +1535,37 @@ var Step_FB = React.createClass({
     store.dispatch({ type: "UPDATE_DATA", section: "facebook",
     key: key, value: event.target.value });
   },
+  componentWillUnmount: function(){
+    var currentElement = jQuery("#SetFaceBook form");
+    var data = new FormData(currentElement[0]);
+    this.post_form(data);
+  },
+  post_form: function(data){
+    if(this.state.send == false){ return false; }
+      jQuery.ajax(
+      {
+      url: "allaboutshop/insert_fb.php",
+      data: data,
+      type: "POST",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(response){
+        store.dispatch({ type: "DATA_SAVED", section: "facebook" });
+        console.log(response); },
+      error: function(response) {
+        store.dispatch({type: "DATA_FAILED", section: "facebook"});
+        console.log(response); }
+    });
+
+  },
   render: function () {
     return React.createElement(
       "div",
       { id: "SetFaceBook" },
       React.createElement(
         "form",
-        {method: "POST", encType: "multipart/form-data"},
+        {method: "POST", encType: "multipart/form-data", action: "allaboutshop/insert_fb.php"},
         React.createElement(
           "h3",
           {className: "duck-underline"},
@@ -1558,11 +1583,12 @@ var Step_FB = React.createClass({
             className: "form-control",
             value: this.state.name,
             onChange: this.UPDATE_DATA.bind(this, "name"),
-            name: "name" }
+            name: "fb_id" }
           )
         ),
         React.createElement(
-          NextButton, { next: 6, stepType: "FEATURE_SHOW" }
+          //NextButton, { next: 6, stepType: "FEATURE_SHOW" }
+          "button", { className: "btn", type: "Submit" }, "submit"
         )
       )
     );

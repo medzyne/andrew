@@ -554,7 +554,7 @@
 	    return store.getState().data.gallery;
 	  },
 	  makeImage: function makeImage(value, index, list) {
-	    return React.createElement("img", { src: value, className: "gallery-image" });
+	    return React.createElement("div", { className: "panel-body col-xs-5 gallery-image-holder focus-white" }, React.createElement("img", { src: value, className: "gallery-image" }));
 	  },
 	  checkAlbums: function checkAlbums(count) {
 	    var images = [];
@@ -564,7 +564,7 @@
 	    return images;
 	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "Gallery-Template" }, this.checkAlbums(3));
+	    return React.createElement("div", { id: "Gallery-Template", className: "col-xs-12" }, this.checkAlbums(3));
 	  }
 	});
 
@@ -1073,12 +1073,40 @@
 	    store.dispatch({ type: "UPDATE_DATA", section: "facebook",
 	      key: key, value: event.target.value });
 	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    var currentElement = jQuery("#SetFaceBook form");
+	    var data = new FormData(currentElement[0]);
+	    this.post_form(data);
+	  },
+	  post_form: function post_form(data) {
+	    if (this.state.send == false) {
+	      return false;
+	    }
+	    jQuery.ajax({
+	      url: "allaboutshop/insert_fb.php",
+	      data: data,
+	      type: "POST",
+	      cache: false,
+	      contentType: false,
+	      processData: false,
+	      success: function success(response) {
+	        store.dispatch({ type: "DATA_SAVED", section: "facebook" });
+	        console.log(response);
+	      },
+	      error: function error(response) {
+	        store.dispatch({ type: "DATA_FAILED", section: "facebook" });
+	        console.log(response);
+	      }
+	    });
+	  },
 	  render: function render() {
-	    return React.createElement("div", { id: "SetFaceBook" }, React.createElement("form", { method: "POST", encType: "multipart/form-data" }, React.createElement("h3", { className: "duck-underline" }, "Facebook LiveFeed"), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Insert Facebook Page Name"), React.createElement("input", { type: "text",
+	    return React.createElement("div", { id: "SetFaceBook" }, React.createElement("form", { method: "POST", encType: "multipart/form-data", action: "allaboutshop/insert_fb.php" }, React.createElement("h3", { className: "duck-underline" }, "Facebook LiveFeed"), React.createElement("div", { className: "form-group" }, React.createElement("h4", { className: "title" }, "Insert Facebook Page Name"), React.createElement("input", { type: "text",
 	      className: "form-control",
 	      value: this.state.name,
 	      onChange: this.UPDATE_DATA.bind(this, "name"),
-	      name: "name" })), React.createElement(NextButton, { next: 6, stepType: "FEATURE_SHOW" })));
+	      name: "fb_id" })), React.createElement(
+	    //NextButton, { next: 6, stepType: "FEATURE_SHOW" }
+	    "button", { className: "btn", type: "Submit" }, "submit")));
 	  }
 	});
 
