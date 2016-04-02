@@ -944,13 +944,14 @@ var TemplateView = React.createClass({
     store.dispatch({type: "CHANGE_TEMPLATE_STYLE", "id": id});
   },
   image_preview: function(file){
-    console.log(file);
+    // this inserts the filename from server into the template view
     store.dispatch({type: "CHANGE_TEMPLATE",
     section: "shop_bg_image", value: file.name });
   },
   upload_style: function(){
     var iphone_data = store.getState().iphone.template;
     var data = new FormData(iphone_data);
+    //doing full data posts usinf From Data
     jQuery.ajax(
     {
     url: "allaboutshop/insert_shop_style.php",
@@ -1001,6 +1002,7 @@ var TemplateView = React.createClass({
   }
 });
 
+// this is the react class for the template color picker
 var TemplateColorPicker = React.createClass({
   getInitialState: function(){
     return store.getState().iphone.template;
@@ -1041,6 +1043,7 @@ var TemplateColorPicker = React.createClass({
   }
 })
 
+//this shows the features
 var FeatureView = React.createClass({
   displayName: "FeatureView",
   getInitialState: function () {
@@ -1104,6 +1107,8 @@ var FeatureView = React.createClass({
   }
 });
 
+// this shows the boxes you click to get to the feature editor
+// inactive is the image displayed when not mouse over
 var Features = React.createClass({
   render: function () {
     return(
