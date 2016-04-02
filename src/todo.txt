@@ -2,7 +2,6 @@ webpack --optimize-minimize
 
 
 These are the things I think I need to get done:
-1. ADD FACEBOOK FAN PAGE IMPORT
 8. cache the images
 9. dropzone no cancel on server error
 10. make iphone apps scrollable

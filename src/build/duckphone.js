@@ -84,7 +84,7 @@ var initialState = {
      "gallery": {"send": true, albums: [{name: "", url: []},
      {name: "", url: []},{name: "", url: []}]},
      "video": {"link": "", "name": "", "description": "", "send": true},
-     "facebook": {"name": "", "send": true},
+     "facebook": {"name": "","data": null, "send": true},
      "wall": {"detail": "", "send": true},
      "loyalty": {}
  }
@@ -233,8 +233,7 @@ function reducer(state, action)
       }
       return state
     case "UPDATE_DATA":
-      if(validate_input(action.key, String) &&
-       validate_input(action.value, String)){
+      if(validate_input(action.key, String)){
       state.data[action.section][action.key] = action.value;
       state.data[action.section]["send"] = true;
       saveState(state);
@@ -731,6 +730,27 @@ var Wall_Template = React.createClass({
   }
 })
 
+var Facebook_Template = React.createClass({
+  getInitialState: function(){
+    return store.getState().data.facebook;
+  },
+  makePost: function(value, index, list)
+  {
+    return React.createElement("div", { key: index, className: "row" },
+      React.createElement("img", {src: value.picture, className: "col-xs-3" }),
+      React.createElement("div", { className: "col-xs-9" }, value.message)
+  )
+  },
+  render: function(){
+    return(
+      React.createElement("div", {id: "Facebook-Template",
+      className: "col-xs-12", style: {overflow: "auto" } },
+      this.state.data ? this.state.data.map(this.makePost) : "no feeds imported"
+    )
+    )
+  }
+});
+
 var IphoneShowTemplate = React.createClass({
   getInitialState: function(){
     console.log(this.props.template);
@@ -750,17 +770,13 @@ var IphoneShowTemplate = React.createClass({
   render: function () {
     switch(this.props.template){
       case "call_us":
-       return React.createElement(
-         Call_Us_Template, null
-       );
-       case "gallery":
-       return React.createElement(
-         Gallery_Template, null
-       );
-       case "wall":
-       return React.createElement(
-         Wall_Template, null
-       );
+       return React.createElement(Call_Us_Template, null);
+      case "facebook":
+        return React.createElement(Facebook_Template, null);
+      case "gallery":
+       return React.createElement(Gallery_Template, null);
+      case "wall":
+       return React.createElement(Wall_Template, null);
       default:
         return React.createElement(
           "div", null,
@@ -924,6 +940,7 @@ var StepView = React.createClass({
 var TemplateView = React.createClass({
   displayName: "TemplateView",
   chooseTemplate: function(id){
+    // dispatch functions change the state of the app
     store.dispatch({type: "CHANGE_TEMPLATE_STYLE", "id": id});
   },
   image_preview: function(file){
@@ -1544,7 +1561,7 @@ var Step_FB = React.createClass({
     if(this.state.send == false){ return false; }
       jQuery.ajax(
       {
-      url: "allaboutshop/insert_fb.php",
+      url: "allaboutshop/fb_async.php",
       data: data,
       type: "POST",
       cache: false,
@@ -1552,6 +1569,7 @@ var Step_FB = React.createClass({
       processData: false,
       success: function(response){
         store.dispatch({ type: "DATA_SAVED", section: "facebook" });
+        store.dispatch({type: "UPDATE_DATA", section: "facebook", key: "data", value: response.data});
         console.log(response); },
       error: function(response) {
         store.dispatch({type: "DATA_FAILED", section: "facebook"});
@@ -1587,8 +1605,8 @@ var Step_FB = React.createClass({
           )
         ),
         React.createElement(
-          //NextButton, { next: 6, stepType: "FEATURE_SHOW" }
-          "button", { className: "btn", type: "Submit" }, "submit"
+          NextButton, { next: 6, stepType: "FEATURE_SHOW" }
+          //"button", { className: "btn btn-success", type: "Submit" }, "submit"
         )
       )
     );

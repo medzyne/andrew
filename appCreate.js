@@ -132,7 +132,7 @@
 	      "call_us": { "phone": "", "send": true },
 	      "gallery": { "send": true, albums: [{ name: "", url: [] }, { name: "", url: [] }, { name: "", url: [] }] },
 	      "video": { "link": "", "name": "", "description": "", "send": true },
-	      "facebook": { "name": "", "send": true },
+	      "facebook": { "name": "", "data": null, "send": true },
 	      "wall": { "detail": "", "send": true },
 	      "loyalty": {}
 	    }
@@ -268,7 +268,7 @@
 	      }
 	      return state;
 	    case "UPDATE_DATA":
-	      if (validate_input(action.key, String) && validate_input(action.value, String)) {
+	      if (validate_input(action.key, String)) {
 	        state.data[action.section][action.key] = action.value;
 	        state.data[action.section]["send"] = true;
 	        saveState(state);
@@ -590,6 +590,21 @@
 	  }
 	});
 
+	var Facebook_Template = React.createClass({
+	  displayName: 'Facebook_Template',
+
+	  getInitialState: function getInitialState() {
+	    return store.getState().data.facebook;
+	  },
+	  makePost: function makePost(value, index, list) {
+	    return React.createElement("div", { key: index, className: "row" }, React.createElement("img", { src: value.picture, className: "col-xs-3" }), React.createElement("div", { className: "col-xs-9" }, value.message));
+	  },
+	  render: function render() {
+	    return React.createElement("div", { id: "Facebook-Template",
+	      className: "col-xs-12", style: { overflow: "auto" } }, this.state.data ? this.state.data.map(this.makePost) : "no feeds imported");
+	  }
+	});
+
 	var IphoneShowTemplate = React.createClass({
 	  displayName: 'IphoneShowTemplate',
 
@@ -614,6 +629,8 @@
 	    switch (this.props.template) {
 	      case "call_us":
 	        return React.createElement(Call_Us_Template, null);
+	      case "facebook":
+	        return React.createElement(Facebook_Template, null);
 	      case "gallery":
 	        return React.createElement(Gallery_Template, null);
 	      case "wall":
@@ -1083,7 +1100,7 @@
 	      return false;
 	    }
 	    jQuery.ajax({
-	      url: "allaboutshop/insert_fb.php",
+	      url: "allaboutshop/fb_async.php",
 	      data: data,
 	      type: "POST",
 	      cache: false,
@@ -1091,6 +1108,7 @@
 	      processData: false,
 	      success: function success(response) {
 	        store.dispatch({ type: "DATA_SAVED", section: "facebook" });
+	        store.dispatch({ type: "UPDATE_DATA", section: "facebook", key: "data", value: response.data });
 	        console.log(response);
 	      },
 	      error: function error(response) {
@@ -1104,9 +1122,9 @@
 	      className: "form-control",
 	      value: this.state.name,
 	      onChange: this.UPDATE_DATA.bind(this, "name"),
-	      name: "fb_id" })), React.createElement(
-	    //NextButton, { next: 6, stepType: "FEATURE_SHOW" }
-	    "button", { className: "btn", type: "Submit" }, "submit")));
+	      name: "fb_id" })), React.createElement(NextButton, { next: 6, stepType: "FEATURE_SHOW" }
+	    //"button", { className: "btn btn-success", type: "Submit" }, "submit"
+	    )));
 	  }
 	});
 
