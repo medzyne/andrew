@@ -11,11 +11,15 @@ function deployed(loc)
   {
     case "192.168.1.115":
       return false;
-    default:
+    case: "appod.co":
       return true;
+    default:
+      return false;
   }
+  // this just for testing if we're on apppods then we,re in production else we're in testing
 }
 
+// I'm still working on this it should fetch from server and load the previous app
 function fetchStateFromServer($id)
 {
   var result;
