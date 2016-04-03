@@ -11,7 +11,7 @@ function deployed(loc)
   {
     case "192.168.1.115":
       return false;
-    case: "appod.co":
+    case "appod.co":
       return true;
     default:
       return false;

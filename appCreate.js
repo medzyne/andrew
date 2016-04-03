@@ -66,11 +66,15 @@
 	  switch (loc.hostname) {
 	    case "192.168.1.115":
 	      return false;
-	    default:
+	    case "appod.co":
 	      return true;
+	    default:
+	      return false;
 	  }
+	  // this just for testing if we're on apppods then we,re in production else we're in testing
 	}
 
+	// I'm still working on this it should fetch from server and load the previous app
 	function fetchStateFromServer($id) {
 	  var result;
 	  jQuery.ajax({
@@ -752,16 +756,18 @@
 	var TemplateView = React.createClass({
 	  displayName: "TemplateView",
 	  chooseTemplate: function chooseTemplate(id) {
+	    // dispatch functions change the state of the app
 	    store.dispatch({ type: "CHANGE_TEMPLATE_STYLE", "id": id });
 	  },
 	  image_preview: function image_preview(file) {
-	    console.log(file);
+	    // this inserts the filename from server into the template view
 	    store.dispatch({ type: "CHANGE_TEMPLATE",
 	      section: "shop_bg_image", value: file.name });
 	  },
 	  upload_style: function upload_style() {
 	    var iphone_data = store.getState().iphone.template;
 	    var data = new FormData(iphone_data);
+	    //doing full data posts usinf From Data
 	    jQuery.ajax({
 	      url: "allaboutshop/insert_shop_style.php",
 	      data: iphone_data,
@@ -788,6 +794,7 @@
 	  }
 	});
 
+	// this is the react class for the template color picker
 	var TemplateColorPicker = React.createClass({
 	  displayName: 'TemplateColorPicker',
 
@@ -811,6 +818,7 @@
 	  }
 	});
 
+	//this shows the features
 	var FeatureView = React.createClass({
 	  displayName: "FeatureView",
 	  getInitialState: function getInitialState() {
@@ -843,6 +851,8 @@
 	  }
 	});
 
+	// this shows the boxes you click to get to the feature editor
+	// inactive is the image displayed when not mouse over
 	var Features = React.createClass({
 	  displayName: 'Features',
 
