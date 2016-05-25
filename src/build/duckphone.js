@@ -16,7 +16,7 @@ function deployed(loc)
     default:
       return false;
   }
-  // this just for testing if we're on apppods then we,re in production else we're in testing
+  // this just for testing if we're on apppods then we're in production else we're in testing
 }
 
 // I'm still working on this it should fetch from server and load the previous app
@@ -101,7 +101,6 @@ var initialState = {
 
   if(localStorage.getItem("apppod" + id)){
     initialState = JSON.parse(localStorage.getItem("apppod" + id));
-    console.log(result);
     if(result)
     {
       initialState.data.about_us = {"shop_id": result[0].shop_id,
@@ -258,7 +257,6 @@ function reducer(state, action)
       saveState(state);
       return state;
     default:
-      console.log(action);
       return state
   }
 }
@@ -358,7 +356,6 @@ var svgFilters = React.createClass({
     return store.getState().iphone.template;
   },
   componentDidMount: function(){
-    console.log(this);
     jQuery("feColorMatrix").attr('values',
     '0\.393 0\.769 0\.189 0 0 0\.349 0\.686 0\.168 0 0 0\.272 0\.534 0\.131 0 0 0 0 0 1 0');
   },
@@ -368,7 +365,6 @@ var svgFilters = React.createClass({
     this.updateColorMatrix(this.escapeValues(new_values));
   },
   updateColorMatrix: function(values){
-    console.log(values);
     jQuery("feColorMatrix").attr('values', values);
   },
   hextoRGB: function(hex){
@@ -542,12 +538,9 @@ var DraggableIphoneBox = React.createClass({
     return {tstart: null }
   },
   tstart: function(event){
-    console.log(event.timeStamp);
     this.setState({tstart: event.timeStamp});
-    console.log(this.state);
   },
   tend: function(event){
-    console.log("end");
     if(event.timeStamp -  this.state.tstart < 300){
       this.show_iphone(this.props.id, this.props.section);
     }
@@ -693,25 +686,33 @@ var Call_Us_Template = React.createClass({
     store.dispatch({type: "IPHONE_HOME"});
   },
   render: function(){
-    return React.createElement(
-      "div", { className: "call-us-template focus-white col-xs-8 col-xs-offset-2" },
-      React.createElement(
-        "h4", { className: "bold text-center" },
-        "Would You Like To Call " + store.getState().data.about_us.shop_name
-      ),
-      React.createElement(
-        "div", { className: "text-center call-t-phone" }, this.state.phone
-      ),
-      React.createElement(
-        "div", { className: "spacer" }
-      ),
-      React.createElement("div", { className: "call-bottom" },
-        React.createElement("div",
-        { className: "call-bottom-left text-blue", onClick: this.goHome }, "Don't Allow"),
-        React.createElement("div",
-        { className: "call-bottom-right text-blue", onClick: this.goHome }, "Call")
+    return (
+      React.createElement("div", null,
+        React.createElement("div",{style:{zIndex:0, position:"absolute" }},
+        React.createElement(IphoneApps, {classType: "template1"})),
+          React.createElement( "div",
+          { className: "call-us-template focus-white col-xs-8 col-xs-offset-2",
+            style: {zIndex: 1, marginTop: '25%' }
+         },
+          React.createElement(
+            "h4", { className: "bold text-center" },
+            "Would You Like To Call " + store.getState().data.about_us.shop_name
+          ),
+          React.createElement(
+            "div", { className: "text-center call-t-phone" }, this.state.phone
+          ),
+          React.createElement(
+            "div", { className: "spacer" }
+          ),
+          React.createElement("div", { className: "call-bottom" },
+            React.createElement("div",
+            { className: "call-bottom-left text-blue", onClick: this.goHome }, "Don't Allow"),
+            React.createElement("div",
+            { className: "call-bottom-right text-blue", onClick: this.goHome }, "Call")
+          )
+        )
       )
-    )
+  )
   }
 });
 
@@ -757,8 +758,6 @@ var Facebook_Template = React.createClass({
 
 var IphoneShowTemplate = React.createClass({
   getInitialState: function(){
-    console.log(this.props.template);
-    console.log("template");
     return store.getState().iphone.template;
   },
   mapToElement: function(value, index, list){
@@ -821,7 +820,6 @@ var Steps = React.createClass({
     }
   },
   getClasses: function(stepId){
-    console.log("called");
     var classes = "steps_option ";
     if(this.state.step == stepId){ classes += "text-blue duck-underline"; }
     //if(this.state.step != stepId && focus){ classes += "text-focus-blue duck-focus-underline"; }
@@ -968,7 +966,7 @@ var TemplateView = React.createClass({
      },
     error: function(response) {
       store.dispatch({ type: "DATA_FAILED", section: "template" });
-      console.log("error"); }
+    }
   });
 
 
@@ -1100,7 +1098,6 @@ var FeatureView = React.createClass({
           React.createElement(Step_FanWall, { data: this.props.data.wall })
         );
       default:
-      console.log(this.state);
         return React.createElement(
           "div",
           { id: "error" },

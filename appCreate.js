@@ -71,7 +71,7 @@
 	    default:
 	      return false;
 	  }
-	  // this just for testing if we're on apppods then we,re in production else we're in testing
+	  // this just for testing if we're on apppods then we're in production else we're in testing
 	}
 
 	// I'm still working on this it should fetch from server and load the previous app
@@ -148,7 +148,6 @@
 
 	  if (localStorage.getItem("apppod" + id)) {
 	    initialState = JSON.parse(localStorage.getItem("apppod" + id));
-	    console.log(result);
 	    if (result) {
 	      initialState.data.about_us = { "shop_id": result[0].shop_id,
 	        "shop_name": result[0].shop_name,
@@ -293,7 +292,6 @@
 	      saveState(state);
 	      return state;
 	    default:
-	      console.log(action);
 	      return state;
 	  }
 	}
@@ -342,7 +340,6 @@
 	    return store.getState().iphone.template;
 	  },
 	  componentDidMount: function componentDidMount() {
-	    console.log(this);
 	    jQuery("feColorMatrix").attr('values', '0\.393 0\.769 0\.189 0 0 0\.349 0\.686 0\.168 0 0 0\.272 0\.534 0\.131 0 0 0 0 0 1 0');
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
@@ -350,7 +347,6 @@
 	    this.updateColorMatrix(this.escapeValues(new_values));
 	  },
 	  updateColorMatrix: function updateColorMatrix(values) {
-	    console.log(values);
 	    jQuery("feColorMatrix").attr('values', values);
 	  },
 	  hextoRGB: function hextoRGB(hex) {
@@ -460,12 +456,9 @@
 	    return { tstart: null };
 	  },
 	  tstart: function tstart(event) {
-	    console.log(event.timeStamp);
 	    this.setState({ tstart: event.timeStamp });
-	    console.log(this.state);
 	  },
 	  tend: function tend(event) {
-	    console.log("end");
 	    if (event.timeStamp - this.state.tstart < 300) {
 	      this.show_iphone(this.props.id, this.props.section);
 	    }
@@ -582,7 +575,9 @@
 	    store.dispatch({ type: "IPHONE_HOME" });
 	  },
 	  render: function render() {
-	    return React.createElement("div", { className: "call-us-template focus-white col-xs-8 col-xs-offset-2" }, React.createElement("h4", { className: "bold text-center" }, "Would You Like To Call " + store.getState().data.about_us.shop_name), React.createElement("div", { className: "text-center call-t-phone" }, this.state.phone), React.createElement("div", { className: "spacer" }), React.createElement("div", { className: "call-bottom" }, React.createElement("div", { className: "call-bottom-left text-blue", onClick: this.goHome }, "Don't Allow"), React.createElement("div", { className: "call-bottom-right text-blue", onClick: this.goHome }, "Call")));
+	    return React.createElement("div", null, React.createElement("div", { style: { zIndex: 0, position: "absolute" } }, React.createElement(IphoneApps, { classType: "template1" })), React.createElement("div", { className: "call-us-template focus-white col-xs-8 col-xs-offset-2",
+	      style: { zIndex: 1, marginTop: '25%' }
+	    }, React.createElement("h4", { className: "bold text-center" }, "Would You Like To Call " + store.getState().data.about_us.shop_name), React.createElement("div", { className: "text-center call-t-phone" }, this.state.phone), React.createElement("div", { className: "spacer" }), React.createElement("div", { className: "call-bottom" }, React.createElement("div", { className: "call-bottom-left text-blue", onClick: this.goHome }, "Don't Allow"), React.createElement("div", { className: "call-bottom-right text-blue", onClick: this.goHome }, "Call"))));
 	  }
 	});
 
@@ -613,8 +608,6 @@
 	  displayName: 'IphoneShowTemplate',
 
 	  getInitialState: function getInitialState() {
-	    console.log(this.props.template);
-	    console.log("template");
 	    return store.getState().iphone.template;
 	  },
 	  mapToElement: function mapToElement(value, index, list) {
@@ -670,7 +663,6 @@
 	    }
 	  },
 	  getClasses: function getClasses(stepId) {
-	    console.log("called");
 	    var classes = "steps_option ";
 	    if (this.state.step == stepId) {
 	      classes += "text-blue duck-underline";
@@ -778,7 +770,6 @@
 	      },
 	      error: function error(response) {
 	        store.dispatch({ type: "DATA_FAILED", section: "template" });
-	        console.log("error");
 	      }
 	    });
 	  },
@@ -844,7 +835,6 @@
 	      case 6:
 	        return React.createElement("div", { id: "stepsix" }, React.createElement(Step_FanWall, { data: this.props.data.wall }));
 	      default:
-	        console.log(this.state);
 	        return React.createElement("div", { id: "error" }, "something went wrong with the inherintance");
 
 	    }

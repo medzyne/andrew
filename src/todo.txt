@@ -18,7 +18,6 @@ Back End
 Here is the design attached with this email, I think it might help you to create CSS
 However, the color that you have to use are #4fa5b8 and #beded6  #X1f603
 
-1. Call us box look great!, but can you make it background still at the first page?
 2. Call number don’t update to the database (table name shop_call)
 3. gallery- it keep saying 'Please Update Shop Name at first tab’
 (even I check the database that the shop name already created)
